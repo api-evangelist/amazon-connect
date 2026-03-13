@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect API
+  description: >-
+    Amazon Connect is a cloud-based contact center service. The API provides
+    programmatic access to create and manage contact center instances, users,
+    routing profiles, contact flows, queues, and real-time and historical
+    metrics.
+  version: "2017-08-08"
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://connect.amazonaws.com
+    description: Amazon Connect API endpoint
+paths:
+  /users/{InstanceId}:
+    get:
+      operationId: ListUsers
+      summary: List users in an instance
+      description: >-
+        Provides summary information about the users for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserSummaryList"
+        "400":
+          description: Bad request
+      tags:
+        - Users
+  /users/{InstanceId}/{UserId}:
+    get:
+      operationId: DescribeUser
+      summary: Describe a user
+      description: >-
+        Describes the specified user account.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: UserId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+      tags:
+        - Users
+    delete:
+      operationId: DeleteUser
+      summary: Delete a user
+      description: Deletes a user account from the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: UserId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User deleted successfully
+        "404":
+          description: User not found
+      tags:
+        - Users
+  /contact-flows-summary/{InstanceId}:
+    get:
+      operationId: ListContactFlows
+      summary: List contact flows
+      description: >-
+        Provides information about the contact flows for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: contactFlowTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactFlowSummaryList"
+      tags:
+        - Contact Flows
+  /queues-summary/{InstanceId}:
+    get:
+      operationId: ListQueues
+      summary: List queues
+      description: >-
+        Provides information about the queues for the specified Amazon
+        Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: queueTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueueSummaryList"
+      tags:
+        - Queues
+  /metrics/historical/{InstanceId}:
+    post:
+      operationId: GetMetricData
+      summary: Get historical metrics
+      description: >-
+        Gets historical metric data from the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - StartTime
+                - EndTime
+                - Filters
+                - HistoricalMetrics
+              properties:
+                StartTime:
+                  type: string
+                  format: date-time
+                EndTime:
+                  type: string
+                  format: date-time
+                Filters:
+                  type: object
+                  properties:
+                    Queues:
+                      type: array
+                      items:
+                        type: string
+                    Channels:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                          - VOICE
+                          - CHAT
+                          - TASK
+                HistoricalMetrics:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      Name:
+                        type: string
+                      Unit:
+                        type: string
+                      Statistic:
+                        type: string
+      responses:
+        "200":
+          description: Successful response
+      tags:
+        - Metrics
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+        Arn:
+          type: string
+          description: The ARN of the user account.
+        Username:
+          type: string
+          description: The user name assigned to the user account.
+        IdentityInfo:
+          type: object
+          properties:
+            FirstName:
+              type: string
+            LastName:
+              type: string
+            Email:
+              type: string
+        PhoneConfig:
+          type: object
+          properties:
+            PhoneType:
+              type: string
+              enum:
+                - SOFT_PHONE
+                - DESK_PHONE
+            AutoAccept:
+              type: boolean
+            AfterContactWorkTimeLimit:
+              type: integer
+            DeskPhoneNumber:
+              type: string
+        DirectoryUserId:
+          type: string
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+        RoutingProfileId:
+          type: string
+        HierarchyGroupId:
+          type: string
+    UserSummaryList:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: string
+              Arn:
+                type: string
+              Username:
+                type: string
+        NextToken:
+          type: string
+    ContactFlowSummaryList:
+      type: object
+      properties:
+        ContactFlowSummaryList:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: string
+              Arn:
+                type: string
+              Name:
+                type: string
+              ContactFlowType:
+                type: string
+        NextToken:
+          type: string
+    QueueSummaryList:
+      type: object
+      properties:
+        QueueSummaryList:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: string
+              Arn:
+                type: string
+              Name:
+                type: string
+              QueueType:
+                type: string
+        NextToken:
+          type: string
+tags:
+  - name: Users
+    description: Operations for managing Connect users
+  - name: Contact Flows
+    description: Operations for managing contact flows
+  - name: Queues
+    description: Operations for managing queues
+  - name: Metrics
+    description: Operations for retrieving metrics

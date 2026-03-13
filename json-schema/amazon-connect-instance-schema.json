@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/amazon-connect-instance.json",
+  "title": "Amazon Connect Instance",
+  "description": "Schema for an Amazon Connect instance resource, representing a cloud contact center instance with users, queues, and contact flows.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance."
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The ARN of the Amazon Connect instance.",
+      "pattern": "^arn:aws:connect:[a-z0-9-]+:[0-9]{12}:instance/[a-f0-9-]+"
+    },
+    "IdentityManagementType": {
+      "type": "string",
+      "description": "The identity management type of the instance.",
+      "enum": ["SAML", "CONNECT_MANAGED", "EXISTING_DIRECTORY"]
+    },
+    "InstanceAlias": {
+      "type": "string",
+      "description": "The alias of the instance.",
+      "minLength": 1,
+      "maxLength": 62,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]+$"
+    },
+    "CreatedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the instance was created."
+    },
+    "ServiceRole": {
+      "type": "string",
+      "description": "The service role of the instance."
+    },
+    "InstanceStatus": {
+      "type": "string",
+      "description": "The state of the instance.",
+      "enum": ["CREATION_IN_PROGRESS", "ACTIVE", "CREATION_FAILED"]
+    },
+    "InboundCallsEnabled": {
+      "type": "boolean",
+      "description": "Whether inbound calls are enabled."
+    },
+    "OutboundCallsEnabled": {
+      "type": "boolean",
+      "description": "Whether outbound calls are enabled."
+    },
+    "User": {
+      "$ref": "#/$defs/User"
+    },
+    "Queue": {
+      "$ref": "#/$defs/Queue"
+    }
+  },
+  "$defs": {
+    "User": {
+      "type": "object",
+      "description": "A user account in the Amazon Connect instance.",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "The identifier of the user account."
+        },
+        "Arn": {
+          "type": "string",
+          "description": "The ARN of the user account."
+        },
+        "Username": {
+          "type": "string",
+          "description": "The user name assigned to the user account.",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "IdentityInfo": {
+          "type": "object",
+          "properties": {
+            "FirstName": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "LastName": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "Email": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        },
+        "PhoneConfig": {
+          "type": "object",
+          "required": ["PhoneType"],
+          "properties": {
+            "PhoneType": {
+              "type": "string",
+              "enum": ["SOFT_PHONE", "DESK_PHONE"]
+            },
+            "AutoAccept": {
+              "type": "boolean"
+            },
+            "AfterContactWorkTimeLimit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "DeskPhoneNumber": {
+              "type": "string"
+            }
+          }
+        },
+        "SecurityProfileIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "RoutingProfileId": {
+          "type": "string",
+          "description": "The identifier of the routing profile for the user."
+        }
+      }
+    },
+    "Queue": {
+      "type": "object",
+      "description": "A queue in the Amazon Connect instance.",
+      "properties": {
+        "QueueId": {
+          "type": "string",
+          "description": "The identifier of the queue."
+        },
+        "QueueArn": {
+          "type": "string",
+          "description": "The ARN of the queue."
+        },
+        "Name": {
+          "type": "string",
+          "description": "The name of the queue.",
+          "maxLength": 256
+        },
+        "QueueType": {
+          "type": "string",
+          "description": "The type of queue.",
+          "enum": ["STANDARD", "AGENT"]
+        },
+        "Description": {
+          "type": "string",
+          "description": "The description of the queue.",
+          "maxLength": 250
+        },
+        "MaxContacts": {
+          "type": "integer",
+          "description": "The maximum number of contacts that can be in the queue.",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

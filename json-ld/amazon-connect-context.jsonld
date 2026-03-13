@@ -1,0 +1,104 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "connect": "https://docs.aws.amazon.com/connect/latest/APIReference/",
+    "aws": "https://aws.amazon.com/",
+    "Instance": {
+      "@id": "connect:API_Instance",
+      "@context": {
+        "instanceId": {
+          "@id": "connect:Instance/Id",
+          "@type": "xsd:string"
+        },
+        "arn": {
+          "@id": "connect:Instance/Arn",
+          "@type": "xsd:string"
+        },
+        "instanceAlias": {
+          "@id": "connect:Instance/InstanceAlias",
+          "@type": "xsd:string"
+        },
+        "identityManagementType": {
+          "@id": "connect:Instance/IdentityManagementType",
+          "@type": "xsd:string"
+        },
+        "instanceStatus": {
+          "@id": "connect:Instance/InstanceStatus",
+          "@type": "xsd:string"
+        },
+        "createdTime": {
+          "@id": "connect:Instance/CreatedTime",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "User": {
+      "@id": "connect:API_User",
+      "@context": {
+        "userId": {
+          "@id": "connect:User/Id",
+          "@type": "xsd:string"
+        },
+        "username": {
+          "@id": "connect:User/Username",
+          "@type": "xsd:string"
+        },
+        "firstName": {
+          "@id": "connect:User/FirstName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "connect:User/LastName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "connect:User/Email",
+          "@type": "xsd:string"
+        },
+        "routingProfileId": {
+          "@id": "connect:User/RoutingProfileId",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "Queue": {
+      "@id": "connect:API_Queue",
+      "@context": {
+        "queueId": {
+          "@id": "connect:Queue/Id",
+          "@type": "xsd:string"
+        },
+        "queueName": {
+          "@id": "connect:Queue/Name",
+          "@type": "xsd:string"
+        },
+        "queueType": {
+          "@id": "connect:Queue/QueueType",
+          "@type": "xsd:string"
+        },
+        "maxContacts": {
+          "@id": "connect:Queue/MaxContacts",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+    "ContactFlow": {
+      "@id": "connect:API_ContactFlow",
+      "@context": {
+        "contactFlowId": {
+          "@id": "connect:ContactFlow/Id",
+          "@type": "xsd:string"
+        },
+        "contactFlowName": {
+          "@id": "connect:ContactFlow/Name",
+          "@type": "xsd:string"
+        },
+        "contactFlowType": {
+          "@id": "connect:ContactFlow/Type",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+}
