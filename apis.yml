@@ -1,7 +1,7 @@
 aid: amazon-connect
 url: >-
   https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml
-name: Amazon Connect API
+name: Amazon Connect
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 specificationVersion: '0.19'
