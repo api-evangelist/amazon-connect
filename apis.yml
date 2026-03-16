@@ -1,16 +1,17 @@
+aid: amazon-connect
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml
 name: Amazon Connect API
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+specificationVersion: '0.19'
 description: >-
   Amazon Connect is a cloud-based contact center service that makes it easy to
   set up and manage a customer contact center and provide reliable customer
-  engagement at any scale. Amazon Connect provides a seamless omnichannel
-  experience through a single unified contact center for voice, chat, and task
-  management. It is powered by machine learning to provide real-time analytics,
-  sentiment analysis, and automated workflows.
-image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-url: https://aws.amazon.com/connect/
-baseURL: https://connect.amazonaws.com
+  engagement at any scale, with omnichannel support for voice, chat, and
+  task management.
 created: '2024-01-15'
-modified: '2026-03-13'
+modified: '2026-03-16'
 tags:
   - Contact Center
   - Customer Service
