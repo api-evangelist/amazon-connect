@@ -13,11 +13,11 @@ description: >-
 created: '2024-01-15'
 modified: '2026-03-16'
 tags:
+  - AWS
+  - Chat
   - Contact Center
   - Customer Service
   - Voice
-  - Chat
-  - AWS
 apis:
   - name: Amazon Connect API
     description: >-

@@ -333,11 +333,11 @@ components:
         NextToken:
           type: string
 tags:
-  - name: Users
-    description: Operations for managing Connect users
   - name: Contact Flows
     description: Operations for managing contact flows
-  - name: Queues
-    description: Operations for managing queues
   - name: Metrics
     description: Operations for retrieving metrics
+  - name: Queues
+    description: Operations for managing queues
+  - name: Users
+    description: Operations for managing Connect users
