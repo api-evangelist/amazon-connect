@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/instance-structure.json",
+  "name": "Instance",
+  "description": "The Amazon Connect instance.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the instance.",
+      "example": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "IdentityManagementType": {
+      "type": "string",
+      "description": "The identity management type.",
+      "enum": [
+        "SAML",
+        "CONNECT_MANAGED",
+        "EXISTING_DIRECTORY"
+      ],
+      "example": "CONNECT_MANAGED"
+    },
+    "InstanceAlias": {
+      "type": "string",
+      "description": "The alias of the instance.",
+      "example": "my-contact-center"
+    },
+    "CreatedTime": {
+      "type": "datetime",
+      "description": "When the instance was created.",
+      "example": "2025-01-15T10:30:00Z"
+    },
+    "ServiceRole": {
+      "type": "string",
+      "description": "The service role of the instance."
+    },
+    "InstanceStatus": {
+      "type": "string",
+      "description": "The state of the instance.",
+      "enum": [
+        "CREATION_IN_PROGRESS",
+        "ACTIVE",
+        "CREATION_FAILED"
+      ],
+      "example": "ACTIVE"
+    },
+    "InboundCallsEnabled": {
+      "type": "boolean",
+      "description": "Whether inbound calls are enabled.",
+      "example": true
+    },
+    "OutboundCallsEnabled": {
+      "type": "boolean",
+      "description": "Whether outbound calls are enabled.",
+      "example": true
+    }
+  }
+}

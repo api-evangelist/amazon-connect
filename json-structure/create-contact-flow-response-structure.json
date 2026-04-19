@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/create-contact-flow-response-structure.json",
+  "name": "CreateContactFlowResponse",
+  "description": "CreateContactFlowResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "ContactFlowId": {
+      "type": "string",
+      "description": "The identifier of the contact flow.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "ContactFlowArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the contact flow."
+    }
+  }
+}

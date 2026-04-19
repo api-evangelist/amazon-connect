@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/create-user-response-structure.json",
+  "name": "CreateUserResponse",
+  "description": "CreateUserResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "UserId": {
+      "type": "string",
+      "description": "The identifier of the user account.",
+      "example": "500123"
+    },
+    "UserArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the user account."
+    }
+  }
+}

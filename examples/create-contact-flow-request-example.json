@@ -1,0 +1,9 @@
+{
+  "Name": "My Contact Flow",
+  "Type": "CONTACT_FLOW",
+  "Description": "A description of the resource.",
+  "Content": "{}",
+  "Tags": {
+    "key": "value"
+  }
+}

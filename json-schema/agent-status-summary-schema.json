@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/agent-status-summary-schema.json",
+  "title": "AgentStatusSummary",
+  "description": "Contains information about an agent status.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier for an agent status.",
+      "example": "a1b2c3d4-5678-90ab-cdef-44444EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) for the agent status."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the agent status.",
+      "example": "Available"
+    },
+    "Type": {
+      "type": "string",
+      "description": "The type of the agent status.",
+      "enum": [
+        "ROUTABLE",
+        "CUSTOM",
+        "OFFLINE"
+      ],
+      "example": "ROUTABLE"
+    }
+  }
+}

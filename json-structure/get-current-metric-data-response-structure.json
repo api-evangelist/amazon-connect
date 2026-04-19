@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/get-current-metric-data-response-structure.json",
+  "name": "GetCurrentMetricDataResponse",
+  "description": "GetCurrentMetricDataResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "NextToken": {
+      "type": "string"
+    },
+    "MetricResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Dimensions": {
+            "type": "object"
+          },
+          "Collections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Metric": {
+                  "type": "object"
+                },
+                "Value": {
+                  "type": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "DataSnapshotTime": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/describe-queue-response-schema.json",
+  "title": "DescribeQueueResponse",
+  "description": "DescribeQueueResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Queue": {
+      "$ref": "#/components/schemas/Queue"
+    }
+  }
+}

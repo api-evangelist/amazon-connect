@@ -1,0 +1,12 @@
+{
+  "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "Id": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+  "Name": "Production Firewall 01",
+  "Type": "standard",
+  "State": "ACTIVE",
+  "Description": "A description of the resource.",
+  "Content": "{}",
+  "Tags": {
+    "key": "value"
+  }
+}

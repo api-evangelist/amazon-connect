@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/user-phone-config-schema.json",
+  "title": "UserPhoneConfig",
+  "description": "Contains information about the phone configuration settings for a user.",
+  "type": "object",
+  "properties": {
+    "PhoneType": {
+      "type": "string",
+      "description": "The phone type.",
+      "enum": [
+        "SOFT_PHONE",
+        "DESK_PHONE"
+      ],
+      "example": "SOFT_PHONE"
+    },
+    "AutoAccept": {
+      "type": "boolean",
+      "description": "The Auto accept setting.",
+      "example": false
+    },
+    "AfterContactWorkTimeLimit": {
+      "type": "integer",
+      "description": "The After Contact Work (ACW) timeout setting, in seconds.",
+      "example": 0
+    },
+    "DeskPhoneNumber": {
+      "type": "string",
+      "description": "The phone number for the user's desk phone."
+    }
+  },
+  "required": [
+    "PhoneType"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "SecurityProfileSummaryList": [
+    "https://portal.example.com/path/abc123"
+  ],
+  "NextToken": "a1b2c3d4token"
+}

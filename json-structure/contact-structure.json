@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/contact-structure.json",
+  "name": "Contact",
+  "description": "Contains information about a contact.",
+  "type": "object",
+  "properties": {
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) for the contact."
+    },
+    "Id": {
+      "type": "string",
+      "description": "The identifier for the contact.",
+      "example": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+    },
+    "InitialContactId": {
+      "type": "string",
+      "description": "If this contact is related to other contacts, this is the ID of the initial contact."
+    },
+    "PreviousContactId": {
+      "type": "string",
+      "description": "If this contact is not the first contact, this is the ID of the previous contact."
+    },
+    "Channel": {
+      "type": "string",
+      "description": "How the contact reached your contact center.",
+      "enum": [
+        "VOICE",
+        "CHAT",
+        "TASK",
+        "EMAIL"
+      ],
+      "example": "VOICE"
+    },
+    "QueueInfo": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "EnqueueTimestamp": {
+          "type": "datetime"
+        }
+      }
+    },
+    "AgentInfo": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "ConnectedToAgentTimestamp": {
+          "type": "datetime"
+        }
+      }
+    },
+    "InitiationMethod": {
+      "type": "string",
+      "description": "Indicates how the contact was initiated.",
+      "enum": [
+        "INBOUND",
+        "OUTBOUND",
+        "TRANSFER",
+        "QUEUE_TRANSFER",
+        "CALLBACK",
+        "API"
+      ],
+      "example": "INBOUND"
+    },
+    "InitiationTimestamp": {
+      "type": "datetime",
+      "description": "The date and time this contact was initiated."
+    },
+    "DisconnectTimestamp": {
+      "type": "datetime",
+      "description": "The timestamp when the customer endpoint disconnected from Amazon Connect."
+    },
+    "LastUpdateTimestamp": {
+      "type": "datetime",
+      "description": "The timestamp when contact was last updated."
+    }
+  }
+}

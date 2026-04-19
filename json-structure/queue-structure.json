@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/queue-structure.json",
+  "name": "Queue",
+  "description": "Contains information about a queue.",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the queue.",
+      "example": "BasicQueue"
+    },
+    "QueueArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) for the queue."
+    },
+    "QueueId": {
+      "type": "string",
+      "description": "The identifier for the queue.",
+      "example": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the queue."
+    },
+    "OutboundCallerConfig": {
+      "type": "object",
+      "properties": {
+        "OutboundCallerIdName": {
+          "type": "string"
+        },
+        "OutboundCallerIdNumberId": {
+          "type": "string"
+        },
+        "OutboundFlowId": {
+          "type": "string"
+        }
+      }
+    },
+    "HoursOfOperationId": {
+      "type": "string",
+      "description": "The identifier for the hours of operation."
+    },
+    "MaxContacts": {
+      "type": "int32",
+      "description": "The maximum number of contacts that can be in the queue before it is considered full.",
+      "example": 100
+    },
+    "Status": {
+      "type": "string",
+      "description": "The status of the queue.",
+      "enum": [
+        "ENABLED",
+        "DISABLED"
+      ],
+      "example": "ENABLED"
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

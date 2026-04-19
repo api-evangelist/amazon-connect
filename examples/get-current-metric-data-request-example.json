@@ -1,0 +1,21 @@
+{
+  "Filters": {
+    "Queues": [
+      "example-value"
+    ],
+    "Channels": [
+      "VOICE"
+    ]
+  },
+  "Groupings": [
+    "example-value"
+  ],
+  "CurrentMetrics": [
+    {
+      "Name": "AGENTS_ONLINE",
+      "Unit": "SECONDS"
+    }
+  ],
+  "NextToken": "a1b2c3d4token",
+  "MaxResults": 0
+}

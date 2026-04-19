@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/create-queue-request-schema.json",
+  "title": "CreateQueueRequest",
+  "description": "CreateQueueRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the queue.",
+      "example": "Support Queue"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the queue."
+    },
+    "HoursOfOperationId": {
+      "type": "string",
+      "description": "The identifier for the hours of operation.",
+      "example": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+    },
+    "MaxContacts": {
+      "type": "integer",
+      "description": "The maximum number of contacts that can be in the queue.",
+      "example": 100
+    },
+    "OutboundCallerConfig": {
+      "type": "object",
+      "properties": {
+        "OutboundCallerIdName": {
+          "type": "string"
+        },
+        "OutboundCallerIdNumberId": {
+          "type": "string"
+        },
+        "OutboundFlowId": {
+          "type": "string"
+        }
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "HoursOfOperationId",
+    "Name"
+  ]
+}

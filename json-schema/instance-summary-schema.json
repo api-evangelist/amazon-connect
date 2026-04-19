@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/instance-summary-schema.json",
+  "title": "InstanceSummary",
+  "description": "Information about the Amazon Connect instance.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The ARN of the instance.",
+      "example": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "IdentityManagementType": {
+      "type": "string",
+      "description": "The identity management type.",
+      "example": "CONNECT_MANAGED"
+    },
+    "InstanceAlias": {
+      "type": "string",
+      "description": "The alias of the instance.",
+      "example": "my-contact-center"
+    },
+    "InstanceStatus": {
+      "type": "string",
+      "description": "The state of the instance.",
+      "example": "ACTIVE"
+    },
+    "InboundCallsEnabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "OutboundCallsEnabled": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

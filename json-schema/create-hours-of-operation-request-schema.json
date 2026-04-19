@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/create-hours-of-operation-request-schema.json",
+  "title": "CreateHoursOfOperationRequest",
+  "description": "CreateHoursOfOperationRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the hours of operation.",
+      "example": "Business Hours"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the hours of operation."
+    },
+    "TimeZone": {
+      "type": "string",
+      "description": "The time zone of the hours of operation.",
+      "example": "America/New_York"
+    },
+    "Config": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/HoursOfOperationConfig"
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "Config",
+    "Name",
+    "TimeZone"
+  ]
+}

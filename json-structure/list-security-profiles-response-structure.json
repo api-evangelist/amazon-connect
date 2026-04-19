@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/list-security-profiles-response-structure.json",
+  "name": "ListSecurityProfilesResponse",
+  "description": "ListSecurityProfilesResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "SecurityProfileSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/SecurityProfileSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

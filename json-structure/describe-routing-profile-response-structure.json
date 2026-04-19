@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/describe-routing-profile-response-structure.json",
+  "name": "DescribeRoutingProfileResponse",
+  "description": "DescribeRoutingProfileResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "RoutingProfile": {
+      "$ref": "#/components/schemas/RoutingProfile"
+    }
+  }
+}

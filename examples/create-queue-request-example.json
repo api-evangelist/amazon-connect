@@ -1,0 +1,14 @@
+{
+  "Name": "Support Queue",
+  "Description": "A description of the resource.",
+  "HoursOfOperationId": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE",
+  "MaxContacts": 100,
+  "OutboundCallerConfig": {
+    "OutboundCallerIdName": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "OutboundCallerIdNumberId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "OutboundFlowId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+  },
+  "Tags": {
+    "key": "value"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ClientToken": "a1b2c3d4token",
+  "IdentityManagementType": "CONNECT_MANAGED",
+  "InstanceAlias": "my-contact-center",
+  "DirectoryId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "InboundCallsEnabled": true,
+  "OutboundCallsEnabled": true,
+  "Tags": {
+    "key": "value"
+  }
+}

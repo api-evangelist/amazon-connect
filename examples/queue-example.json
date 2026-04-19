@@ -1,0 +1,17 @@
+{
+  "Name": "BasicQueue",
+  "QueueArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "QueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+  "Description": "A description of the resource.",
+  "OutboundCallerConfig": {
+    "OutboundCallerIdName": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "OutboundCallerIdNumberId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "OutboundFlowId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+  },
+  "HoursOfOperationId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "MaxContacts": 100,
+  "Status": "ENABLED",
+  "Tags": {
+    "key": "value"
+  }
+}

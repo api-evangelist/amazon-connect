@@ -1,104 +1,620 @@
 {
   "@context": {
-    "@vocab": "https://schema.org/",
-    "connect": "https://docs.aws.amazon.com/connect/latest/APIReference/",
-    "aws": "https://aws.amazon.com/",
-    "Instance": {
-      "@id": "connect:API_Instance",
-      "@context": {
-        "instanceId": {
-          "@id": "connect:Instance/Id",
-          "@type": "xsd:string"
-        },
-        "arn": {
-          "@id": "connect:Instance/Arn",
-          "@type": "xsd:string"
-        },
-        "instanceAlias": {
-          "@id": "connect:Instance/InstanceAlias",
-          "@type": "xsd:string"
-        },
-        "identityManagementType": {
-          "@id": "connect:Instance/IdentityManagementType",
-          "@type": "xsd:string"
-        },
-        "instanceStatus": {
-          "@id": "connect:Instance/InstanceStatus",
-          "@type": "xsd:string"
-        },
-        "createdTime": {
-          "@id": "connect:Instance/CreatedTime",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "@version": 1.1,
+    "aws": "https://aws.amazon.com/schema/connect/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "HoursOfOperationSummary": "aws:HoursOfOperationSummary",
+    "UserSummary": "aws:UserSummary",
+    "InstanceSummary": "aws:InstanceSummary",
+    "CreateContactFlowRequest": "aws:CreateContactFlowRequest",
+    "GetCurrentMetricDataRequest": "aws:GetCurrentMetricDataRequest",
+    "MediaConcurrency": "aws:MediaConcurrency",
+    "Queue": "aws:Queue",
+    "CreateQueueResponse": "aws:CreateQueueResponse",
+    "ListAgentStatusesResponse": "aws:ListAgentStatusesResponse",
+    "HoursOfOperationConfig": "aws:HoursOfOperationConfig",
+    "CreateUserResponse": "aws:CreateUserResponse",
+    "ContactFlowSummary": "aws:ContactFlowSummary",
+    "ContactSummary": "aws:ContactSummary",
+    "DescribeContactFlowResponse": "aws:DescribeContactFlowResponse",
+    "StartTaskContactRequest": "aws:StartTaskContactRequest",
+    "ListContactFlowsResponse": "aws:ListContactFlowsResponse",
+    "DescribeQueueResponse": "aws:DescribeQueueResponse",
+    "DescribeInstanceResponse": "aws:DescribeInstanceResponse",
+    "QueueSummary": "aws:QueueSummary",
+    "StartOutboundVoiceContactRequest": "aws:StartOutboundVoiceContactRequest",
+    "UserPhoneConfig": "aws:UserPhoneConfig",
+    "Instance": "aws:Instance",
+    "StartChatContactResponse": "aws:StartChatContactResponse",
+    "ListRoutingProfilesResponse": "aws:ListRoutingProfilesResponse",
+    "CreateHoursOfOperationRequest": "aws:CreateHoursOfOperationRequest",
+    "ContactFlow": "aws:ContactFlow",
+    "ListQueuesResponse": "aws:ListQueuesResponse",
+    "SecurityProfileSummary": "aws:SecurityProfileSummary",
+    "SearchContactsRequest": "aws:SearchContactsRequest",
+    "HoursOfOperationTimeSlice": "aws:HoursOfOperationTimeSlice",
+    "UpdateUserIdentityInfoRequest": "aws:UpdateUserIdentityInfoRequest",
+    "DescribeContactResponse": "aws:DescribeContactResponse",
+    "GetCurrentMetricDataResponse": "aws:GetCurrentMetricDataResponse",
+    "DescribeRoutingProfileResponse": "aws:DescribeRoutingProfileResponse",
+    "Amazon Connect Instance": "aws:Amazon Connect Instance",
+    "ListInstancesResponse": "aws:ListInstancesResponse",
+    "GetMetricDataResponse": "aws:GetMetricDataResponse",
+    "DescribeUserResponse": "aws:DescribeUserResponse",
+    "CreateUserRequest": "aws:CreateUserRequest",
+    "CreateQueueRequest": "aws:CreateQueueRequest",
+    "CreateHoursOfOperationResponse": "aws:CreateHoursOfOperationResponse",
+    "CreateInstanceRequest": "aws:CreateInstanceRequest",
+    "ListHoursOfOperationsResponse": "aws:ListHoursOfOperationsResponse",
+    "ListSecurityProfilesResponse": "aws:ListSecurityProfilesResponse",
+    "RoutingProfile": "aws:RoutingProfile",
+    "CreateRoutingProfileResponse": "aws:CreateRoutingProfileResponse",
+    "GetMetricDataRequest": "aws:GetMetricDataRequest",
+    "UserIdentityInfo": "aws:UserIdentityInfo",
+    "CreateContactFlowResponse": "aws:CreateContactFlowResponse",
+    "CreateInstanceResponse": "aws:CreateInstanceResponse",
+    "User": "aws:User",
+    "StartChatContactRequest": "aws:StartChatContactRequest",
+    "Contact": "aws:Contact",
+    "ListUsersResponse": "aws:ListUsersResponse",
+    "RoutingProfileSummary": "aws:RoutingProfileSummary",
+    "SearchContactsResponse": "aws:SearchContactsResponse",
+    "CreateRoutingProfileRequest": "aws:CreateRoutingProfileRequest",
+    "AgentStatusSummary": "aws:AgentStatusSummary",
+    "afterContactWorkTimeLimit": {
+      "@id": "aws:after_contact_work_time_limit",
+      "@type": "xsd:integer"
     },
-    "User": {
-      "@id": "connect:API_User",
-      "@context": {
-        "userId": {
-          "@id": "connect:User/Id",
-          "@type": "xsd:string"
-        },
-        "username": {
-          "@id": "connect:User/Username",
-          "@type": "xsd:string"
-        },
-        "firstName": {
-          "@id": "connect:User/FirstName",
-          "@type": "xsd:string"
-        },
-        "lastName": {
-          "@id": "connect:User/LastName",
-          "@type": "xsd:string"
-        },
-        "email": {
-          "@id": "connect:User/Email",
-          "@type": "xsd:string"
-        },
-        "routingProfileId": {
-          "@id": "connect:User/RoutingProfileId",
-          "@type": "xsd:string"
-        }
-      }
+    "agentIds": {
+      "@id": "aws:agent_ids",
+      "@container": "@set",
+      "@type": "xsd:string"
     },
-    "Queue": {
-      "@id": "connect:API_Queue",
-      "@context": {
-        "queueId": {
-          "@id": "connect:Queue/Id",
-          "@type": "xsd:string"
-        },
-        "queueName": {
-          "@id": "connect:Queue/Name",
-          "@type": "xsd:string"
-        },
-        "queueType": {
-          "@id": "connect:Queue/QueueType",
-          "@type": "xsd:string"
-        },
-        "maxContacts": {
-          "@id": "connect:Queue/MaxContacts",
-          "@type": "xsd:integer"
-        }
-      }
+    "agentInfo": {
+      "@id": "aws:agent_info",
+      "@type": "@id"
     },
-    "ContactFlow": {
-      "@id": "connect:API_ContactFlow",
-      "@context": {
-        "contactFlowId": {
-          "@id": "connect:ContactFlow/Id",
-          "@type": "xsd:string"
-        },
-        "contactFlowName": {
-          "@id": "connect:ContactFlow/Name",
-          "@type": "xsd:string"
-        },
-        "contactFlowType": {
-          "@id": "connect:ContactFlow/Type",
-          "@type": "xsd:string"
-        }
-      }
+    "agentStatusSummaryList": {
+      "@id": "aws:agent_status_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
     },
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
+    "arn": {
+      "@id": "aws:arn",
+      "@type": "xsd:string"
+    },
+    "attributes": {
+      "@id": "aws:attributes",
+      "@type": "@id"
+    },
+    "autoAccept": {
+      "@id": "aws:auto_accept",
+      "@type": "xsd:boolean"
+    },
+    "channel": {
+      "@id": "aws:channel",
+      "@type": "xsd:string"
+    },
+    "channels": {
+      "@id": "aws:channels",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "chatDurationInMinutes": {
+      "@id": "aws:chat_duration_in_minutes",
+      "@type": "xsd:integer"
+    },
+    "clientToken": {
+      "@id": "aws:client_token",
+      "@type": "xsd:string"
+    },
+    "collections": {
+      "@id": "aws:collections",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "concurrency": {
+      "@id": "aws:concurrency",
+      "@type": "xsd:integer"
+    },
+    "config": {
+      "@id": "aws:config",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "connectedToAgentTimestamp": {
+      "@id": "aws:connected_to_agent_timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "contact": {
+      "@id": "aws:contact",
+      "@type": "xsd:string"
+    },
+    "contactFlow": {
+      "@id": "aws:contact_flow",
+      "@type": "xsd:string"
+    },
+    "contactFlowArn": {
+      "@id": "aws:contact_flow_arn",
+      "@type": "xsd:string"
+    },
+    "contactFlowId": {
+      "@id": "aws:contact_flow_id",
+      "@type": "xsd:string"
+    },
+    "contactFlowState": {
+      "@id": "aws:contact_flow_state",
+      "@type": "xsd:string"
+    },
+    "contactFlowSummaryList": {
+      "@id": "aws:contact_flow_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "contactFlowType": {
+      "@id": "aws:contact_flow_type",
+      "@type": "xsd:string"
+    },
+    "contactId": {
+      "@id": "aws:contact_id",
+      "@type": "xsd:string"
+    },
+    "contacts": {
+      "@id": "aws:contacts",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "content": {
+      "@id": "aws:content",
+      "@type": "xsd:string"
+    },
+    "contentType": {
+      "@id": "aws:content_type",
+      "@type": "xsd:string"
+    },
+    "createdTime": {
+      "@id": "aws:created_time",
+      "@type": "xsd:dateTime"
+    },
+    "currentMetrics": {
+      "@id": "aws:current_metrics",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "dataSnapshotTime": {
+      "@id": "aws:data_snapshot_time",
+      "@type": "xsd:dateTime"
+    },
+    "day": {
+      "@id": "aws:day",
+      "@type": "xsd:string"
+    },
+    "defaultOutboundQueueId": {
+      "@id": "aws:default_outbound_queue_id",
+      "@type": "xsd:string"
+    },
+    "delay": {
+      "@id": "aws:delay",
+      "@type": "xsd:integer"
+    },
+    "description": "schema:description",
+    "deskPhoneNumber": {
+      "@id": "aws:desk_phone_number",
+      "@type": "xsd:string"
+    },
+    "destinationPhoneNumber": {
+      "@id": "aws:destination_phone_number",
+      "@type": "xsd:string"
+    },
+    "dimensions": {
+      "@id": "aws:dimensions",
+      "@type": "@id"
+    },
+    "directoryId": {
+      "@id": "aws:directory_id",
+      "@type": "xsd:string"
+    },
+    "directoryUserId": {
+      "@id": "aws:directory_user_id",
+      "@type": "xsd:string"
+    },
+    "disconnectTimestamp": {
+      "@id": "aws:disconnect_timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "displayName": {
+      "@id": "aws:display_name",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "endTime": {
+      "@id": "aws:end_time",
+      "@type": "xsd:string"
+    },
+    "enqueueTimestamp": {
+      "@id": "aws:enqueue_timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "fieldName": {
+      "@id": "aws:field_name",
+      "@type": "xsd:string"
+    },
+    "filters": {
+      "@id": "aws:filters",
+      "@type": "@id"
+    },
+    "firstName": {
+      "@id": "aws:first_name",
+      "@type": "xsd:string"
+    },
+    "groupings": {
+      "@id": "aws:groupings",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "hierarchyGroupId": {
+      "@id": "aws:hierarchy_group_id",
+      "@type": "xsd:string"
+    },
+    "historicalMetrics": {
+      "@id": "aws:historical_metrics",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "hours": {
+      "@id": "aws:hours",
+      "@type": "xsd:integer"
+    },
+    "hoursOfOperationArn": {
+      "@id": "aws:hours_of_operation_arn",
+      "@type": "xsd:string"
+    },
+    "hoursOfOperationId": {
+      "@id": "aws:hours_of_operation_id",
+      "@type": "xsd:string"
+    },
+    "hoursOfOperationSummaryList": {
+      "@id": "aws:hours_of_operation_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "aws:id",
+      "@type": "xsd:string"
+    },
+    "identityInfo": {
+      "@id": "aws:identity_info",
+      "@type": "xsd:string"
+    },
+    "identityManagementType": {
+      "@id": "aws:identity_management_type",
+      "@type": "xsd:string"
+    },
+    "inboundCallsEnabled": {
+      "@id": "aws:inbound_calls_enabled",
+      "@type": "xsd:boolean"
+    },
+    "initialContactId": {
+      "@id": "aws:initial_contact_id",
+      "@type": "xsd:string"
+    },
+    "initialMessage": {
+      "@id": "aws:initial_message",
+      "@type": "@id"
+    },
+    "initiationMethod": {
+      "@id": "aws:initiation_method",
+      "@type": "xsd:string"
+    },
+    "initiationTimestamp": {
+      "@id": "aws:initiation_timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "instance": {
+      "@id": "aws:instance",
+      "@type": "xsd:string"
+    },
+    "instanceAlias": {
+      "@id": "aws:instance_alias",
+      "@type": "xsd:string"
+    },
+    "instanceId": {
+      "@id": "aws:instance_id",
+      "@type": "xsd:string"
+    },
+    "instanceStatus": {
+      "@id": "aws:instance_status",
+      "@type": "xsd:string"
+    },
+    "instanceSummaryList": {
+      "@id": "aws:instance_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "aws:last_name",
+      "@type": "xsd:string"
+    },
+    "lastUpdateTimestamp": {
+      "@id": "aws:last_update_timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "maxContacts": {
+      "@id": "aws:max_contacts",
+      "@type": "xsd:integer"
+    },
+    "maxResults": {
+      "@id": "aws:max_results",
+      "@type": "xsd:integer"
+    },
+    "mediaConcurrencies": {
+      "@id": "aws:media_concurrencies",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "metric": {
+      "@id": "aws:metric",
+      "@type": "@id"
+    },
+    "metricResults": {
+      "@id": "aws:metric_results",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "minutes": {
+      "@id": "aws:minutes",
+      "@type": "xsd:integer"
+    },
+    "mobile": {
+      "@id": "aws:mobile",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "nextToken": {
+      "@id": "aws:next_token",
+      "@type": "xsd:string"
+    },
+    "numberOfAssociatedQueues": {
+      "@id": "aws:number_of_associated_queues",
+      "@type": "xsd:integer"
+    },
+    "numberOfAssociatedUsers": {
+      "@id": "aws:number_of_associated_users",
+      "@type": "xsd:integer"
+    },
+    "order": {
+      "@id": "aws:order",
+      "@type": "xsd:string"
+    },
+    "outboundCallerConfig": {
+      "@id": "aws:outbound_caller_config",
+      "@type": "@id"
+    },
+    "outboundCallerIdName": {
+      "@id": "aws:outbound_caller_id_name",
+      "@type": "xsd:string"
+    },
+    "outboundCallerIdNumberId": {
+      "@id": "aws:outbound_caller_id_number_id",
+      "@type": "xsd:string"
+    },
+    "outboundCallsEnabled": {
+      "@id": "aws:outbound_calls_enabled",
+      "@type": "xsd:boolean"
+    },
+    "outboundFlowId": {
+      "@id": "aws:outbound_flow_id",
+      "@type": "xsd:string"
+    },
+    "participantDetails": {
+      "@id": "aws:participant_details",
+      "@type": "@id"
+    },
+    "participantId": {
+      "@id": "aws:participant_id",
+      "@type": "xsd:string"
+    },
+    "participantToken": {
+      "@id": "aws:participant_token",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "aws:password",
+      "@type": "xsd:string"
+    },
+    "phoneConfig": {
+      "@id": "aws:phone_config",
+      "@type": "xsd:string"
+    },
+    "phoneType": {
+      "@id": "aws:phone_type",
+      "@type": "xsd:string"
+    },
+    "previousContactId": {
+      "@id": "aws:previous_contact_id",
+      "@type": "xsd:string"
+    },
+    "priority": {
+      "@id": "aws:priority",
+      "@type": "xsd:integer"
+    },
+    "queue": {
+      "@id": "aws:queue",
+      "@type": "xsd:string"
+    },
+    "queueArn": {
+      "@id": "aws:queue_arn",
+      "@type": "xsd:string"
+    },
+    "queueConfigs": {
+      "@id": "aws:queue_configs",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "queueId": {
+      "@id": "aws:queue_id",
+      "@type": "xsd:string"
+    },
+    "queueIds": {
+      "@id": "aws:queue_ids",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "queueInfo": {
+      "@id": "aws:queue_info",
+      "@type": "@id"
+    },
+    "queueReference": {
+      "@id": "aws:queue_reference",
+      "@type": "@id"
+    },
+    "queueSummaryList": {
+      "@id": "aws:queue_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "queueType": {
+      "@id": "aws:queue_type",
+      "@type": "xsd:string"
+    },
+    "queues": {
+      "@id": "aws:queues",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "quickConnectId": {
+      "@id": "aws:quick_connect_id",
+      "@type": "xsd:string"
+    },
+    "references": {
+      "@id": "aws:references",
+      "@type": "@id"
+    },
+    "relatedContactId": {
+      "@id": "aws:related_contact_id",
+      "@type": "xsd:string"
+    },
+    "routingProfile": {
+      "@id": "aws:routing_profile",
+      "@type": "xsd:string"
+    },
+    "routingProfileArn": {
+      "@id": "aws:routing_profile_arn",
+      "@type": "xsd:string"
+    },
+    "routingProfileId": {
+      "@id": "aws:routing_profile_id",
+      "@type": "xsd:string"
+    },
+    "routingProfileSummaryList": {
+      "@id": "aws:routing_profile_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "scheduledTime": {
+      "@id": "aws:scheduled_time",
+      "@type": "xsd:dateTime"
+    },
+    "searchCriteria": {
+      "@id": "aws:search_criteria",
+      "@type": "@id"
+    },
+    "secondaryEmail": {
+      "@id": "aws:secondary_email",
+      "@type": "xsd:string"
+    },
+    "securityProfileIds": {
+      "@id": "aws:security_profile_ids",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "securityProfileSummaryList": {
+      "@id": "aws:security_profile_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "serviceRole": {
+      "@id": "aws:service_role",
+      "@type": "xsd:string"
+    },
+    "sort": {
+      "@id": "aws:sort",
+      "@type": "@id"
+    },
+    "sourcePhoneNumber": {
+      "@id": "aws:source_phone_number",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "aws:start_time",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "aws:state",
+      "@type": "xsd:string"
+    },
+    "statistic": {
+      "@id": "aws:statistic",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "aws:status",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "aws:tags",
+      "@type": "@id"
+    },
+    "taskTemplateId": {
+      "@id": "aws:task_template_id",
+      "@type": "xsd:string"
+    },
+    "timeRange": {
+      "@id": "aws:time_range",
+      "@type": "@id"
+    },
+    "timeZone": {
+      "@id": "aws:time_zone",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "aws:total_count",
+      "@type": "xsd:integer"
+    },
+    "type": {
+      "@id": "aws:type",
+      "@type": "xsd:string"
+    },
+    "unit": {
+      "@id": "aws:unit",
+      "@type": "xsd:string"
+    },
+    "user": {
+      "@id": "aws:user",
+      "@type": "xsd:string"
+    },
+    "userArn": {
+      "@id": "aws:user_arn",
+      "@type": "xsd:string"
+    },
+    "userId": {
+      "@id": "aws:user_id",
+      "@type": "xsd:string"
+    },
+    "userSummaryList": {
+      "@id": "aws:user_summary_list",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "username": {
+      "@id": "aws:username",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "aws:value",
+      "@type": "xsd:decimal"
+    }
   }
 }

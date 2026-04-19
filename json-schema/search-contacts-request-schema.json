@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/search-contacts-request-schema.json",
+  "title": "SearchContactsRequest",
+  "description": "SearchContactsRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "InstanceId": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "TimeRange": {
+      "type": "object",
+      "required": [
+        "EndTime",
+        "StartTime",
+        "Type"
+      ],
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "INITIATION_TIMESTAMP",
+            "SCHEDULED_TIMESTAMP",
+            "CONNECTED_TO_AGENT_TIMESTAMP",
+            "DISCONNECT_TIMESTAMP"
+          ],
+          "example": "INITIATION_TIMESTAMP"
+        },
+        "StartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-03-15T00:00:00Z"
+        },
+        "EndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-03-15T23:59:59Z"
+        }
+      }
+    },
+    "SearchCriteria": {
+      "type": "object",
+      "properties": {
+        "AgentIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "QueueIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MaxResults": {
+      "type": "integer",
+      "description": "The maximum number of results to return.",
+      "example": 50
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "FieldName": {
+          "type": "string"
+        },
+        "Order": {
+          "type": "string",
+          "enum": [
+            "ASCENDING",
+            "DESCENDING"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "InstanceId",
+    "TimeRange"
+  ]
+}

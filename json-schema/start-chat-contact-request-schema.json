@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/start-chat-contact-request-schema.json",
+  "title": "StartChatContactRequest",
+  "description": "StartChatContactRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "InstanceId": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "ContactFlowId": {
+      "type": "string",
+      "description": "The identifier of the contact flow for initiating the chat.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "Attributes": {
+      "type": "object",
+      "description": "A custom key-value pair using an attribute map.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ParticipantDetails": {
+      "type": "object",
+      "required": [
+        "DisplayName"
+      ],
+      "properties": {
+        "DisplayName": {
+          "type": "string",
+          "description": "Display name of the participant.",
+          "example": "Jane Smith"
+        }
+      }
+    },
+    "InitialMessage": {
+      "type": "object",
+      "properties": {
+        "ContentType": {
+          "type": "string",
+          "example": "text/plain"
+        },
+        "Content": {
+          "type": "string",
+          "example": "Hello, I need help with my order."
+        }
+      }
+    },
+    "ClientToken": {
+      "type": "string",
+      "description": "Idempotency token."
+    },
+    "ChatDurationInMinutes": {
+      "type": "integer",
+      "description": "The total duration of the newly started chat session.",
+      "example": 60
+    }
+  },
+  "required": [
+    "ContactFlowId",
+    "InstanceId",
+    "ParticipantDetails"
+  ]
+}

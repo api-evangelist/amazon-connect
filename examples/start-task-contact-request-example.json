@@ -1,0 +1,18 @@
+{
+  "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "PreviousContactId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+  "Attributes": {
+    "key": "value"
+  },
+  "Name": "Follow-up with customer",
+  "References": {
+    "key": "value"
+  },
+  "Description": "Call customer back regarding their support case",
+  "ClientToken": "a1b2c3d4token",
+  "ScheduledTime": "2025-03-15T14:30:00Z",
+  "TaskTemplateId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "QuickConnectId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "RelatedContactId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+}

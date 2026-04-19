@@ -1,0 +1,25 @@
+{
+  "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "TimeRange": {
+    "Type": "INITIATION_TIMESTAMP",
+    "StartTime": "2025-03-15T00:00:00Z",
+    "EndTime": "2025-03-15T23:59:59Z"
+  },
+  "SearchCriteria": {
+    "AgentIds": [
+      "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    ],
+    "QueueIds": [
+      "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    ],
+    "Channels": [
+      "example-value"
+    ]
+  },
+  "MaxResults": 50,
+  "NextToken": "a1b2c3d4token",
+  "Sort": {
+    "FieldName": "Production Firewall 01",
+    "Order": "ASCENDING"
+  }
+}

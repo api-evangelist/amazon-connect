@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/describe-queue-response-structure.json",
+  "name": "DescribeQueueResponse",
+  "description": "DescribeQueueResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Queue": {
+      "$ref": "#/components/schemas/Queue"
+    }
+  }
+}

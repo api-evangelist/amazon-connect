@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/describe-instance-response-structure.json",
+  "name": "DescribeInstanceResponse",
+  "description": "DescribeInstanceResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Instance": {
+      "$ref": "#/components/schemas/Instance"
+    }
+  }
+}

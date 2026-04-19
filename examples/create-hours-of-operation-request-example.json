@@ -1,0 +1,11 @@
+{
+  "Name": "Business Hours",
+  "Description": "A description of the resource.",
+  "TimeZone": "America/New_York",
+  "Config": [
+    "example-value"
+  ],
+  "Tags": {
+    "key": "value"
+  }
+}

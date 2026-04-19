@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/user-schema.json",
+  "title": "User",
+  "description": "Contains information about a user account for an Amazon Connect instance.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the user account.",
+      "example": "500123"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the user account.",
+      "example": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123"
+    },
+    "Username": {
+      "type": "string",
+      "description": "The user name assigned to the user account.",
+      "example": "jsmith"
+    },
+    "IdentityInfo": {
+      "$ref": "#/components/schemas/UserIdentityInfo"
+    },
+    "PhoneConfig": {
+      "$ref": "#/components/schemas/UserPhoneConfig"
+    },
+    "DirectoryUserId": {
+      "type": "string",
+      "description": "The identifier of the user account in the directory service that Amazon Connect uses to authenticate users."
+    },
+    "SecurityProfileIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The identifiers of the security profiles for the user."
+    },
+    "RoutingProfileId": {
+      "type": "string",
+      "description": "The identifier of the routing profile for the user.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    },
+    "HierarchyGroupId": {
+      "type": "string",
+      "description": "The identifier of the hierarchy group for the user."
+    },
+    "Tags": {
+      "type": "object",
+      "description": "The tags.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

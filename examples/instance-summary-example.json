@@ -1,0 +1,9 @@
+{
+  "Id": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "IdentityManagementType": "CONNECT_MANAGED",
+  "InstanceAlias": "my-contact-center",
+  "InstanceStatus": "ACTIVE",
+  "InboundCallsEnabled": true,
+  "OutboundCallsEnabled": true
+}

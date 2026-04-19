@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/hours-of-operation-summary-schema.json",
+  "title": "HoursOfOperationSummary",
+  "description": "Contains summary information about hours of operation for a contact center.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the hours of operation.",
+      "example": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the hours of operation."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the hours of operation.",
+      "example": "Business Hours"
+    }
+  }
+}

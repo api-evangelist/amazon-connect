@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/get-metric-data-request-schema.json",
+  "title": "GetMetricDataRequest",
+  "description": "GetMetricDataRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "StartTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp, in UNIX Epoch time format, at which to start the reporting interval.",
+      "example": "2025-03-15T00:00:00Z"
+    },
+    "EndTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The timestamp, in UNIX Epoch time format, at which to end the reporting interval.",
+      "example": "2025-03-15T23:59:59Z"
+    },
+    "Filters": {
+      "type": "object",
+      "description": "The queues, up to 100, or channels, to use to filter the metrics returned.",
+      "properties": {
+        "Queues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "VOICE",
+              "CHAT",
+              "TASK"
+            ]
+          }
+        }
+      }
+    },
+    "Groupings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "QUEUE",
+          "CHANNEL",
+          "ROUTING_PROFILE",
+          "ROUTING_STEP_EXPRESSION"
+        ]
+      }
+    },
+    "HistoricalMetrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "The name of the metric.",
+            "enum": [
+              "CONTACTS_QUEUED",
+              "CONTACTS_HANDLED",
+              "CONTACTS_ABANDONED",
+              "CONTACTS_CONSULTED",
+              "CONTACTS_AGENT_HUNG_UP_FIRST",
+              "CONTACTS_HANDLED_INCOMING",
+              "CONTACTS_HANDLED_OUTBOUND",
+              "CONTACTS_HOLD_ABANDONS",
+              "CONTACTS_TRANSFERRED_IN",
+              "CONTACTS_TRANSFERRED_OUT",
+              "CONTACTS_TRANSFERRED_IN_FROM_QUEUE",
+              "CONTACTS_TRANSFERRED_OUT_FROM_QUEUE",
+              "CONTACTS_MISSED",
+              "CALLBACK_CONTACTS_HANDLED",
+              "HANDLE_TIME",
+              "AFTER_CONTACT_WORK_TIME",
+              "QUEUED_TIME",
+              "ABANDON_TIME",
+              "QUEUE_ANSWER_TIME",
+              "HOLD_TIME",
+              "INTERACTION_TIME",
+              "INTERACTION_AND_HOLD_TIME",
+              "SERVICE_LEVEL"
+            ]
+          },
+          "Unit": {
+            "type": "string",
+            "enum": [
+              "SECONDS",
+              "COUNT",
+              "PERCENT"
+            ]
+          },
+          "Statistic": {
+            "type": "string",
+            "enum": [
+              "SUM",
+              "MAX",
+              "AVG"
+            ]
+          }
+        }
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "MaxResults": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "EndTime",
+    "Filters",
+    "HistoricalMetrics",
+    "StartTime"
+  ]
+}

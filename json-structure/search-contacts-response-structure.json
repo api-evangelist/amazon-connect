@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/search-contacts-response-structure.json",
+  "name": "SearchContactsResponse",
+  "description": "SearchContactsResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Contacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ContactSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "TotalCount": {
+      "type": "int32",
+      "description": "The total count of the search result."
+    }
+  }
+}

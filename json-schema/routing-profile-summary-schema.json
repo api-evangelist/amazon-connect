@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/routing-profile-summary-schema.json",
+  "title": "RoutingProfileSummary",
+  "description": "Contains summary information about a routing profile.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the routing profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the routing profile."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the routing profile.",
+      "example": "Basic Routing Profile"
+    }
+  }
+}

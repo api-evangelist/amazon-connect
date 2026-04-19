@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/describe-user-response-structure.json",
+  "name": "DescribeUserResponse",
+  "description": "DescribeUserResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "User": {
+      "$ref": "#/components/schemas/User"
+    }
+  }
+}

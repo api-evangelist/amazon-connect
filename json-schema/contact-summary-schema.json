@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/contact-summary-schema.json",
+  "title": "ContactSummary",
+  "description": "Contains summary information about a contact.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the contact.",
+      "example": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The ARN of the contact."
+    },
+    "Channel": {
+      "type": "string",
+      "description": "How the contact reached your contact center.",
+      "enum": [
+        "VOICE",
+        "CHAT",
+        "TASK",
+        "EMAIL"
+      ],
+      "example": "VOICE"
+    },
+    "InitiationMethod": {
+      "type": "string",
+      "description": "Indicates how the contact was initiated.",
+      "example": "INBOUND"
+    },
+    "InitiationTimestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "DisconnectTimestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

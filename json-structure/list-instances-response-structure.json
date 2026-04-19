@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/list-instances-response-structure.json",
+  "name": "ListInstancesResponse",
+  "description": "ListInstancesResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "InstanceSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/InstanceSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string",
+      "description": "If there are additional results, this is the token for the next set."
+    }
+  }
+}

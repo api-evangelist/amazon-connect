@@ -1,0 +1,21 @@
+{
+  "Name": "Voice Agents",
+  "Description": "Routing profile for voice agents",
+  "DefaultOutboundQueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+  "QueueConfigs": [
+    {
+      "QueueReference": {
+        "QueueId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "Channel": "example-value"
+      },
+      "Priority": 0,
+      "Delay": 0
+    }
+  ],
+  "MediaConcurrencies": [
+    "example-value"
+  ],
+  "Tags": {
+    "key": "value"
+  }
+}

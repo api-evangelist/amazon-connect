@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/list-hours-of-operations-response-schema.json",
+  "title": "ListHoursOfOperationsResponse",
+  "description": "ListHoursOfOperationsResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "HoursOfOperationSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/HoursOfOperationSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

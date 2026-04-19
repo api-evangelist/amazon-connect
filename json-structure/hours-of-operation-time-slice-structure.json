@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/hours-of-operation-time-slice-structure.json",
+  "name": "HoursOfOperationTimeSlice",
+  "description": "The start or end time of an hours of operation.",
+  "type": "object",
+  "properties": {
+    "Hours": {
+      "type": "int32",
+      "description": "The hours.",
+      "minimum": 0,
+      "maximum": 23,
+      "example": 9
+    },
+    "Minutes": {
+      "type": "int32",
+      "description": "The minutes.",
+      "minimum": 0,
+      "maximum": 59,
+      "example": 0
+    }
+  },
+  "required": [
+    "Hours",
+    "Minutes"
+  ]
+}

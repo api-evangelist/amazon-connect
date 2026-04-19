@@ -1,0 +1,14 @@
+{
+  "NextToken": "a1b2c3d4token",
+  "MetricResults": [
+    {
+      "Dimensions": {
+        "Queue": {},
+        "Channel": "example-value"
+      },
+      "Collections": [
+        {}
+      ]
+    }
+  ]
+}

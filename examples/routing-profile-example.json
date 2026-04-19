@@ -1,0 +1,16 @@
+{
+  "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Name": "Voice Agents",
+  "RoutingProfileArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "RoutingProfileId": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+  "Description": "A description of the resource.",
+  "MediaConcurrencies": [
+    "example-value"
+  ],
+  "DefaultOutboundQueueId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Tags": {
+    "key": "value"
+  },
+  "NumberOfAssociatedQueues": 0,
+  "NumberOfAssociatedUsers": 0
+}

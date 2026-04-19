@@ -1,0 +1,8 @@
+{
+  "Id": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+  "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "Channel": "VOICE",
+  "InitiationMethod": "INBOUND",
+  "InitiationTimestamp": "2025-03-15T14:30:00Z",
+  "DisconnectTimestamp": "2025-03-15T14:30:00Z"
+}

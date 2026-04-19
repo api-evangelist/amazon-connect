@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/list-contact-flows-response-structure.json",
+  "name": "ListContactFlowsResponse",
+  "description": "ListContactFlowsResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "ContactFlowSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ContactFlowSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

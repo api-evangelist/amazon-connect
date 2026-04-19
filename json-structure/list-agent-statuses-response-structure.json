@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/list-agent-statuses-response-structure.json",
+  "name": "ListAgentStatusesResponse",
+  "description": "ListAgentStatusesResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "AgentStatusSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AgentStatusSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

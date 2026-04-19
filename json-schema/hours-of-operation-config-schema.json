@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/hours-of-operation-config-schema.json",
+  "title": "HoursOfOperationConfig",
+  "description": "Contains information about the hours of operation.",
+  "type": "object",
+  "properties": {
+    "Day": {
+      "type": "string",
+      "description": "The day that the hours of operation applies to.",
+      "enum": [
+        "SUNDAY",
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY"
+      ],
+      "example": "MONDAY"
+    },
+    "StartTime": {
+      "$ref": "#/components/schemas/HoursOfOperationTimeSlice"
+    },
+    "EndTime": {
+      "$ref": "#/components/schemas/HoursOfOperationTimeSlice"
+    }
+  },
+  "required": [
+    "Day",
+    "StartTime",
+    "EndTime"
+  ]
+}

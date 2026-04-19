@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/create-contact-flow-request-schema.json",
+  "title": "CreateContactFlowRequest",
+  "description": "CreateContactFlowRequest schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the contact flow.",
+      "example": "My Contact Flow"
+    },
+    "Type": {
+      "type": "string",
+      "description": "The type of the contact flow.",
+      "enum": [
+        "CONTACT_FLOW",
+        "CUSTOMER_QUEUE",
+        "CUSTOMER_HOLD",
+        "CUSTOMER_WHISPER",
+        "AGENT_HOLD",
+        "AGENT_WHISPER",
+        "OUTBOUND_WHISPER",
+        "AGENT_TRANSFER",
+        "QUEUE_TRANSFER"
+      ],
+      "example": "CONTACT_FLOW"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the contact flow."
+    },
+    "Content": {
+      "type": "string",
+      "description": "The content of the contact flow."
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "Content",
+    "Name",
+    "Type"
+  ]
+}

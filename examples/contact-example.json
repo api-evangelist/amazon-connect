@@ -1,0 +1,19 @@
+{
+  "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "Id": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+  "InitialContactId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "PreviousContactId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Channel": "VOICE",
+  "QueueInfo": {
+    "Id": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "EnqueueTimestamp": "2025-03-15T14:30:00Z"
+  },
+  "AgentInfo": {
+    "Id": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+    "ConnectedToAgentTimestamp": "2025-03-15T14:30:00Z"
+  },
+  "InitiationMethod": "INBOUND",
+  "InitiationTimestamp": "2025-03-15T14:30:00Z",
+  "DisconnectTimestamp": "2025-03-15T14:30:00Z",
+  "LastUpdateTimestamp": "2025-03-15T14:30:00Z"
+}

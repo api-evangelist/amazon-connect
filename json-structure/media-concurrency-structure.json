@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/media-concurrency-structure.json",
+  "name": "MediaConcurrency",
+  "description": "Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.",
+  "type": "object",
+  "properties": {
+    "Channel": {
+      "type": "string",
+      "description": "The channels that agents can handle in the Contact Control Panel (CCP).",
+      "enum": [
+        "VOICE",
+        "CHAT",
+        "TASK",
+        "EMAIL"
+      ],
+      "example": "VOICE"
+    },
+    "Concurrency": {
+      "type": "int32",
+      "description": "The number of contacts an agent can have on a channel simultaneously.",
+      "minimum": 1,
+      "maximum": 10,
+      "example": 1
+    }
+  },
+  "required": [
+    "Channel",
+    "Concurrency"
+  ]
+}

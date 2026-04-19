@@ -1,0 +1,24 @@
+{
+  "StartTime": "2025-03-15T00:00:00Z",
+  "EndTime": "2025-03-15T23:59:59Z",
+  "Filters": {
+    "Queues": [
+      "example-value"
+    ],
+    "Channels": [
+      "VOICE"
+    ]
+  },
+  "Groupings": [
+    "QUEUE"
+  ],
+  "HistoricalMetrics": [
+    {
+      "Name": "CONTACTS_QUEUED",
+      "Unit": "SECONDS",
+      "Statistic": "SUM"
+    }
+  ],
+  "NextToken": "a1b2c3d4token",
+  "MaxResults": 0
+}

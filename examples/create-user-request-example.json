@@ -1,0 +1,15 @@
+{
+  "Username": "jsmith",
+  "Password": "TempPass123!",
+  "IdentityInfo": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "PhoneConfig": "+12065551212",
+  "DirectoryUserId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "SecurityProfileIds": [
+    "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+  ],
+  "RoutingProfileId": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+  "HierarchyGroupId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Tags": {
+    "key": "value"
+  }
+}

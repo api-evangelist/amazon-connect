@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-schema/user-identity-info-schema.json",
+  "title": "UserIdentityInfo",
+  "description": "Contains information about the identity of a user.",
+  "type": "object",
+  "properties": {
+    "FirstName": {
+      "type": "string",
+      "description": "The first name.",
+      "example": "Jane"
+    },
+    "LastName": {
+      "type": "string",
+      "description": "The last name.",
+      "example": "Smith"
+    },
+    "Email": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address.",
+      "example": "jsmith@example.com"
+    },
+    "SecondaryEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "The secondary email address."
+    },
+    "Mobile": {
+      "type": "string",
+      "description": "The user's mobile number."
+    }
+  }
+}

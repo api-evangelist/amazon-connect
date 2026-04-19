@@ -1,0 +1,13 @@
+{
+  "Id": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4",
+  "IdentityManagementType": "SAML",
+  "InstanceAlias": "Production Firewall 01",
+  "CreatedTime": "2025-03-15T14:30:00Z",
+  "ServiceRole": "example-value",
+  "InstanceStatus": "CREATION_IN_PROGRESS",
+  "InboundCallsEnabled": true,
+  "OutboundCallsEnabled": true,
+  "User": "example-value",
+  "Queue": "example-value"
+}

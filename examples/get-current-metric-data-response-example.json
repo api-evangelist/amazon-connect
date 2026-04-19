@@ -1,0 +1,12 @@
+{
+  "NextToken": "a1b2c3d4token",
+  "MetricResults": [
+    {
+      "Dimensions": {},
+      "Collections": [
+        {}
+      ]
+    }
+  ],
+  "DataSnapshotTime": "2025-03-15T14:30:00Z"
+}

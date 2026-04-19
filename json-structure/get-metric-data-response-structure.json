@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/get-metric-data-response-structure.json",
+  "name": "GetMetricDataResponse",
+  "description": "GetMetricDataResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "NextToken": {
+      "type": "string"
+    },
+    "MetricResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Dimensions": {
+            "type": "object",
+            "properties": {
+              "Queue": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "Arn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Channel": {
+                "type": "string"
+              }
+            }
+          },
+          "Collections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Metric": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Unit": {
+                      "type": "string"
+                    },
+                    "Statistic": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "Value": {
+                  "type": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

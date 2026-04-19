@@ -1,0 +1,16 @@
+{
+  "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+  "Attributes": {
+    "key": "value"
+  },
+  "ParticipantDetails": {
+    "DisplayName": "Jane Smith"
+  },
+  "InitialMessage": {
+    "ContentType": "text/plain",
+    "Content": "Hello, I need help with my order."
+  },
+  "ClientToken": "a1b2c3d4token",
+  "ChatDurationInMinutes": 60
+}

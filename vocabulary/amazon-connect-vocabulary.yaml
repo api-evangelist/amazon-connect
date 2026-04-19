@@ -1,0 +1,551 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Amazon Connect
+  description: >-
+    Complete taxonomy of the Amazon Connect contact center platform, covering
+    the operational dimension (APIs, resources, actions, schemas) and the
+    capability dimension (workflows, personas, and domains).
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: connect
+      label: Amazon Connect Service API
+      version: "2017-08-08"
+      baseUrl: https://connect.amazonaws.com
+      status: active
+    - namespace: contact-lens
+      label: Amazon Connect Contact Lens API
+      version: "2020-08-21"
+      baseUrl: https://contact-lens.amazonaws.com
+      status: active
+    - namespace: app-integrations
+      label: Amazon AppIntegrations API
+      version: "2020-07-29"
+      baseUrl: https://app-integrations.amazonaws.com
+      status: active
+    - namespace: connect-cases
+      label: Amazon Connect Cases API
+      version: "2022-10-03"
+      baseUrl: https://cases.amazonaws.com
+      status: active
+    - namespace: connect-participant
+      label: Amazon Connect Participant Service API
+      version: "2018-09-07"
+      baseUrl: https://participant.connect.amazonaws.com
+      status: active
+    - namespace: customer-profiles
+      label: Amazon Connect Customer Profiles API
+      version: "2020-08-15"
+      baseUrl: https://profile.profile.amazonaws.com
+      status: active
+    - namespace: amazon-q-connect
+      label: Amazon Q Connect API
+      version: "2020-10-19"
+      baseUrl: https://wisdom.amazonaws.com
+      status: active
+    - namespace: outbound-campaigns
+      label: Amazon Connect Outbound Campaigns API
+      version: "2021-01-30"
+      baseUrl: https://connect-campaigns.amazonaws.com
+      status: active
+    - namespace: voice-id
+      label: Amazon Voice ID API
+      version: "2021-09-27"
+      baseUrl: https://voiceid.amazonaws.com
+      status: deprecated
+
+  resources:
+    - name: instances
+      description: Amazon Connect contact center instances
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - delete
+    - name: users
+      description: Agent user accounts within Amazon Connect instances
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - delete
+        - update
+    - name: queues
+      description: Contact queues for routing and holding contacts
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - delete
+        - update
+    - name: routing-profiles
+      description: Agent routing profiles defining channel concurrency and queue priority
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - delete
+        - update
+    - name: contact-flows
+      description: Automated contact handling flows for IVR and routing logic
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - delete
+        - update
+    - name: hours-of-operations
+      description: Business hours configuration for queues and contact centers
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - update
+    - name: agent-statuses
+      description: Agent availability states such as Available, Offline, and custom statuses
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - update
+    - name: security-profiles
+      description: Permission sets controlling agent access within Amazon Connect
+      apis:
+        - connect
+      actions:
+        - list
+        - create
+        - describe
+        - update
+    - name: contacts
+      description: Individual contact interactions (voice, chat, task, email)
+      apis:
+        - connect
+      actions:
+        - describe
+        - search
+        - start
+        - stop
+        - update
+    - name: metrics
+      description: Real-time and historical performance metrics
+      apis:
+        - connect
+      actions:
+        - get-current
+        - get-historical
+    - name: cases
+      description: Customer issue cases tracked across multiple interactions
+      apis:
+        - connect-cases
+      actions:
+        - list
+        - create
+        - describe
+        - update
+    - name: customer-profiles
+      description: Unified customer profiles aggregating data from CRM and contact history
+      apis:
+        - customer-profiles
+      actions:
+        - list
+        - create
+        - describe
+        - update
+        - search
+
+  actions:
+    - name: list
+      description: Retrieve a paginated collection of resources
+      httpMethod: GET
+      pattern: read
+    - name: create
+      description: Create a new resource
+      httpMethod: POST
+      pattern: write
+    - name: describe
+      description: Retrieve detailed information about a single resource
+      httpMethod: GET
+      pattern: read
+    - name: delete
+      description: Remove a resource permanently
+      httpMethod: DELETE
+      pattern: destructive
+    - name: update
+      description: Modify an existing resource
+      httpMethod: POST
+      pattern: write
+    - name: search
+      description: Query resources using filters and criteria
+      httpMethod: POST
+      pattern: query
+    - name: start
+      description: Initiate a new contact interaction
+      httpMethod: POST
+      pattern: write
+    - name: stop
+      description: End an active contact interaction
+      httpMethod: POST
+      pattern: write
+    - name: get-current
+      description: Retrieve real-time metrics
+      httpMethod: POST
+      pattern: query
+    - name: get-historical
+      description: Retrieve historical metrics for a time range
+      httpMethod: POST
+      pattern: query
+
+  schemas:
+    core:
+      - name: Instance
+        description: An Amazon Connect contact center instance
+        keyProperties:
+          - Id
+          - Arn
+          - InstanceAlias
+          - InstanceStatus
+          - InboundCallsEnabled
+          - OutboundCallsEnabled
+      - name: User
+        description: An agent user account in Amazon Connect
+        keyProperties:
+          - Id
+          - Username
+          - IdentityInfo
+          - PhoneConfig
+          - RoutingProfileId
+          - SecurityProfileIds
+      - name: Queue
+        description: A contact queue for routing and holding contacts
+        keyProperties:
+          - QueueId
+          - Name
+          - Status
+          - HoursOfOperationId
+          - MaxContacts
+      - name: Contact
+        description: A single contact interaction
+        keyProperties:
+          - Id
+          - Channel
+          - InitiationMethod
+          - AgentInfo
+          - QueueInfo
+          - InitiationTimestamp
+    routing:
+      - name: RoutingProfile
+        description: Agent routing configuration with channel concurrency settings
+        keyProperties:
+          - RoutingProfileId
+          - Name
+          - DefaultOutboundQueueId
+          - MediaConcurrencies
+      - name: MediaConcurrency
+        description: Channel concurrency settings for a routing profile
+        keyProperties:
+          - Channel
+          - Concurrency
+    analytics:
+      - name: GetMetricDataRequest
+        description: Request for historical metrics
+        keyProperties:
+          - StartTime
+          - EndTime
+          - Filters
+          - HistoricalMetrics
+      - name: GetCurrentMetricDataRequest
+        description: Request for real-time metrics
+        keyProperties:
+          - Filters
+          - CurrentMetrics
+
+  parameters:
+    pagination:
+      - name: nextToken
+        description: Token for retrieving the next page of results
+        type: string
+      - name: maxResults
+        description: Maximum number of results to return per page
+        type: integer
+    identifiers:
+      - name: InstanceId
+        description: Unique identifier of an Amazon Connect instance
+        type: string
+      - name: UserId
+        description: Unique identifier of a user/agent
+        type: string
+      - name: QueueId
+        description: Unique identifier of a queue
+        type: string
+      - name: ContactId
+        description: Unique identifier of a contact interaction
+        type: string
+      - name: RoutingProfileId
+        description: Unique identifier of a routing profile
+        type: string
+      - name: ContactFlowId
+        description: Unique identifier of a contact flow
+        type: string
+    filters:
+      - name: queueTypes
+        description: Filter queues by type (STANDARD or AGENT)
+        type: array
+      - name: contactFlowTypes
+        description: Filter contact flows by type
+        type: array
+      - name: agentStatusTypes
+        description: Filter agent statuses by type
+        type: array
+
+  enums:
+    channels:
+      - VOICE
+      - CHAT
+      - TASK
+      - EMAIL
+    initiationMethods:
+      - INBOUND
+      - OUTBOUND
+      - TRANSFER
+      - QUEUE_TRANSFER
+      - CALLBACK
+      - API
+    instanceStatus:
+      - CREATION_IN_PROGRESS
+      - ACTIVE
+      - CREATION_FAILED
+    identityManagementType:
+      - SAML
+      - CONNECT_MANAGED
+      - EXISTING_DIRECTORY
+    phoneType:
+      - SOFT_PHONE
+      - DESK_PHONE
+    contactFlowType:
+      - CONTACT_FLOW
+      - CUSTOMER_QUEUE
+      - CUSTOMER_HOLD
+      - CUSTOMER_WHISPER
+      - AGENT_HOLD
+      - AGENT_WHISPER
+      - OUTBOUND_WHISPER
+      - AGENT_TRANSFER
+      - QUEUE_TRANSFER
+    queueType:
+      - STANDARD
+      - AGENT
+    queueStatus:
+      - ENABLED
+      - DISABLED
+    agentStatusType:
+      - ROUTABLE
+      - CUSTOM
+      - OFFLINE
+    contactFlowState:
+      - ACTIVE
+      - ARCHIVED
+    metricUnit:
+      - SECONDS
+      - COUNT
+      - PERCENT
+    metricStatistic:
+      - SUM
+      - MAX
+      - AVG
+    daysOfWeek:
+      - SUNDAY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+
+  authentication:
+    schemes:
+      - name: AWS Signature Version 4
+        type: bearer
+        description: >-
+          All Amazon Connect API requests must be authenticated using
+          AWS Signature Version 4 with IAM credentials that have the
+          appropriate Amazon Connect permissions.
+        requiredPermissions:
+          - connect:ListInstances
+          - connect:DescribeInstance
+          - connect:ListUsers
+          - connect:DescribeUser
+          - connect:ListQueues
+          - connect:ListContactFlows
+          - connect:GetCurrentMetricData
+          - connect:GetMetricData
+
+capability:
+  workflows:
+    - name: Contact Center Operations
+      file: capabilities/contact-center-operations.yaml
+      description: >-
+        Unified workflow for managing and monitoring the Amazon Connect contact
+        center, combining instance administration, agent management, queue
+        configuration, and real-time/historical metrics.
+      apisCombined:
+        - Amazon Connect Service API
+      toolCount: 13
+      personas:
+        - Contact Center Administrator
+        - Contact Center Supervisor
+        - Operations Team
+
+  personas:
+    - id: contact-center-admin
+      name: Contact Center Administrator
+      description: >-
+        Responsible for configuring and managing the Amazon Connect instance,
+        including users, queues, routing profiles, and contact flows.
+      workflows:
+        - Contact Center Operations
+
+    - id: contact-center-supervisor
+      name: Contact Center Supervisor
+      description: >-
+        Monitors agent activity, queue health, and contact center performance
+        using real-time and historical metrics dashboards.
+      workflows:
+        - Contact Center Operations
+
+    - id: operations-team
+      name: Operations Team
+      description: >-
+        Manages day-to-day contact center operations including agent status,
+        contact handling, and performance reporting.
+      workflows:
+        - Contact Center Operations
+
+  domains:
+    - name: Instance Management
+      description: Configuration and lifecycle management of Amazon Connect instances
+      resources:
+        - instances
+    - name: Agent Management
+      description: User/agent account management and workforce administration
+      resources:
+        - users
+    - name: Routing Configuration
+      description: Queue, routing profile, and contact flow configuration for intelligent routing
+      resources:
+        - queues
+        - routing-profiles
+        - contact-flows
+        - hours-of-operations
+    - name: Contact Handling
+      description: Initiation, management, and search of contact interactions
+      resources:
+        - contacts
+    - name: Analytics and Monitoring
+      description: Real-time and historical performance metrics and reporting
+      resources:
+        - metrics
+
+  namespaces:
+    - name: connect
+      type: consumed
+      baseUri: https://connect.amazonaws.com
+    - name: connect-service-api
+      type: rest-exposed
+      port: 8100
+    - name: connect-service-mcp
+      type: mcp-exposed
+      port: 9100
+    - name: contact-center-api
+      type: rest-exposed
+      port: 8080
+    - name: contact-center-mcp
+      type: mcp-exposed
+      port: 9090
+
+  binds:
+    - name: AWS_ACCESS_KEY_ID
+      description: AWS IAM access key ID for authentication
+      workflows:
+        - Contact Center Operations
+    - name: AWS_SECRET_ACCESS_KEY
+      description: AWS IAM secret access key for authentication
+      workflows:
+        - Contact Center Operations
+    - name: AWS_SESSION_TOKEN
+      description: AWS STS session token for temporary credentials
+      workflows:
+        - Contact Center Operations
+
+crossReference:
+  - resource: instances
+    operations:
+      - list-instances
+      - create-instance
+      - describe-instance
+      - delete-instance
+    workflows:
+      - Contact Center Operations
+    personas:
+      - Contact Center Administrator
+  - resource: users
+    operations:
+      - list-users
+      - create-user
+      - describe-user
+      - delete-user
+      - update-user
+    workflows:
+      - Contact Center Operations
+    personas:
+      - Contact Center Administrator
+      - Contact Center Supervisor
+  - resource: queues
+    operations:
+      - list-queues
+      - create-queue
+      - describe-queue
+      - delete-queue
+    workflows:
+      - Contact Center Operations
+    personas:
+      - Contact Center Administrator
+      - Contact Center Supervisor
+  - resource: contacts
+    operations:
+      - describe-contact
+      - search-contacts
+      - start-chat-contact
+      - start-outbound-voice-contact
+      - stop-contact
+    workflows:
+      - Contact Center Operations
+    personas:
+      - Contact Center Supervisor
+      - Operations Team
+  - resource: metrics
+    operations:
+      - get-current-metric-data
+      - get-metric-data
+    workflows:
+      - Contact Center Operations
+    personas:
+      - Contact Center Supervisor
+      - Operations Team

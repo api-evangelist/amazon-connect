@@ -1,0 +1,11 @@
+{
+  "DestinationPhoneNumber": "+12065551212",
+  "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+  "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+  "ClientToken": "a1b2c3d4token",
+  "SourcePhoneNumber": "+12065551212",
+  "QueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+  "Attributes": {
+    "key": "value"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/json-structure/create-routing-profile-response-structure.json",
+  "name": "CreateRoutingProfileResponse",
+  "description": "CreateRoutingProfileResponse schema from Amazon Connect Service API",
+  "type": "object",
+  "properties": {
+    "RoutingProfileArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the routing profile."
+    },
+    "RoutingProfileId": {
+      "type": "string",
+      "description": "The identifier of the routing profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    }
+  }
+}
