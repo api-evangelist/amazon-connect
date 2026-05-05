@@ -1,0 +1,13 @@
+{
+  "repo": "amazon-connect",
+  "feeds": [
+    {
+      "source": "https://aws.amazon.com/blogs/contact-center/",
+      "feed_url": "https://aws.amazon.com/blogs/contact-center/feed/",
+      "saved": 10,
+      "title": "AWS Contact Center"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:20:45Z"
+}
