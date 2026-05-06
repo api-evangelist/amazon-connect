@@ -4,136 +4,171 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Amazon Connect
 providerId: amazon-connect
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AWS
-  - Chat
+  - Cloud
   - Contact Center
-  - Customer Service
-  - Voice
-  - AI
-  - Omnichannel
+  - Customer Engagement
+  - AWS
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Amazon Connect API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Amazon Connect API throttling is enforced per AWS account and per Region, not per user or
+  instance. The default Connect Service API rate is 2 RPS with a burst of 5 RPS, with per-API exceptions
+  documented (metric, contact, integration, and search APIs have higher limits). Contact Lens, Cases,
+  Customer Profiles, Voice ID, AI Agents, Outbound Campaigns, and Participant APIs each publish their
+  own throttling tables. Most quotas are adjustable via AWS Service Quotas requests; small increases approve
+  in hours, larger increases can take up to three weeks. Resource-level quotas (users, queues, concurrent
+  calls/chats) are per-instance.
+sources:
+  - https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttledLegacy: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Connect Service API (default)
+    scope: account/region
+    metric: requests_per_second
+    limit: 2
+    timeFrame: second
+    notes: Default RateLimit for most operations; BurstLimit 5. Exceptions documented per API.
+  - name: GetMetricData
+    scope: account/region
+    metric: requests_per_second
+    limit: 5
+    timeFrame: second
+    notes: BurstLimit 8.
+  - name: GetMetricDataV2
+    scope: account/region
+    metric: requests_per_second
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Amazon Connect Service API
-      - Amazon Connect Streams SDK
-      - Amazon AppIntegrations API
-      - Amazon Connect Contact Lens API
-      - Amazon Connect Outbound Campaigns API
-      - Amazon Connect Outbound Campaigns V2 API
-      - Amazon Connect Cases API
-      - Amazon Connect Participant Service API
-      - Amazon Connect Customer Profiles API
-      - Amazon Q Connect API
-      - Amazon Voice ID API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Amazon Connect Service API
-      - Amazon Connect Streams SDK
-      - Amazon AppIntegrations API
-      - Amazon Connect Contact Lens API
-      - Amazon Connect Outbound Campaigns API
-      - Amazon Connect Outbound Campaigns V2 API
-      - Amazon Connect Cases API
-      - Amazon Connect Participant Service API
-      - Amazon Connect Customer Profiles API
-      - Amazon Q Connect API
-      - Amazon Voice ID API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    timeFrame: second
+    notes: BurstLimit 10.
+  - name: GetCurrentMetricData
+    scope: account/region
+    metric: requests_per_second
+    limit: 5
+    timeFrame: second
+    notes: BurstLimit 8.
+  - name: SearchContacts
+    scope: account/region
+    metric: requests_per_second
+    limit: 0.5
+    timeFrame: second
+    notes: BurstLimit 1.
+  - name: Contact attribute / lifecycle APIs
+    scope: account/region
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: GetContactAttributes, UpdateContactAttributes, DescribeContact, StopContact, UpdateContact,
+      ListContactReferences, BatchPutContact - BurstLimit 15.
+  - name: Tag / Untag / UpdateContactRoutingData
+    scope: account/region
+    metric: requests_per_second
+    limit: 20
+    timeFrame: second
+    notes: TagContact / UntagContact BurstLimit 25; UpdateContactRoutingData BurstLimit 20.
+  - name: Evaluations actions
+    scope: account/region
+    metric: requests_per_second
+    limit: 1
+    timeFrame: second
+  - name: Connect AI Agents (default)
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: 10 TPS default with per-API exceptions.
+  - name: Customer Profiles (write)
+    scope: account
+    metric: requests_per_second
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Amazon Connect Service API
-      - Amazon Connect Streams SDK
-      - Amazon AppIntegrations API
-      - Amazon Connect Contact Lens API
-      - Amazon Connect Outbound Campaigns API
-      - Amazon Connect Outbound Campaigns V2 API
-      - Amazon Connect Cases API
-      - Amazon Connect Participant Service API
-      - Amazon Connect Customer Profiles API
-      - Amazon Q Connect API
-      - Amazon Voice ID API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Amazon Connect Service API
-      - Amazon Connect Streams SDK
-      - Amazon AppIntegrations API
-      - Amazon Connect Contact Lens API
-      - Amazon Connect Outbound Campaigns API
-      - Amazon Connect Outbound Campaigns V2 API
-      - Amazon Connect Cases API
-      - Amazon Connect Participant Service API
-      - Amazon Connect Customer Profiles API
-      - Amazon Q Connect API
-      - Amazon Voice ID API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
+    timeFrame: second
+    notes: SearchProfiles, ListProfileObjects, CreateProfile, UpdateProfile, MergeProfiles, etc. = 100
+      TPS. Domain CRUD APIs = 1-5 TPS.
+  - name: Concurrent active calls per instance
+    scope: instance
+    metric: concurrent_requests
+    limit: 10
+    notes: PSTN + WebRTC; adjustable.
+  - name: Concurrent active chats per instance
+    scope: instance
+    metric: concurrent_requests
+    limit: 500
+    notes: Includes SMS, WhatsApp, Apple Messages for Business; idle chats count - use persistent chat
+      to avoid this.
+  - name: Concurrent active emails per instance
+    scope: instance
+    metric: concurrent_requests
     limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Amazon Connect Service API
-      - Amazon Connect Streams SDK
-      - Amazon AppIntegrations API
-      - Amazon Connect Contact Lens API
-      - Amazon Connect Outbound Campaigns API
-      - Amazon Connect Outbound Campaigns V2 API
-      - Amazon Connect Cases API
-      - Amazon Connect Participant Service API
-      - Amazon Connect Customer Profiles API
-      - Amazon Q Connect API
-      - Amazon Voice ID API
+    notes: Adjustable.
+  - name: Concurrent active tasks per instance
+    scope: instance
+    metric: concurrent_requests
+    limit: 2500
+    notes: Adjustable.
+  - name: Users per instance
+    scope: instance
+    metric: count
+    limit: 500
+    notes: Adjustable.
+  - name: Phone numbers per instance
+    scope: instance
+    metric: count
+    limit: 5
+    notes: Adjustable.
+  - name: Connect Cases - GetCase
+    scope: account
+    metric: requests_per_second
+    limit: 4
+    timeFrame: second
+    notes: BurstLimit 10.
+  - name: Connect Cases - default
+    scope: account
+    metric: requests_per_second
+    limit: 2
+    timeFrame: second
+    notes: BurstLimit 10 for create/list APIs; 2 for update.
+  - name: Voice ID - EvaluateSession
+    scope: account
+    metric: requests_per_second
+    limit: 60
+    timeFrame: second
+  - name: Outbound Campaigns - default
+    scope: account/region
+    metric: requests_per_second
+    limit: 2
+    timeFrame: second
+    notes: BurstLimit 5; campaign-mutation APIs limited to 1 RPS / Burst 2; DescribeCampaign 25/35.
+  - name: Participant Service - SendEvent / SendMessage
+    scope: instance
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: BurstLimit 15.
+  - name: Contact Lens - ListRealtimeContactAnalysisSegmentsV2
+    scope: account
+    metric: requests_per_second
+    limit: 2
+    timeFrame: second
+    notes: BurstLimit 5.
 policies:
+  - name: Per-Account/Region Throttle Bucket
+    description: Throttling is shared across all users and instances inside the same AWS account and Region;
+      requests across instances share the same bucket.
+  - name: Service Quotas Adjustment
+    description: Most quotas are adjustable via AWS Service Quotas. Small increases approve in hours;
+      larger or worldwide increases can take up to three weeks. Open a quota-increase request before going
+      live.
+  - name: Resource vs Account Quotas
+    description: Resource-level quotas (users, queues, concurrent calls/chats/emails) apply per Connect
+      instance. Account-level quotas (API TPS, instance count) apply across instances in a Region.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+    description: Implement exponential backoff with jitter on 429/503 throttling responses; AWS SDKs handle
+      this by default.
+  - name: Plan Ahead
+    description: Configure CloudWatch alerts at 80% of quota limits; coordinate with AWS support before
+      production go-live for capacity planning.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

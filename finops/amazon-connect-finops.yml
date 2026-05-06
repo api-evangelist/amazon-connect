@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,210 +9,113 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Amazon Connect
 providerId: amazon-connect
-publisherName: Amazon Connect
-serviceCategory: API
+publisherName: Amazon Web Services, Inc.
+serviceCategory: Contact Center
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AWS
-  - Chat
+  - Cloud
   - Contact Center
-  - Customer Service
-  - Voice
+  - Customer Engagement
   - AI
-  - Omnichannel
+  - AWS
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Amazon Connect API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: 'FOCUS-aligned FinOps for Amazon Connect: pure pay-as-you-go billing per channel-minute or
+  channel-message, with included AI capabilities and no seat-based licensing. Charges flow through the
+  AWS invoice and Cost Explorer / FOCUS-formatted Cost & Usage Reports. Per-minute / per-message rates
+  vary by region and third-party telephony provider; carrier and PSTN charges are billed in addition to
+  channel rates.'
+sources:
+  - https://aws.amazon.com/connect/pricing/
+  - https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html
+  - https://focus.finops.org/focus-specification/v1-3/
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Pay-As-You-Go
   billingFrequency: Monthly
-  billingCurrency: USD
+  billingCurrency: USD (settlement varies)
   chargeCategories:
     - Usage
-    - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Refund
+    - Credit
 focusColumns:
   ServiceName: Amazon Connect
-  ServiceCategory: Developer Tools / API
-  ProviderName: Amazon Connect
-  PublisherName: Amazon Connect
-  InvoiceIssuerName: Amazon Connect
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceCategory: Contact Center
+  ProviderName: Amazon Web Services
+  PublisherName: Amazon Web Services, Inc.
+  InvoiceIssuerName: Amazon Web Services, Inc.
   BillingCurrency: USD
   ChargeCategory: Usage
+  RegionId: aws-region
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: voice_minutes
+    description: Per-minute voice channel consumption (PSTN + WebRTC inbound/outbound)
+    unit: minute
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - direction
+      - country
+      - instance
+  - name: chat_messages
+    description: Chat messages sent or received
+    unit: message
     aggregation: sum
     dimensions:
-      - api
       - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - instance
+      - direction
+  - name: email_messages
+    description: Email messages sent or received
+    unit: message
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Amazon Connect Service API
-    baseURL: https://connect.amazonaws.com
-    tags:
-      - Contact Center
-      - AWS
-      - Voice
-      - Chat
-    serviceName: Amazon Connect Service API
-    serviceCategory: API
-  - name: Amazon Connect Streams SDK
-    baseURL: https://github.com/amazon-connect/amazon-connect-streams
-    tags:
-      - SDK
-      - JavaScript
-      - Browser
-      - Contact Center
-    serviceName: Amazon Connect Streams SDK
-    serviceCategory: API
-  - name: Amazon AppIntegrations API
-    baseURL: https://app-integrations.amazonaws.com
-    tags:
-      - Integrations
-      - AWS
-      - Contact Center
-    serviceName: Amazon AppIntegrations API
-    serviceCategory: API
-  - name: Amazon Connect Contact Lens API
-    baseURL: https://contact-lens.amazonaws.com
-    tags:
-      - Analytics
-      - AI
-      - Contact Center
-      - NLP
-    serviceName: Amazon Connect Contact Lens API
-    serviceCategory: API
-  - name: Amazon Connect Outbound Campaigns API
-    baseURL: https://connect-campaigns.amazonaws.com
-    tags:
-      - Outbound
-      - Campaigns
-      - Contact Center
-    serviceName: Amazon Connect Outbound Campaigns API
-    serviceCategory: API
-  - name: Amazon Connect Outbound Campaigns V2 API
-    baseURL: https://connect-campaigns.amazonaws.com
-    tags:
-      - Outbound
-      - Campaigns
-      - Contact Center
-    serviceName: Amazon Connect Outbound Campaigns V2 API
-    serviceCategory: API
-  - name: Amazon Connect Cases API
-    baseURL: https://cases.amazonaws.com
-    tags:
-      - Cases
-      - Case Management
-      - Contact Center
-    serviceName: Amazon Connect Cases API
-    serviceCategory: API
-  - name: Amazon Connect Participant Service API
-    baseURL: https://participant.connect.amazonaws.com
-    tags:
-      - Chat
-      - Participants
-      - Contact Center
-    serviceName: Amazon Connect Participant Service API
-    serviceCategory: API
-  - name: Amazon Connect Customer Profiles API
-    baseURL: https://profile.profile.amazonaws.com
-    tags:
-      - Customer Profiles
-      - CRM
-      - Contact Center
-    serviceName: Amazon Connect Customer Profiles API
-    serviceCategory: API
-  - name: Amazon Q Connect API
-    baseURL: https://wisdom.amazonaws.com
-    tags:
-      - AI
-      - Generative AI
-      - Agent Assist
-      - Contact Center
-    serviceName: Amazon Q Connect API
-    serviceCategory: API
-  - name: Amazon Voice ID API
-    baseURL: https://voiceid.amazonaws.com
-    tags:
-      - Voice
-      - Authentication
-      - Fraud Detection
-      - Contact Center
-    serviceName: Amazon Voice ID API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
-maintainers: []
+      - region
+      - instance
+      - direction
+  - name: sms_messages
+    description: SMS / third-party messaging messages sent or received
+    unit: message
+    aggregation: sum
+    dimensions:
+      - region
+      - instance
+      - direction
+      - carrier
+  - name: tasks
+    description: Task contacts processed
+    unit: contact
+    aggregation: sum
+    dimensions:
+      - region
+      - instance
+  - name: pstn_charges
+    description: Pass-through PSTN / carrier charges separate from channel rate
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - country
+      - carrier
+principles:
+  - name: Visibility
+    description: Use AWS Cost Explorer, AWS Cost & Usage Reports (CUR with FOCUS export), and CloudWatch
+      contact-center metrics (ConcurrentCalls, ConcurrentChats, ConcurrentEmailsPercentage) to see per-channel
+      consumption. Tag Connect instances and AWS resources for granular reporting.
+  - name: Allocation
+    description: Allocate Connect cost to lines of business by tagging the Connect instance, breaking
+      out per-region usage, and using Cost Categories in AWS Cost Explorer for consolidated billing accounts.
+  - name: Optimization
+    description: Reduce per-minute spend by tuning IVR flows, leveraging chat/email/SMS where appropriate,
+      adopting persistent chat to avoid idle-chat quota consumption, using included AI capabilities (forecasting,
+      scheduling, conversational analytics) instead of paid third-party tools, and right-sizing concurrent-call
+      / chat / email quotas pre-go-live to avoid throttle-driven contact loss.
+  - name: Accountability
+    description: Contact-center / CX leadership owns the Connect spend; integrate per-channel cost into
+      monthly call-center reviews; configure CloudWatch alarms at 80% of quota and Service Quotas requests
+      ahead of growth.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
