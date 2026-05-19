@@ -1,0 +1,223 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Routing Profiles
+  description: 'Amazon Connect Service API — Routing Profiles. 4 operations. Lead operation: Amazon Connect List Routing Profiles.
+    Self-contained Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Routing Profiles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-routing-profiles
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Routing Profiles business capability. Self-contained, no shared references.
+    resources:
+    - name: routing-profiles-InstanceId
+      path: /routing-profiles/{InstanceId}
+      operations:
+      - name: listroutingprofiles
+        method: GET
+        description: Amazon Connect List Routing Profiles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: nextToken
+          in: query
+          type: string
+        - name: maxResults
+          in: query
+          type: integer
+      - name: createroutingprofile
+        method: POST
+        description: Amazon Connect Create Routing Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: routing-profiles-InstanceId-RoutingProfileId
+      path: /routing-profiles/{InstanceId}/{RoutingProfileId}
+      operations:
+      - name: describeroutingprofile
+        method: GET
+        description: Amazon Connect Describe Routing Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: RoutingProfileId
+          in: path
+          type: string
+          description: The identifier of the routing profile.
+          required: true
+      - name: deleteroutingprofile
+        method: DELETE
+        description: Amazon Connect Delete Routing Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: RoutingProfileId
+          in: path
+          type: string
+          description: The identifier of the routing profile.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-routing-profiles-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Routing Profiles. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/routing-profiles/{instanceid}
+      name: routing-profiles-instanceid
+      description: REST surface for routing-profiles-InstanceId.
+      operations:
+      - method: GET
+        name: listroutingprofiles
+        description: Amazon Connect List Routing Profiles
+        call: amazon-connect-routing-profiles.listroutingprofiles
+        with:
+          InstanceId: rest.InstanceId
+          nextToken: rest.nextToken
+          maxResults: rest.maxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createroutingprofile
+        description: Amazon Connect Create Routing Profile
+        call: amazon-connect-routing-profiles.createroutingprofile
+        with:
+          InstanceId: rest.InstanceId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/routing-profiles/{instanceid}/{routingprofileid}
+      name: routing-profiles-instanceid-routingprofileid
+      description: REST surface for routing-profiles-InstanceId-RoutingProfileId.
+      operations:
+      - method: GET
+        name: describeroutingprofile
+        description: Amazon Connect Describe Routing Profile
+        call: amazon-connect-routing-profiles.describeroutingprofile
+        with:
+          InstanceId: rest.InstanceId
+          RoutingProfileId: rest.RoutingProfileId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteroutingprofile
+        description: Amazon Connect Delete Routing Profile
+        call: amazon-connect-routing-profiles.deleteroutingprofile
+        with:
+          InstanceId: rest.InstanceId
+          RoutingProfileId: rest.RoutingProfileId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-routing-profiles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Routing Profiles. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-routing-profiles
+      description: Amazon Connect List Routing Profiles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-routing-profiles.listroutingprofiles
+      with:
+        InstanceId: tools.InstanceId
+        nextToken: tools.nextToken
+        maxResults: tools.maxResults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-create-routing-profile
+      description: Amazon Connect Create Routing Profile
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-routing-profiles.createroutingprofile
+      with:
+        InstanceId: tools.InstanceId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-describe-routing-profile
+      description: Amazon Connect Describe Routing Profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-routing-profiles.describeroutingprofile
+      with:
+        InstanceId: tools.InstanceId
+        RoutingProfileId: tools.RoutingProfileId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-delete-routing-profile
+      description: Amazon Connect Delete Routing Profile
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-connect-routing-profiles.deleteroutingprofile
+      with:
+        InstanceId: tools.InstanceId
+        RoutingProfileId: tools.RoutingProfileId
+      outputParameters:
+      - type: object
+        mapping: $.

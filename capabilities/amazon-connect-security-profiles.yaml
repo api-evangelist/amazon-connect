@@ -1,0 +1,90 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Security Profiles
+  description: 'Amazon Connect Service API — Security Profiles. 1 operations. Lead operation: Amazon Connect List Security
+    Profiles. Self-contained Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Security Profiles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-security-profiles
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Security Profiles business capability. Self-contained, no shared references.
+    resources:
+    - name: security-profiles-InstanceId
+      path: /security-profiles/{InstanceId}
+      operations:
+      - name: listsecurityprofiles
+        method: GET
+        description: Amazon Connect List Security Profiles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: nextToken
+          in: query
+          type: string
+        - name: maxResults
+          in: query
+          type: integer
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-security-profiles-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Security Profiles. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/security-profiles/{instanceid}
+      name: security-profiles-instanceid
+      description: REST surface for security-profiles-InstanceId.
+      operations:
+      - method: GET
+        name: listsecurityprofiles
+        description: Amazon Connect List Security Profiles
+        call: amazon-connect-security-profiles.listsecurityprofiles
+        with:
+          InstanceId: rest.InstanceId
+          nextToken: rest.nextToken
+          maxResults: rest.maxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-security-profiles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Security Profiles. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-security-profiles
+      description: Amazon Connect List Security Profiles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-security-profiles.listsecurityprofiles
+      with:
+        InstanceId: tools.InstanceId
+        nextToken: tools.nextToken
+        maxResults: tools.maxResults
+      outputParameters:
+      - type: object
+        mapping: $.

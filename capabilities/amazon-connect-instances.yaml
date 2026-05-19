@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Instances
+  description: 'Amazon Connect Service API — Instances. 4 operations. Lead operation: Amazon Connect List Instances. Self-contained
+    Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Instances
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-instances
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Instances business capability. Self-contained, no shared references.
+    resources:
+    - name: instance
+      path: /instance
+      operations:
+      - name: listinstances
+        method: GET
+        description: Amazon Connect List Instances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: nextToken
+          in: query
+          type: string
+          description: The token for the next set of results.
+        - name: maxResults
+          in: query
+          type: integer
+          description: The maximum number of results to return.
+      - name: createinstance
+        method: POST
+        description: Amazon Connect Create Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: instance-InstanceId
+      path: /instance/{InstanceId}
+      operations:
+      - name: describeinstance
+        method: GET
+        description: Amazon Connect Describe Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+      - name: deleteinstance
+        method: DELETE
+        description: Amazon Connect Delete Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-instances-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Instances. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/instance
+      name: instance
+      description: REST surface for instance.
+      operations:
+      - method: GET
+        name: listinstances
+        description: Amazon Connect List Instances
+        call: amazon-connect-instances.listinstances
+        with:
+          nextToken: rest.nextToken
+          maxResults: rest.maxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createinstance
+        description: Amazon Connect Create Instance
+        call: amazon-connect-instances.createinstance
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/instance/{instanceid}
+      name: instance-instanceid
+      description: REST surface for instance-InstanceId.
+      operations:
+      - method: GET
+        name: describeinstance
+        description: Amazon Connect Describe Instance
+        call: amazon-connect-instances.describeinstance
+        with:
+          InstanceId: rest.InstanceId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteinstance
+        description: Amazon Connect Delete Instance
+        call: amazon-connect-instances.deleteinstance
+        with:
+          InstanceId: rest.InstanceId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-instances-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Instances. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-instances
+      description: Amazon Connect List Instances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-instances.listinstances
+      with:
+        nextToken: tools.nextToken
+        maxResults: tools.maxResults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-create-instance
+      description: Amazon Connect Create Instance
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-instances.createinstance
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-describe-instance
+      description: Amazon Connect Describe Instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-instances.describeinstance
+      with:
+        InstanceId: tools.InstanceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-delete-instance
+      description: Amazon Connect Delete Instance
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-connect-instances.deleteinstance
+      with:
+        InstanceId: tools.InstanceId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,393 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Users
+  description: 'Amazon Connect Service API — Users. 7 operations. Lead operation: Amazon Connect List Users. Self-contained
+    Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-users
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users-InstanceId
+      path: /users/{InstanceId}
+      operations:
+      - name: listusers
+        method: GET
+        description: Amazon Connect List Users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: nextToken
+          in: query
+          type: string
+          description: The token for the next set of results.
+        - name: maxResults
+          in: query
+          type: integer
+          description: The maximum number of results to return.
+      - name: createuser
+        method: POST
+        description: Amazon Connect Create User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-InstanceId-UserId
+      path: /users/{InstanceId}/{UserId}
+      operations:
+      - name: describeuser
+        method: GET
+        description: Amazon Connect Describe User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: UserId
+          in: path
+          type: string
+          description: The identifier of the user account.
+          required: true
+      - name: deleteuser
+        method: DELETE
+        description: Amazon Connect Delete User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: UserId
+          in: path
+          type: string
+          description: The identifier of the user account.
+          required: true
+    - name: users-InstanceId-UserId-identity-info
+      path: /users/{InstanceId}/{UserId}/identity-info
+      operations:
+      - name: updateuseridentityinfo
+        method: POST
+        description: Amazon Connect Update User Identity Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: UserId
+          in: path
+          type: string
+          description: The identifier of the user account.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-InstanceId-UserId-routing-profile
+      path: /users/{InstanceId}/{UserId}/routing-profile
+      operations:
+      - name: updateuserroutingprofile
+        method: POST
+        description: Amazon Connect Update User Routing Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: UserId
+          in: path
+          type: string
+          description: The identifier of the user account.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: users-InstanceId-UserId-status
+      path: /users/{InstanceId}/{UserId}/status
+      operations:
+      - name: putuserstatus
+        method: PUT
+        description: Amazon Connect Put User Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: UserId
+          in: path
+          type: string
+          description: The identifier of the user account.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-users-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Users. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/users/{instanceid}
+      name: users-instanceid
+      description: REST surface for users-InstanceId.
+      operations:
+      - method: GET
+        name: listusers
+        description: Amazon Connect List Users
+        call: amazon-connect-users.listusers
+        with:
+          InstanceId: rest.InstanceId
+          nextToken: rest.nextToken
+          maxResults: rest.maxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createuser
+        description: Amazon Connect Create User
+        call: amazon-connect-users.createuser
+        with:
+          InstanceId: rest.InstanceId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{instanceid}/{userid}
+      name: users-instanceid-userid
+      description: REST surface for users-InstanceId-UserId.
+      operations:
+      - method: GET
+        name: describeuser
+        description: Amazon Connect Describe User
+        call: amazon-connect-users.describeuser
+        with:
+          InstanceId: rest.InstanceId
+          UserId: rest.UserId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuser
+        description: Amazon Connect Delete User
+        call: amazon-connect-users.deleteuser
+        with:
+          InstanceId: rest.InstanceId
+          UserId: rest.UserId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{instanceid}/{userid}/identity-info
+      name: users-instanceid-userid-identity-info
+      description: REST surface for users-InstanceId-UserId-identity-info.
+      operations:
+      - method: POST
+        name: updateuseridentityinfo
+        description: Amazon Connect Update User Identity Info
+        call: amazon-connect-users.updateuseridentityinfo
+        with:
+          InstanceId: rest.InstanceId
+          UserId: rest.UserId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{instanceid}/{userid}/routing-profile
+      name: users-instanceid-userid-routing-profile
+      description: REST surface for users-InstanceId-UserId-routing-profile.
+      operations:
+      - method: POST
+        name: updateuserroutingprofile
+        description: Amazon Connect Update User Routing Profile
+        call: amazon-connect-users.updateuserroutingprofile
+        with:
+          InstanceId: rest.InstanceId
+          UserId: rest.UserId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/users/{instanceid}/{userid}/status
+      name: users-instanceid-userid-status
+      description: REST surface for users-InstanceId-UserId-status.
+      operations:
+      - method: PUT
+        name: putuserstatus
+        description: Amazon Connect Put User Status
+        call: amazon-connect-users.putuserstatus
+        with:
+          InstanceId: rest.InstanceId
+          UserId: rest.UserId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Users. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-users
+      description: Amazon Connect List Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-users.listusers
+      with:
+        InstanceId: tools.InstanceId
+        nextToken: tools.nextToken
+        maxResults: tools.maxResults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-create-user
+      description: Amazon Connect Create User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-users.createuser
+      with:
+        InstanceId: tools.InstanceId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-describe-user
+      description: Amazon Connect Describe User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-users.describeuser
+      with:
+        InstanceId: tools.InstanceId
+        UserId: tools.UserId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-delete-user
+      description: Amazon Connect Delete User
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-connect-users.deleteuser
+      with:
+        InstanceId: tools.InstanceId
+        UserId: tools.UserId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-update-user-identity
+      description: Amazon Connect Update User Identity Info
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-users.updateuseridentityinfo
+      with:
+        InstanceId: tools.InstanceId
+        UserId: tools.UserId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-update-user-routing
+      description: Amazon Connect Update User Routing Profile
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-users.updateuserroutingprofile
+      with:
+        InstanceId: tools.InstanceId
+        UserId: tools.UserId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-put-user-status
+      description: Amazon Connect Put User Status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: amazon-connect-users.putuserstatus
+      with:
+        InstanceId: tools.InstanceId
+        UserId: tools.UserId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

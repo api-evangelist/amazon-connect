@@ -1,0 +1,409 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Contacts
+  description: 'Amazon Connect Service API — Contacts. 8 operations. Lead operation: Amazon Connect Start Chat Contact. Self-contained
+    Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Contacts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-contacts
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Contacts business capability. Self-contained, no shared references.
+    resources:
+    - name: contact-chat
+      path: /contact/chat
+      operations:
+      - name: startchatcontact
+        method: POST
+        description: Amazon Connect Start Chat Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: contact-outbound-voice
+      path: /contact/outbound-voice
+      operations:
+      - name: startoutboundvoicecontact
+        method: POST
+        description: Amazon Connect Start Outbound Voice Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: contact-task
+      path: /contact/task
+      operations:
+      - name: starttaskcontact
+        method: POST
+        description: Amazon Connect Start Task Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: contacts-InstanceId-ContactId
+      path: /contacts/{InstanceId}/{ContactId}
+      operations:
+      - name: describecontact
+        method: GET
+        description: Amazon Connect Describe Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: ContactId
+          in: path
+          type: string
+          description: The identifier of the contact.
+          required: true
+    - name: contacts-InstanceId-ContactId-attributes
+      path: /contacts/{InstanceId}/{ContactId}/attributes
+      operations:
+      - name: getcontactattributes
+        method: GET
+        description: Amazon Connect Get Contact Attributes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: ContactId
+          in: path
+          type: string
+          description: The identifier of the initial contact.
+          required: true
+      - name: updatecontactattributes
+        method: POST
+        description: Amazon Connect Update Contact Attributes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: ContactId
+          in: path
+          type: string
+          description: The identifier of the contact.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: contacts-InstanceId-ContactId-stop
+      path: /contacts/{InstanceId}/{ContactId}/stop
+      operations:
+      - name: stopcontact
+        method: POST
+        description: Amazon Connect Stop Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: ContactId
+          in: path
+          type: string
+          description: The identifier of the contact.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: search-contacts
+      path: /search-contacts
+      operations:
+      - name: searchcontacts
+        method: POST
+        description: Amazon Connect Search Contacts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-contacts-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Contacts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/contact/chat
+      name: contact-chat
+      description: REST surface for contact-chat.
+      operations:
+      - method: POST
+        name: startchatcontact
+        description: Amazon Connect Start Chat Contact
+        call: amazon-connect-contacts.startchatcontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contact/outbound-voice
+      name: contact-outbound-voice
+      description: REST surface for contact-outbound-voice.
+      operations:
+      - method: POST
+        name: startoutboundvoicecontact
+        description: Amazon Connect Start Outbound Voice Contact
+        call: amazon-connect-contacts.startoutboundvoicecontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contact/task
+      name: contact-task
+      description: REST surface for contact-task.
+      operations:
+      - method: POST
+        name: starttaskcontact
+        description: Amazon Connect Start Task Contact
+        call: amazon-connect-contacts.starttaskcontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/{instanceid}/{contactid}
+      name: contacts-instanceid-contactid
+      description: REST surface for contacts-InstanceId-ContactId.
+      operations:
+      - method: GET
+        name: describecontact
+        description: Amazon Connect Describe Contact
+        call: amazon-connect-contacts.describecontact
+        with:
+          InstanceId: rest.InstanceId
+          ContactId: rest.ContactId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/{instanceid}/{contactid}/attributes
+      name: contacts-instanceid-contactid-attributes
+      description: REST surface for contacts-InstanceId-ContactId-attributes.
+      operations:
+      - method: GET
+        name: getcontactattributes
+        description: Amazon Connect Get Contact Attributes
+        call: amazon-connect-contacts.getcontactattributes
+        with:
+          InstanceId: rest.InstanceId
+          ContactId: rest.ContactId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updatecontactattributes
+        description: Amazon Connect Update Contact Attributes
+        call: amazon-connect-contacts.updatecontactattributes
+        with:
+          InstanceId: rest.InstanceId
+          ContactId: rest.ContactId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/{instanceid}/{contactid}/stop
+      name: contacts-instanceid-contactid-stop
+      description: REST surface for contacts-InstanceId-ContactId-stop.
+      operations:
+      - method: POST
+        name: stopcontact
+        description: Amazon Connect Stop Contact
+        call: amazon-connect-contacts.stopcontact
+        with:
+          InstanceId: rest.InstanceId
+          ContactId: rest.ContactId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/search-contacts
+      name: search-contacts
+      description: REST surface for search-contacts.
+      operations:
+      - method: POST
+        name: searchcontacts
+        description: Amazon Connect Search Contacts
+        call: amazon-connect-contacts.searchcontacts
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-contacts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Contacts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-connect-start-chat-contact
+      description: Amazon Connect Start Chat Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.startchatcontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-start-outbound-voice
+      description: Amazon Connect Start Outbound Voice Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.startoutboundvoicecontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-start-task-contact
+      description: Amazon Connect Start Task Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.starttaskcontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-describe-contact
+      description: Amazon Connect Describe Contact
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-contacts.describecontact
+      with:
+        InstanceId: tools.InstanceId
+        ContactId: tools.ContactId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-get-contact-attributes
+      description: Amazon Connect Get Contact Attributes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-contacts.getcontactattributes
+      with:
+        InstanceId: tools.InstanceId
+        ContactId: tools.ContactId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-update-contact-attributes
+      description: Amazon Connect Update Contact Attributes
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.updatecontactattributes
+      with:
+        InstanceId: tools.InstanceId
+        ContactId: tools.ContactId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-stop-contact
+      description: Amazon Connect Stop Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.stopcontact
+      with:
+        InstanceId: tools.InstanceId
+        ContactId: tools.ContactId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-search-contacts
+      description: Amazon Connect Search Contacts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: amazon-connect-contacts.searchcontacts
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

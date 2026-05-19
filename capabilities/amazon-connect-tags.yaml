@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Tags
+  description: 'Amazon Connect Service API — Tags. 3 operations. Lead operation: Amazon Connect List Tags for Resource. Self-contained
+    Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Tags
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-tags
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Tags business capability. Self-contained, no shared references.
+    resources:
+    - name: tags-ResourceArn
+      path: /tags/{ResourceArn}
+      operations:
+      - name: listtagsforresource
+        method: GET
+        description: Amazon Connect List Tags for Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ResourceArn
+          in: path
+          type: string
+          description: The Amazon Resource Name (ARN) of the resource.
+          required: true
+      - name: tagresource
+        method: POST
+        description: Amazon Connect Tag Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ResourceArn
+          in: path
+          type: string
+          description: The Amazon Resource Name (ARN) of the resource.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: untagresource
+        method: DELETE
+        description: Amazon Connect Untag Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ResourceArn
+          in: path
+          type: string
+          description: The Amazon Resource Name (ARN) of the resource.
+          required: true
+        - name: tagKeys
+          in: query
+          type: array
+          description: The tag keys.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-tags-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Tags. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/tags/{resourcearn}
+      name: tags-resourcearn
+      description: REST surface for tags-ResourceArn.
+      operations:
+      - method: GET
+        name: listtagsforresource
+        description: Amazon Connect List Tags for Resource
+        call: amazon-connect-tags.listtagsforresource
+        with:
+          ResourceArn: rest.ResourceArn
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: tagresource
+        description: Amazon Connect Tag Resource
+        call: amazon-connect-tags.tagresource
+        with:
+          ResourceArn: rest.ResourceArn
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: untagresource
+        description: Amazon Connect Untag Resource
+        call: amazon-connect-tags.untagresource
+        with:
+          ResourceArn: rest.ResourceArn
+          tagKeys: rest.tagKeys
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-tags-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Tags. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-tags-resource
+      description: Amazon Connect List Tags for Resource
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-tags.listtagsforresource
+      with:
+        ResourceArn: tools.ResourceArn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-tag-resource
+      description: Amazon Connect Tag Resource
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-tags.tagresource
+      with:
+        ResourceArn: tools.ResourceArn
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-untag-resource
+      description: Amazon Connect Untag Resource
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: amazon-connect-tags.untagresource
+      with:
+        ResourceArn: tools.ResourceArn
+        tagKeys: tools.tagKeys
+      outputParameters:
+      - type: object
+        mapping: $.

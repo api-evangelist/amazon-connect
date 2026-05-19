@@ -1,0 +1,132 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon Connect Service API — Hours of Operations
+  description: 'Amazon Connect Service API — Hours of Operations. 2 operations. Lead operation: Amazon Connect List Hours
+    of Operations. Self-contained Naftiko capability covering one Amazon Connect business surface.'
+  tags:
+  - Amazon Connect
+  - Hours of Operations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_CONNECT_API_KEY: AMAZON_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-connect-hours-of-operations
+    baseUri: https://connect.amazonaws.com
+    description: Amazon Connect Service API — Hours of Operations business capability. Self-contained, no shared references.
+    resources:
+    - name: hours-of-operations-InstanceId
+      path: /hours-of-operations/{InstanceId}
+      operations:
+      - name: listhoursofoperations
+        method: GET
+        description: Amazon Connect List Hours of Operations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: nextToken
+          in: query
+          type: string
+        - name: maxResults
+          in: query
+          type: integer
+      - name: createhoursofoperation
+        method: POST
+        description: Amazon Connect Create Hours of Operation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: path
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AMAZON_CONNECT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: amazon-connect-hours-of-operations-rest
+    port: 8080
+    description: REST adapter for Amazon Connect Service API — Hours of Operations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/hours-of-operations/{instanceid}
+      name: hours-of-operations-instanceid
+      description: REST surface for hours-of-operations-InstanceId.
+      operations:
+      - method: GET
+        name: listhoursofoperations
+        description: Amazon Connect List Hours of Operations
+        call: amazon-connect-hours-of-operations.listhoursofoperations
+        with:
+          InstanceId: rest.InstanceId
+          nextToken: rest.nextToken
+          maxResults: rest.maxResults
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createhoursofoperation
+        description: Amazon Connect Create Hours of Operation
+        call: amazon-connect-hours-of-operations.createhoursofoperation
+        with:
+          InstanceId: rest.InstanceId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-connect-hours-of-operations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon Connect Service API — Hours of Operations. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: amazon-connect-list-hours-operations
+      description: Amazon Connect List Hours of Operations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-connect-hours-of-operations.listhoursofoperations
+      with:
+        InstanceId: tools.InstanceId
+        nextToken: tools.nextToken
+        maxResults: tools.maxResults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-connect-create-hours-operation
+      description: Amazon Connect Create Hours of Operation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-connect-hours-of-operations.createhoursofoperation
+      with:
+        InstanceId: tools.InstanceId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
