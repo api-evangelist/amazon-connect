@@ -1,0 +1,31 @@
+{
+  "operationId": "startChatContact",
+  "method": "POST",
+  "path": "/contact/chat",
+  "summary": "Amazon Connect Start Chat Contact",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StartChatContactRequestExample",
+      "example": {
+        "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+        "ParticipantDetails": {
+          "DisplayName": "Jane Smith"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "StartChatContact200Example",
+      "example": {
+        "ContactId": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+        "ParticipantId": "a1b2c3d4-5678-90ab-cdef-99999EXAMPLE",
+        "ParticipantToken": "a1b2c3d4token"
+      }
+    }
+  ]
+}

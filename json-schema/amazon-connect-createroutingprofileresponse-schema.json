@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateRoutingProfileResponse",
+  "title": "CreateRoutingProfileResponse",
+  "type": "object",
+  "properties": {
+    "RoutingProfileArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the routing profile."
+    },
+    "RoutingProfileId": {
+      "type": "string",
+      "description": "The identifier of the routing profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    }
+  }
+}

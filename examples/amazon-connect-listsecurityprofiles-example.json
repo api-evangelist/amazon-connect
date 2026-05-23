@@ -1,0 +1,23 @@
+{
+  "operationId": "listSecurityProfiles",
+  "method": "GET",
+  "path": "/security-profiles/{InstanceId}",
+  "summary": "Amazon Connect List Security Profiles",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListSecurityProfiles200Example",
+      "example": {
+        "SecurityProfileSummaryList": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/security-profile/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+            "Name": "Agent"
+          }
+        ]
+      }
+    }
+  ]
+}

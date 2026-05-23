@@ -1,0 +1,41 @@
+{
+  "operationId": "searchContacts",
+  "method": "POST",
+  "path": "/search-contacts",
+  "summary": "Amazon Connect Search Contacts",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "SearchContactsRequestExample",
+      "example": {
+        "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "TimeRange": {
+          "Type": "INITIATION_TIMESTAMP",
+          "StartTime": "2025-03-15T00:00:00Z",
+          "EndTime": "2025-03-15T23:59:59Z"
+        },
+        "MaxResults": 50
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "SearchContacts200Example",
+      "example": {
+        "Contacts": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+            "Channel": "VOICE",
+            "InitiationMethod": "INBOUND",
+            "InitiationTimestamp": "2025-03-15T14:30:00Z",
+            "DisconnectTimestamp": "2025-03-15T14:45:00Z"
+          }
+        ],
+        "TotalCount": 1
+      }
+    }
+  ]
+}

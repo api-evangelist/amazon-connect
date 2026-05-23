@@ -1,0 +1,29 @@
+{
+  "operationId": "listInstances",
+  "method": "GET",
+  "path": "/instance",
+  "summary": "Amazon Connect List Instances",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListInstances200Example",
+      "example": {
+        "InstanceSummaryList": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+            "IdentityManagementType": "CONNECT_MANAGED",
+            "InstanceAlias": "my-contact-center",
+            "CreatedTime": "2025-01-15T10:30:00Z",
+            "ServiceRole": "arn:aws:iam::123456789012:role/aws-service-role/connect.amazonaws.com/AWSServiceRoleForAmazonConnect",
+            "InstanceStatus": "ACTIVE",
+            "InboundCallsEnabled": true,
+            "OutboundCallsEnabled": true
+          }
+        ]
+      }
+    }
+  ]
+}

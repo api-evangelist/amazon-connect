@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DescribeQueueResponse",
+  "title": "DescribeQueueResponse",
+  "type": "object",
+  "properties": {
+    "Queue": {
+      "$ref": "#/components/schemas/Queue"
+    }
+  }
+}

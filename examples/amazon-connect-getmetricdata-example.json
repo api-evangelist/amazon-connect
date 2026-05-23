@@ -1,0 +1,65 @@
+{
+  "operationId": "getMetricData",
+  "method": "POST",
+  "path": "/metrics/historical/{InstanceId}",
+  "summary": "Amazon Connect Get Historical Metric Data",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetMetricDataRequestExample",
+      "example": {
+        "StartTime": "2025-03-15T00:00:00Z",
+        "EndTime": "2025-03-15T23:59:59Z",
+        "Filters": {
+          "Queues": [
+            "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+          ],
+          "Channels": [
+            "VOICE"
+          ]
+        },
+        "HistoricalMetrics": [
+          {
+            "Name": "CONTACTS_QUEUED",
+            "Unit": "COUNT",
+            "Statistic": "SUM"
+          },
+          {
+            "Name": "HANDLE_TIME",
+            "Unit": "SECONDS",
+            "Statistic": "AVG"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "GetMetricData200Example",
+      "example": {
+        "MetricResults": [
+          {
+            "Dimensions": {
+              "Queue": {
+                "Id": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+                "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+              }
+            },
+            "Collections": [
+              {
+                "Metric": {
+                  "Name": "CONTACTS_QUEUED",
+                  "Unit": "COUNT",
+                  "Statistic": "SUM"
+                },
+                "Value": 125.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

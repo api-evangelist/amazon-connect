@@ -1,0 +1,24 @@
+{
+  "operationId": "listQueues",
+  "method": "GET",
+  "path": "/queues/{InstanceId}",
+  "summary": "Amazon Connect List Queues",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListQueues200Example",
+      "example": {
+        "QueueSummaryList": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+            "Name": "BasicQueue",
+            "QueueType": "STANDARD"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GetMetricDataResponse",
+  "title": "GetMetricDataResponse",
+  "type": "object",
+  "properties": {
+    "NextToken": {
+      "type": "string"
+    },
+    "MetricResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Dimensions": {
+            "type": "object",
+            "properties": {
+              "Queue": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "Arn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Channel": {
+                "type": "string"
+              }
+            }
+          },
+          "Collections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Metric": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Unit": {
+                      "type": "string"
+                    },
+                    "Statistic": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "Value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "operationId": "getContactAttributes",
+  "method": "GET",
+  "path": "/contacts/{InstanceId}/{ContactId}/attributes",
+  "summary": "Amazon Connect Get Contact Attributes",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "GetContactAttributes200Example",
+      "example": {
+        "Attributes": {
+          "CustomerType": "premium",
+          "TicketNumber": "TKT-500123"
+        }
+      }
+    }
+  ]
+}

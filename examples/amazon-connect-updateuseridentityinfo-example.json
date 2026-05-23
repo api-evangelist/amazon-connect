@@ -1,0 +1,20 @@
+{
+  "operationId": "updateUserIdentityInfo",
+  "method": "POST",
+  "path": "/users/{InstanceId}/{UserId}/identity-info",
+  "summary": "Amazon Connect Update User Identity Info",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateUserIdentityInfoRequestExample",
+      "example": {
+        "IdentityInfo": {
+          "FirstName": "Jane",
+          "LastName": "Smith",
+          "Email": "jsmith@example.com"
+        }
+      }
+    }
+  ],
+  "responseExamples": []
+}

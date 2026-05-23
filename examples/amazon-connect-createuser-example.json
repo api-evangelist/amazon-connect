@@ -1,0 +1,41 @@
+{
+  "operationId": "createUser",
+  "method": "POST",
+  "path": "/users/{InstanceId}",
+  "summary": "Amazon Connect Create User",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateUserRequestExample",
+      "example": {
+        "Username": "jsmith",
+        "Password": "TempPass123!",
+        "IdentityInfo": {
+          "FirstName": "Jane",
+          "LastName": "Smith",
+          "Email": "jsmith@example.com"
+        },
+        "PhoneConfig": {
+          "PhoneType": "SOFT_PHONE",
+          "AutoAccept": false,
+          "AfterContactWorkTimeLimit": 0
+        },
+        "SecurityProfileIds": [
+          "a1b2c3d4-5678-90ab-cdef-22222EXAMPLE"
+        ],
+        "RoutingProfileId": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateUser200Example",
+      "example": {
+        "UserId": "500123",
+        "UserArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123"
+      }
+    }
+  ]
+}

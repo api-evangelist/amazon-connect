@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateUserRequest",
+  "title": "CreateUserRequest",
+  "type": "object",
+  "required": [
+    "PhoneConfig",
+    "RoutingProfileId",
+    "SecurityProfileIds",
+    "Username"
+  ],
+  "properties": {
+    "Username": {
+      "type": "string",
+      "description": "The user name for the account.",
+      "example": "jsmith"
+    },
+    "Password": {
+      "type": "string",
+      "description": "The password for the user account."
+    },
+    "IdentityInfo": {
+      "$ref": "#/components/schemas/UserIdentityInfo"
+    },
+    "PhoneConfig": {
+      "$ref": "#/components/schemas/UserPhoneConfig"
+    },
+    "DirectoryUserId": {
+      "type": "string"
+    },
+    "SecurityProfileIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The identifier of the security profile for the user."
+    },
+    "RoutingProfileId": {
+      "type": "string",
+      "description": "The identifier of the routing profile for the user.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    },
+    "HierarchyGroupId": {
+      "type": "string"
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContactFlowSummary",
+  "title": "ContactFlowSummary",
+  "type": "object",
+  "description": "Contains summary information about a contact flow.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the contact flow.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the contact flow."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the contact flow.",
+      "example": "Default inbound flow"
+    },
+    "ContactFlowType": {
+      "type": "string",
+      "description": "The type of contact flow.",
+      "enum": [
+        "CONTACT_FLOW",
+        "CUSTOMER_QUEUE",
+        "CUSTOMER_HOLD",
+        "CUSTOMER_WHISPER",
+        "AGENT_HOLD",
+        "AGENT_WHISPER",
+        "OUTBOUND_WHISPER",
+        "AGENT_TRANSFER",
+        "QUEUE_TRANSFER"
+      ]
+    },
+    "ContactFlowState": {
+      "type": "string",
+      "description": "The status of the contact flow.",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED"
+      ],
+      "example": "ACTIVE"
+    }
+  }
+}

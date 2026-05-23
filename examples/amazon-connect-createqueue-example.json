@@ -1,0 +1,29 @@
+{
+  "operationId": "createQueue",
+  "method": "POST",
+  "path": "/queues/{InstanceId}",
+  "summary": "Amazon Connect Create Queue",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateQueueRequestExample",
+      "example": {
+        "Name": "Support Queue",
+        "Description": "Queue for support contacts",
+        "HoursOfOperationId": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE",
+        "MaxContacts": 100
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateQueue200Example",
+      "example": {
+        "QueueArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+        "QueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+      }
+    }
+  ]
+}

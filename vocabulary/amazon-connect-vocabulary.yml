@@ -1,0 +1,29 @@
+name: Amazon Connect Domain Vocabulary
+provider: Amazon Connect
+providerId: amazon-connect
+description: Tag-derived vocabulary for the Amazon Connect API surface; sourced from openapi/ tags.
+terms:
+- term: Instances
+  description: Operations for managing Amazon Connect instances
+- term: Users
+  description: Operations for managing Amazon Connect users and agents
+- term: Routing Profiles
+  description: Operations for managing routing profiles
+- term: Queues
+  description: Operations for managing queues
+- term: Contact Flows
+  description: Operations for managing contact flows
+- term: Hours of Operations
+  description: Operations for managing hours of operation configurations
+- term: Agent Statuses
+  description: Operations for managing agent status configurations
+- term: Security Profiles
+  description: Operations for managing security profiles
+- term: Contacts
+  description: Operations for managing contacts and contact interactions
+- term: Metrics
+  description: Operations for retrieving real-time and historical metrics
+- term: Tags
+  description: Operations for tagging Amazon Connect resources
+- term: Authentication
+  description: Operations for authentication and federation

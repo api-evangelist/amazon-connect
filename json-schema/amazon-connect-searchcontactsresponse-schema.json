@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchContactsResponse",
+  "title": "SearchContactsResponse",
+  "type": "object",
+  "properties": {
+    "Contacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ContactSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "TotalCount": {
+      "type": "integer",
+      "description": "The total count of the search result."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "operationId": "listTagsForResource",
+  "method": "GET",
+  "path": "/tags/{ResourceArn}",
+  "summary": "Amazon Connect List Tags for Resource",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListTagsForResource200Example",
+      "example": {
+        "tags": {
+          "Environment": "production",
+          "Team": "contact-center"
+        }
+      }
+    }
+  ]
+}

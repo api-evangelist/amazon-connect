@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DescribeContactFlowResponse",
+  "title": "DescribeContactFlowResponse",
+  "type": "object",
+  "properties": {
+    "ContactFlow": {
+      "$ref": "#/components/schemas/ContactFlow"
+    }
+  }
+}

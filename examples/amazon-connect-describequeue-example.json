@@ -1,0 +1,24 @@
+{
+  "operationId": "describeQueue",
+  "method": "GET",
+  "path": "/queues/{InstanceId}/{QueueId}",
+  "summary": "Amazon Connect Describe Queue",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "DescribeQueue200Example",
+      "example": {
+        "Queue": {
+          "QueueArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+          "QueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+          "Name": "BasicQueue",
+          "Description": "Default queue for basic contacts",
+          "Status": "ENABLED",
+          "HoursOfOperationId": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+        }
+      }
+    }
+  ]
+}

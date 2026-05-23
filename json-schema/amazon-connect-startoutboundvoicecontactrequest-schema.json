@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StartOutboundVoiceContactRequest",
+  "title": "StartOutboundVoiceContactRequest",
+  "type": "object",
+  "required": [
+    "ContactFlowId",
+    "DestinationPhoneNumber",
+    "InstanceId"
+  ],
+  "properties": {
+    "DestinationPhoneNumber": {
+      "type": "string",
+      "description": "The phone number of the customer, in E.164 format.",
+      "example": "+12065551212"
+    },
+    "ContactFlowId": {
+      "type": "string",
+      "description": "The identifier of the contact flow for the outbound call.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "InstanceId": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "ClientToken": {
+      "type": "string",
+      "description": "Idempotency token."
+    },
+    "SourcePhoneNumber": {
+      "type": "string",
+      "description": "The phone number associated with the Amazon Connect instance, in E.164 format."
+    },
+    "QueueId": {
+      "type": "string",
+      "description": "The queue for the call.",
+      "example": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+    },
+    "Attributes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

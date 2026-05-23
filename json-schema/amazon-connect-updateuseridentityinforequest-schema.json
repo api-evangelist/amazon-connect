@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateUserIdentityInfoRequest",
+  "title": "UpdateUserIdentityInfoRequest",
+  "type": "object",
+  "required": [
+    "IdentityInfo"
+  ],
+  "properties": {
+    "IdentityInfo": {
+      "$ref": "#/components/schemas/UserIdentityInfo"
+    }
+  }
+}

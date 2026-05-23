@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StartChatContactResponse",
+  "title": "StartChatContactResponse",
+  "type": "object",
+  "properties": {
+    "ContactId": {
+      "type": "string",
+      "description": "The identifier of the contact.",
+      "example": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+    },
+    "ParticipantId": {
+      "type": "string",
+      "description": "The identifier for a chat participant.",
+      "example": "a1b2c3d4-5678-90ab-cdef-99999EXAMPLE"
+    },
+    "ParticipantToken": {
+      "type": "string",
+      "description": "The token used by the chat participant to call CreateParticipantConnection."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "operationId": "listHoursOfOperations",
+  "method": "GET",
+  "path": "/hours-of-operations/{InstanceId}",
+  "summary": "Amazon Connect List Hours of Operations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListHoursOfOperations200Example",
+      "example": {
+        "HoursOfOperationSummaryList": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE",
+            "Name": "Business Hours"
+          }
+        ]
+      }
+    }
+  ]
+}

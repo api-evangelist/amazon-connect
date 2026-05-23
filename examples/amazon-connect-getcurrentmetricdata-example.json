@@ -1,0 +1,66 @@
+{
+  "operationId": "getCurrentMetricData",
+  "method": "POST",
+  "path": "/metrics/current/{InstanceId}",
+  "summary": "Amazon Connect Get Current Metric Data",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GetCurrentMetricDataRequestExample",
+      "example": {
+        "Filters": {
+          "Queues": [
+            "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+          ],
+          "Channels": [
+            "VOICE"
+          ]
+        },
+        "CurrentMetrics": [
+          {
+            "Name": "AGENTS_ONLINE",
+            "Unit": "COUNT"
+          },
+          {
+            "Name": "CONTACTS_IN_QUEUE",
+            "Unit": "COUNT"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "GetCurrentMetricData200Example",
+      "example": {
+        "MetricResults": [
+          {
+            "Dimensions": {
+              "Queue": {
+                "Id": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+              }
+            },
+            "Collections": [
+              {
+                "Metric": {
+                  "Name": "AGENTS_ONLINE",
+                  "Unit": "COUNT"
+                },
+                "Value": 12.0
+              },
+              {
+                "Metric": {
+                  "Name": "CONTACTS_IN_QUEUE",
+                  "Unit": "COUNT"
+                },
+                "Value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

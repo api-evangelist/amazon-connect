@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GetCurrentMetricDataResponse",
+  "title": "GetCurrentMetricDataResponse",
+  "type": "object",
+  "properties": {
+    "NextToken": {
+      "type": "string"
+    },
+    "MetricResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Dimensions": {
+            "type": "object"
+          },
+          "Collections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Metric": {
+                  "type": "object"
+                },
+                "Value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "DataSnapshotTime": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

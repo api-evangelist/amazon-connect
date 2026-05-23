@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateContactFlowResponse",
+  "title": "CreateContactFlowResponse",
+  "type": "object",
+  "properties": {
+    "ContactFlowId": {
+      "type": "string",
+      "description": "The identifier of the contact flow.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "ContactFlowArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the contact flow."
+    }
+  }
+}

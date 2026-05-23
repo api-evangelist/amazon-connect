@@ -1,0 +1,17 @@
+{
+  "operationId": "stopContact",
+  "method": "POST",
+  "path": "/contacts/{InstanceId}/{ContactId}/stop",
+  "summary": "Amazon Connect Stop Contact",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StopContactRequestExample",
+      "example": {
+        "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "ContactId": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+      }
+    }
+  ],
+  "responseExamples": []
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RoutingProfile",
+  "title": "RoutingProfile",
+  "type": "object",
+  "description": "Contains information about a routing profile.",
+  "properties": {
+    "InstanceId": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the routing profile.",
+      "example": "Voice Agents"
+    },
+    "RoutingProfileArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the routing profile."
+    },
+    "RoutingProfileId": {
+      "type": "string",
+      "description": "The identifier of the routing profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the routing profile."
+    },
+    "MediaConcurrencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/MediaConcurrency"
+      }
+    },
+    "DefaultOutboundQueueId": {
+      "type": "string",
+      "description": "The identifier of the default outbound queue for this routing profile."
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "NumberOfAssociatedQueues": {
+      "type": "integer",
+      "description": "The number of associated queues in routing profile."
+    },
+    "NumberOfAssociatedUsers": {
+      "type": "integer",
+      "description": "The number of associated users in routing profile."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operationId": "tagResource",
+  "method": "POST",
+  "path": "/tags/{ResourceArn}",
+  "summary": "Amazon Connect Tag Resource",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TagResourceRequestExample",
+      "example": {
+        "tags": {
+          "Environment": "production",
+          "Team": "contact-center"
+        }
+      }
+    }
+  ],
+  "responseExamples": []
+}

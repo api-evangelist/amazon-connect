@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListRoutingProfilesResponse",
+  "title": "ListRoutingProfilesResponse",
+  "type": "object",
+  "properties": {
+    "RoutingProfileSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/RoutingProfileSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StartTaskContactRequest",
+  "title": "StartTaskContactRequest",
+  "type": "object",
+  "required": [
+    "InstanceId",
+    "Name"
+  ],
+  "properties": {
+    "InstanceId": {
+      "type": "string",
+      "description": "The identifier of the Amazon Connect instance.",
+      "example": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"
+    },
+    "PreviousContactId": {
+      "type": "string",
+      "description": "The identifier of the previous chat, voice, or task contact."
+    },
+    "ContactFlowId": {
+      "type": "string",
+      "description": "The identifier of the contact flow for initiating the tasks.",
+      "example": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+    },
+    "Attributes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of a task that is shown to an agent in the Contact Control Panel (CCP).",
+      "example": "Follow-up with customer"
+    },
+    "References": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "Description": {
+      "type": "string",
+      "description": "A description of the task that is shown to an agent in the Contact Control Panel.",
+      "example": "Call customer back regarding their support case"
+    },
+    "ClientToken": {
+      "type": "string"
+    },
+    "ScheduledTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "TaskTemplateId": {
+      "type": "string"
+    },
+    "QuickConnectId": {
+      "type": "string"
+    },
+    "RelatedContactId": {
+      "type": "string"
+    }
+  }
+}

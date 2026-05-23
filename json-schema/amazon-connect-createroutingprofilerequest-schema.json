@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateRoutingProfileRequest",
+  "title": "CreateRoutingProfileRequest",
+  "type": "object",
+  "required": [
+    "DefaultOutboundQueueId",
+    "Description",
+    "MediaConcurrencies",
+    "Name"
+  ],
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the routing profile. Must not be more than 127 characters.",
+      "example": "Voice Agents"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the routing profile.",
+      "example": "Routing profile for voice agents"
+    },
+    "DefaultOutboundQueueId": {
+      "type": "string",
+      "description": "The default outbound queue for the routing profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+    },
+    "QueueConfigs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "QueueReference": {
+            "type": "object",
+            "properties": {
+              "QueueId": {
+                "type": "string"
+              },
+              "Channel": {
+                "type": "string"
+              }
+            }
+          },
+          "Priority": {
+            "type": "integer"
+          },
+          "Delay": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "MediaConcurrencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/MediaConcurrency"
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

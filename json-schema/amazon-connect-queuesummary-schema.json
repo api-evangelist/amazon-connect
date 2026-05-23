@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QueueSummary",
+  "title": "QueueSummary",
+  "type": "object",
+  "description": "Contains summary information about a queue.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the queue.",
+      "example": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the queue."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the queue.",
+      "example": "BasicQueue"
+    },
+    "QueueType": {
+      "type": "string",
+      "description": "The type of queue.",
+      "enum": [
+        "STANDARD",
+        "AGENT"
+      ],
+      "example": "STANDARD"
+    }
+  }
+}

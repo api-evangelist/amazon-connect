@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserSummary",
+  "title": "UserSummary",
+  "type": "object",
+  "description": "Contains summary information about a user.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the user account.",
+      "example": "500123"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the user account.",
+      "example": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123"
+    },
+    "Username": {
+      "type": "string",
+      "description": "The Amazon Connect user name of the user account.",
+      "example": "jsmith"
+    }
+  }
+}

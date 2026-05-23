@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SecurityProfileSummary",
+  "title": "SecurityProfileSummary",
+  "type": "object",
+  "description": "Contains information about a security profile.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The identifier of the security profile.",
+      "example": "a1b2c3d4-5678-90ab-cdef-22222EXAMPLE"
+    },
+    "Arn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the security profile."
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the security profile.",
+      "example": "Agent"
+    }
+  }
+}

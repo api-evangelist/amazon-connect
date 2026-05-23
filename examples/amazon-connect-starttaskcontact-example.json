@@ -1,0 +1,28 @@
+{
+  "operationId": "startTaskContact",
+  "method": "POST",
+  "path": "/contact/task",
+  "summary": "Amazon Connect Start Task Contact",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StartTaskContactRequestExample",
+      "example": {
+        "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+        "Name": "Follow-up with customer",
+        "Description": "Call customer back regarding their support case"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "StartTaskContact200Example",
+      "example": {
+        "ContactId": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+      }
+    }
+  ]
+}

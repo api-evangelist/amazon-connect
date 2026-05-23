@@ -1,0 +1,34 @@
+{
+  "operationId": "createRoutingProfile",
+  "method": "POST",
+  "path": "/routing-profiles/{InstanceId}",
+  "summary": "Amazon Connect Create Routing Profile",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateRoutingProfileRequestExample",
+      "example": {
+        "Name": "Voice Agents",
+        "Description": "Routing profile for voice agents",
+        "DefaultOutboundQueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+        "MediaConcurrencies": [
+          {
+            "Channel": "VOICE",
+            "Concurrency": 1
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateRoutingProfile200Example",
+      "example": {
+        "RoutingProfileArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+        "RoutingProfileId": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"
+      }
+    }
+  ]
+}

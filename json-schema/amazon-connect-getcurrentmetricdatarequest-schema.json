@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GetCurrentMetricDataRequest",
+  "title": "GetCurrentMetricDataRequest",
+  "type": "object",
+  "required": [
+    "CurrentMetrics",
+    "Filters"
+  ],
+  "properties": {
+    "Filters": {
+      "type": "object",
+      "description": "The queues, up to 100, or channels, to use to filter the metrics returned.",
+      "properties": {
+        "Queues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "VOICE",
+              "CHAT",
+              "TASK"
+            ]
+          }
+        }
+      }
+    },
+    "Groupings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "CurrentMetrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "enum": [
+              "AGENTS_ONLINE",
+              "AGENTS_AVAILABLE",
+              "AGENTS_ON_CALL",
+              "AGENTS_NON_PRODUCTIVE",
+              "AGENTS_AFTER_CONTACT_WORK",
+              "AGENTS_ERROR",
+              "AGENTS_STAFFED",
+              "CONTACTS_IN_QUEUE",
+              "OLDEST_CONTACT_AGE",
+              "CONTACTS_SCHEDULED",
+              "AGENTS_ON_CONTACT",
+              "SLOTS_ACTIVE",
+              "SLOTS_AVAILABLE"
+            ]
+          },
+          "Unit": {
+            "type": "string",
+            "enum": [
+              "SECONDS",
+              "COUNT",
+              "PERCENT"
+            ]
+          }
+        }
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    },
+    "MaxResults": {
+      "type": "integer"
+    }
+  }
+}

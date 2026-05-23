@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListHoursOfOperationsResponse",
+  "title": "ListHoursOfOperationsResponse",
+  "type": "object",
+  "properties": {
+    "HoursOfOperationSummaryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/HoursOfOperationSummary"
+      }
+    },
+    "NextToken": {
+      "type": "string"
+    }
+  }
+}

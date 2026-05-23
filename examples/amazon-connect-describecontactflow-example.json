@@ -1,0 +1,24 @@
+{
+  "operationId": "describeContactFlow",
+  "method": "GET",
+  "path": "/contact-flows/{InstanceId}/{ContactFlowId}",
+  "summary": "Amazon Connect Describe Contact Flow",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "DescribeContactFlow200Example",
+      "example": {
+        "ContactFlow": {
+          "Id": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+          "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+          "Name": "Default inbound flow",
+          "Type": "CONTACT_FLOW",
+          "State": "ACTIVE",
+          "Content": "{\"Version\":\"2019-10-30\",\"StartAction\":\"1\"}"
+        }
+      }
+    }
+  ]
+}

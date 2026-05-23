@@ -1,0 +1,790 @@
+{
+  "provider": "Amazon Connect",
+  "providerId": "amazon-connect",
+  "kind": "json-structure",
+  "description": "Structural overview of the Amazon Connect API surface; extracted from openapi/.",
+  "schemaCount": 58,
+  "operationCount": 41,
+  "schemas": [
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Instance",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "InstanceSummary",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "ListInstancesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CreateInstanceRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "IdentityManagementType",
+        "InboundCallsEnabled",
+        "OutboundCallsEnabled"
+      ]
+    },
+    {
+      "name": "CreateInstanceResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DescribeInstanceResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "UserIdentityInfo",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "UserPhoneConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "PhoneType"
+      ]
+    },
+    {
+      "name": "UserSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ListUsersResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CreateUserRequest",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "PhoneConfig",
+        "RoutingProfileId",
+        "SecurityProfileIds",
+        "Username"
+      ]
+    },
+    {
+      "name": "CreateUserResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DescribeUserResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "UpdateUserIdentityInfoRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "IdentityInfo"
+      ]
+    },
+    {
+      "name": "RoutingProfileSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ListRoutingProfilesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "RoutingProfile",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "MediaConcurrency",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "Channel",
+        "Concurrency"
+      ]
+    },
+    {
+      "name": "CreateRoutingProfileRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "DefaultOutboundQueueId",
+        "Description",
+        "MediaConcurrencies",
+        "Name"
+      ]
+    },
+    {
+      "name": "CreateRoutingProfileResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DescribeRoutingProfileResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "QueueSummary",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Queue",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ListQueuesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CreateQueueRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "HoursOfOperationId",
+        "Name"
+      ]
+    },
+    {
+      "name": "CreateQueueResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DescribeQueueResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContactFlowSummary",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ListContactFlowsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ContactFlow",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "CreateContactFlowRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "Content",
+        "Name",
+        "Type"
+      ]
+    },
+    {
+      "name": "CreateContactFlowResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DescribeContactFlowResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "HoursOfOperationSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ListHoursOfOperationsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "HoursOfOperationTimeSlice",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "Hours",
+        "Minutes"
+      ]
+    },
+    {
+      "name": "HoursOfOperationConfig",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "Day",
+        "StartTime",
+        "EndTime"
+      ]
+    },
+    {
+      "name": "CreateHoursOfOperationRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "Config",
+        "Name",
+        "TimeZone"
+      ]
+    },
+    {
+      "name": "CreateHoursOfOperationResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "AgentStatusSummary",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ListAgentStatusesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "SecurityProfileSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ListSecurityProfilesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "StartChatContactRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "ContactFlowId",
+        "InstanceId",
+        "ParticipantDetails"
+      ]
+    },
+    {
+      "name": "StartChatContactResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "StartOutboundVoiceContactRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "ContactFlowId",
+        "DestinationPhoneNumber",
+        "InstanceId"
+      ]
+    },
+    {
+      "name": "StartTaskContactRequest",
+      "type": "object",
+      "propertyCount": 12,
+      "required": [
+        "InstanceId",
+        "Name"
+      ]
+    },
+    {
+      "name": "Contact",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "DescribeContactResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContactSummary",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "SearchContactsRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "InstanceId",
+        "TimeRange"
+      ]
+    },
+    {
+      "name": "SearchContactsResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "GetMetricDataRequest",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "EndTime",
+        "Filters",
+        "HistoricalMetrics",
+        "StartTime"
+      ]
+    },
+    {
+      "name": "GetMetricDataResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GetCurrentMetricDataRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "CurrentMetrics",
+        "Filters"
+      ]
+    },
+    {
+      "name": "GetCurrentMetricDataResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/instance",
+      "operationId": "listInstances",
+      "summary": "Amazon Connect List Instances",
+      "tags": [
+        "Instances"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/instance",
+      "operationId": "createInstance",
+      "summary": "Amazon Connect Create Instance",
+      "tags": [
+        "Instances"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/instance/{InstanceId}",
+      "operationId": "describeInstance",
+      "summary": "Amazon Connect Describe Instance",
+      "tags": [
+        "Instances"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/instance/{InstanceId}",
+      "operationId": "deleteInstance",
+      "summary": "Amazon Connect Delete Instance",
+      "tags": [
+        "Instances"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{InstanceId}",
+      "operationId": "listUsers",
+      "summary": "Amazon Connect List Users",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/{InstanceId}",
+      "operationId": "createUser",
+      "summary": "Amazon Connect Create User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{InstanceId}/{UserId}",
+      "operationId": "describeUser",
+      "summary": "Amazon Connect Describe User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{InstanceId}/{UserId}",
+      "operationId": "deleteUser",
+      "summary": "Amazon Connect Delete User",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/{InstanceId}/{UserId}/identity-info",
+      "operationId": "updateUserIdentityInfo",
+      "summary": "Amazon Connect Update User Identity Info",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/users/{InstanceId}/{UserId}/routing-profile",
+      "operationId": "updateUserRoutingProfile",
+      "summary": "Amazon Connect Update User Routing Profile",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/users/{InstanceId}/{UserId}/status",
+      "operationId": "putUserStatus",
+      "summary": "Amazon Connect Put User Status",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/routing-profiles/{InstanceId}",
+      "operationId": "listRoutingProfiles",
+      "summary": "Amazon Connect List Routing Profiles",
+      "tags": [
+        "Routing Profiles"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/routing-profiles/{InstanceId}",
+      "operationId": "createRoutingProfile",
+      "summary": "Amazon Connect Create Routing Profile",
+      "tags": [
+        "Routing Profiles"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/routing-profiles/{InstanceId}/{RoutingProfileId}",
+      "operationId": "describeRoutingProfile",
+      "summary": "Amazon Connect Describe Routing Profile",
+      "tags": [
+        "Routing Profiles"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/routing-profiles/{InstanceId}/{RoutingProfileId}",
+      "operationId": "deleteRoutingProfile",
+      "summary": "Amazon Connect Delete Routing Profile",
+      "tags": [
+        "Routing Profiles"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/queues/{InstanceId}",
+      "operationId": "listQueues",
+      "summary": "Amazon Connect List Queues",
+      "tags": [
+        "Queues"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/queues/{InstanceId}",
+      "operationId": "createQueue",
+      "summary": "Amazon Connect Create Queue",
+      "tags": [
+        "Queues"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/queues/{InstanceId}/{QueueId}",
+      "operationId": "describeQueue",
+      "summary": "Amazon Connect Describe Queue",
+      "tags": [
+        "Queues"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/queues/{InstanceId}/{QueueId}",
+      "operationId": "deleteQueue",
+      "summary": "Amazon Connect Delete Queue",
+      "tags": [
+        "Queues"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact-flows/{InstanceId}",
+      "operationId": "listContactFlows",
+      "summary": "Amazon Connect List Contact Flows",
+      "tags": [
+        "Contact Flows"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact-flows/{InstanceId}",
+      "operationId": "createContactFlow",
+      "summary": "Amazon Connect Create Contact Flow",
+      "tags": [
+        "Contact Flows"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact-flows/{InstanceId}/{ContactFlowId}",
+      "operationId": "describeContactFlow",
+      "summary": "Amazon Connect Describe Contact Flow",
+      "tags": [
+        "Contact Flows"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contact-flows/{InstanceId}/{ContactFlowId}",
+      "operationId": "deleteContactFlow",
+      "summary": "Amazon Connect Delete Contact Flow",
+      "tags": [
+        "Contact Flows"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/hours-of-operations/{InstanceId}",
+      "operationId": "listHoursOfOperations",
+      "summary": "Amazon Connect List Hours of Operations",
+      "tags": [
+        "Hours of Operations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/hours-of-operations/{InstanceId}",
+      "operationId": "createHoursOfOperation",
+      "summary": "Amazon Connect Create Hours of Operation",
+      "tags": [
+        "Hours of Operations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/agent-status/{InstanceId}",
+      "operationId": "listAgentStatuses",
+      "summary": "Amazon Connect List Agent Statuses",
+      "tags": [
+        "Agent Statuses"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/security-profiles/{InstanceId}",
+      "operationId": "listSecurityProfiles",
+      "summary": "Amazon Connect List Security Profiles",
+      "tags": [
+        "Security Profiles"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact/chat",
+      "operationId": "startChatContact",
+      "summary": "Amazon Connect Start Chat Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact/outbound-voice",
+      "operationId": "startOutboundVoiceContact",
+      "summary": "Amazon Connect Start Outbound Voice Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact/task",
+      "operationId": "startTaskContact",
+      "summary": "Amazon Connect Start Task Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/{InstanceId}/{ContactId}",
+      "operationId": "describeContact",
+      "summary": "Amazon Connect Describe Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/{InstanceId}/{ContactId}/attributes",
+      "operationId": "getContactAttributes",
+      "summary": "Amazon Connect Get Contact Attributes",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contacts/{InstanceId}/{ContactId}/attributes",
+      "operationId": "updateContactAttributes",
+      "summary": "Amazon Connect Update Contact Attributes",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contacts/{InstanceId}/{ContactId}/stop",
+      "operationId": "stopContact",
+      "summary": "Amazon Connect Stop Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/metrics/historical/{InstanceId}",
+      "operationId": "getMetricData",
+      "summary": "Amazon Connect Get Historical Metric Data",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/metrics/current/{InstanceId}",
+      "operationId": "getCurrentMetricData",
+      "summary": "Amazon Connect Get Current Metric Data",
+      "tags": [
+        "Metrics"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/search-contacts",
+      "operationId": "searchContacts",
+      "summary": "Amazon Connect Search Contacts",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tags/{ResourceArn}",
+      "operationId": "listTagsForResource",
+      "summary": "Amazon Connect List Tags for Resource",
+      "tags": [
+        "Tags"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tags/{ResourceArn}",
+      "operationId": "tagResource",
+      "summary": "Amazon Connect Tag Resource",
+      "tags": [
+        "Tags"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tags/{ResourceArn}",
+      "operationId": "untagResource",
+      "summary": "Amazon Connect Untag Resource",
+      "tags": [
+        "Tags"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/federation-token/{InstanceId}",
+      "operationId": "getFederationToken",
+      "summary": "Amazon Connect Get Federation Token",
+      "tags": [
+        "Authentication"
+      ]
+    }
+  ]
+}

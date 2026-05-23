@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateQueueResponse",
+  "title": "CreateQueueResponse",
+  "type": "object",
+  "properties": {
+    "QueueArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the queue."
+    },
+    "QueueId": {
+      "type": "string",
+      "description": "The identifier for the queue.",
+      "example": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+    }
+  }
+}

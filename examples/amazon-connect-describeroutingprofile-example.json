@@ -1,0 +1,23 @@
+{
+  "operationId": "describeRoutingProfile",
+  "method": "GET",
+  "path": "/routing-profiles/{InstanceId}/{RoutingProfileId}",
+  "summary": "Amazon Connect Describe Routing Profile",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "DescribeRoutingProfile200Example",
+      "example": {
+        "RoutingProfile": {
+          "RoutingProfileArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+          "RoutingProfileId": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+          "Name": "Voice Agents",
+          "Description": "Routing profile for voice agents",
+          "DefaultOutboundQueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+        }
+      }
+    }
+  ]
+}

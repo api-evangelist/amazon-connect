@@ -1,0 +1,29 @@
+{
+  "operationId": "createContactFlow",
+  "method": "POST",
+  "path": "/contact-flows/{InstanceId}",
+  "summary": "Amazon Connect Create Contact Flow",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateContactFlowRequestExample",
+      "example": {
+        "Name": "My Contact Flow",
+        "Type": "CONTACT_FLOW",
+        "Description": "My inbound contact flow",
+        "Content": "{\"Version\":\"2019-10-30\",\"StartAction\":\"1\"}"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateContactFlow200Example",
+      "example": {
+        "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+        "ContactFlowArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE"
+      }
+    }
+  ]
+}

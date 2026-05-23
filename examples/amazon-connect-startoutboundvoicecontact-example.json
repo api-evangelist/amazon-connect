@@ -1,0 +1,28 @@
+{
+  "operationId": "startOutboundVoiceContact",
+  "method": "POST",
+  "path": "/contact/outbound-voice",
+  "summary": "Amazon Connect Start Outbound Voice Contact",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "StartOutboundVoiceContactRequestExample",
+      "example": {
+        "InstanceId": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+        "ContactFlowId": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+        "DestinationPhoneNumber": "+12065551212",
+        "QueueId": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "StartOutboundVoiceContact200Example",
+      "example": {
+        "ContactId": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserPhoneConfig",
+  "title": "UserPhoneConfig",
+  "type": "object",
+  "description": "Contains information about the phone configuration settings for a user.",
+  "required": [
+    "PhoneType"
+  ],
+  "properties": {
+    "PhoneType": {
+      "type": "string",
+      "description": "The phone type.",
+      "enum": [
+        "SOFT_PHONE",
+        "DESK_PHONE"
+      ],
+      "example": "SOFT_PHONE"
+    },
+    "AutoAccept": {
+      "type": "boolean",
+      "description": "The Auto accept setting.",
+      "example": false
+    },
+    "AfterContactWorkTimeLimit": {
+      "type": "integer",
+      "description": "The After Contact Work (ACW) timeout setting, in seconds.",
+      "example": 0
+    },
+    "DeskPhoneNumber": {
+      "type": "string",
+      "description": "The phone number for the user's desk phone."
+    }
+  }
+}

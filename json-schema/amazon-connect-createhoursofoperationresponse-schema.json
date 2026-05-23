@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateHoursOfOperationResponse",
+  "title": "CreateHoursOfOperationResponse",
+  "type": "object",
+  "properties": {
+    "HoursOfOperationId": {
+      "type": "string",
+      "description": "The identifier for the hours of operation.",
+      "example": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+    },
+    "HoursOfOperationArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) for the hours of operation."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operationId": "updateContactAttributes",
+  "method": "POST",
+  "path": "/contacts/{InstanceId}/{ContactId}/attributes",
+  "summary": "Amazon Connect Update Contact Attributes",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateContactAttributesRequestExample",
+      "example": {
+        "Attributes": {
+          "CustomerType": "premium",
+          "TicketNumber": "TKT-500123"
+        }
+      }
+    }
+  ],
+  "responseExamples": []
+}

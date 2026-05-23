@@ -1,0 +1,29 @@
+{
+  "operationId": "describeContact",
+  "method": "GET",
+  "path": "/contacts/{InstanceId}/{ContactId}",
+  "summary": "Amazon Connect Describe Contact",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "DescribeContact200Example",
+      "example": {
+        "Contact": {
+          "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+          "Id": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+          "Channel": "VOICE",
+          "InitiationMethod": "INBOUND",
+          "AgentInfo": {
+            "Id": "500123"
+          },
+          "QueueInfo": {
+            "Id": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+            "EnqueueTimestamp": "2025-03-15T14:30:00Z"
+          }
+        }
+      }
+    }
+  ]
+}

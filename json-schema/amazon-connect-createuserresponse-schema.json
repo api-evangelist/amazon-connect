@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateUserResponse",
+  "title": "CreateUserResponse",
+  "type": "object",
+  "properties": {
+    "UserId": {
+      "type": "string",
+      "description": "The identifier of the user account.",
+      "example": "500123"
+    },
+    "UserArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the user account."
+    }
+  }
+}

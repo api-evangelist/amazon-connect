@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateQueueRequest",
+  "title": "CreateQueueRequest",
+  "type": "object",
+  "required": [
+    "HoursOfOperationId",
+    "Name"
+  ],
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "The name of the queue.",
+      "example": "Support Queue"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The description of the queue."
+    },
+    "HoursOfOperationId": {
+      "type": "string",
+      "description": "The identifier for the hours of operation.",
+      "example": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+    },
+    "MaxContacts": {
+      "type": "integer",
+      "description": "The maximum number of contacts that can be in the queue.",
+      "example": 100
+    },
+    "OutboundCallerConfig": {
+      "type": "object",
+      "properties": {
+        "OutboundCallerIdName": {
+          "type": "string"
+        },
+        "OutboundCallerIdNumberId": {
+          "type": "string"
+        },
+        "OutboundFlowId": {
+          "type": "string"
+        }
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

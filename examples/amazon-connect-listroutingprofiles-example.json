@@ -1,0 +1,23 @@
+{
+  "operationId": "listRoutingProfiles",
+  "method": "GET",
+  "path": "/routing-profiles/{InstanceId}",
+  "summary": "Amazon Connect List Routing Profiles",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListRoutingProfiles200Example",
+      "example": {
+        "RoutingProfileSummaryList": [
+          {
+            "Id": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+            "Name": "Basic Routing Profile"
+          }
+        ]
+      }
+    }
+  ]
+}

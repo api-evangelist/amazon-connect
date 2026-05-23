@@ -1,0 +1,41 @@
+{
+  "operationId": "createHoursOfOperation",
+  "method": "POST",
+  "path": "/hours-of-operations/{InstanceId}",
+  "summary": "Amazon Connect Create Hours of Operation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateHoursOfOperationRequestExample",
+      "example": {
+        "Name": "Business Hours",
+        "Description": "Standard business hours Mon-Fri",
+        "TimeZone": "America/New_York",
+        "Config": [
+          {
+            "Day": "MONDAY",
+            "StartTime": {
+              "Hours": 9,
+              "Minutes": 0
+            },
+            "EndTime": {
+              "Hours": 17,
+              "Minutes": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateHoursOfOperation200Example",
+      "example": {
+        "HoursOfOperationId": "a1b2c3d4-5678-90ab-cdef-66666EXAMPLE",
+        "HoursOfOperationArn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "operationId": "listUsers",
+  "method": "GET",
+  "path": "/users/{InstanceId}",
+  "summary": "Amazon Connect List Users",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListUsers200Example",
+      "example": {
+        "UserSummaryList": [
+          {
+            "Id": "500123",
+            "Arn": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123",
+            "Username": "jsmith"
+          }
+        ]
+      }
+    }
+  ]
+}
