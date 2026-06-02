@@ -2,12 +2,20 @@
   "repo": "amazon-connect",
   "feeds": [
     {
-      "source": "https://aws.amazon.com/blogs/contact-center/",
+      "source": "https://aws.amazon.com/blogs/contact-center/feed/",
       "feed_url": "https://aws.amazon.com/blogs/contact-center/feed/",
-      "title": "AWS Contact Center",
-      "saved": 14
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://aws.amazon.com/support/",
+      "feed_url": "https://aws.amazon.com/support/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 26,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 27,
+  "fetched": "2026-06-01T23:35:02Z"
 }
