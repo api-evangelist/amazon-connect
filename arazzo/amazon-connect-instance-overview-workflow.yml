@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Instance Configuration Overview
+  summary: Describe an instance, then inventory its contact flows and queues once it is active.
+  description: >-
+    Builds a quick configuration snapshot of an Amazon Connect instance. The
+    workflow describes the instance and only proceeds when it is ACTIVE, then
+    lists the instance's contact flows and queues so an operator can see the
+    routing surface in one pass. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: instance-overview
+  summary: Describe an instance and inventory its contact flows and queues.
+  description: >-
+    Confirms the instance is active, then lists its contact flows and queues to
+    produce a configuration overview.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      maxResults:
+        type: integer
+        description: The maximum number of results to return per list call.
+  steps:
+  - stepId: describeInstance
+    description: >-
+      Describe the instance and confirm it is in the ACTIVE state before
+      inventorying its resources.
+    operationId: describeInstance
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.Instance.InstanceStatus == "ACTIVE"
+      type: jsonpath
+    outputs:
+      instanceStatus: $response.body#/Instance/InstanceStatus
+      instanceAlias: $response.body#/Instance/InstanceAlias
+    onSuccess:
+    - name: instanceActive
+      type: goto
+      stepId: listFlows
+      criteria:
+      - context: $response.body
+        condition: $.Instance.InstanceStatus == "ACTIVE"
+        type: jsonpath
+  - stepId: listFlows
+    description: >-
+      List the contact flows configured in the instance.
+    operationId: listContactFlows
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: maxResults
+      in: query
+      value: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactFlows: $response.body#/ContactFlowSummaryList
+  - stepId: listQueues
+    description: >-
+      List the queues configured in the instance to complete the overview.
+    operationId: listQueues
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: maxResults
+      in: query
+      value: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queues: $response.body#/QueueSummaryList
+  outputs:
+    instanceAlias: $steps.describeInstance.outputs.instanceAlias
+    contactFlows: $steps.listFlows.outputs.contactFlows
+    queues: $steps.listQueues.outputs.queues

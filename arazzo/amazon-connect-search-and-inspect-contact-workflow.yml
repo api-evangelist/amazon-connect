@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Search and Inspect Contact
+  summary: Search contacts in a time range, then describe and read the attributes of the first match.
+  description: >-
+    Finds a recent contact and pulls its detail. The workflow searches contacts
+    in the instance over a time range, branches on whether any contacts were
+    returned, and for the first match describes the contact and reads its
+    user-defined attributes. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: search-and-inspect-contact
+  summary: Search contacts and inspect the first match.
+  description: >-
+    Searches contacts over a time range and, when at least one is found,
+    describes it and retrieves its attributes.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - startTime
+    - endTime
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      startTime:
+        type: string
+        description: The inclusive start of the search time range (ISO 8601).
+      endTime:
+        type: string
+        description: The exclusive end of the search time range (ISO 8601).
+      maxResults:
+        type: integer
+        description: The maximum number of contacts to return.
+  steps:
+  - stepId: searchContacts
+    description: >-
+      Search contacts by initiation timestamp over the supplied time range.
+    operationId: searchContacts
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        TimeRange:
+          Type: INITIATION_TIMESTAMP
+          StartTime: $inputs.startTime
+          EndTime: $inputs.endTime
+        MaxResults: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstContactId: $response.body#/Contacts/0/Id
+      totalCount: $response.body#/TotalCount
+    onSuccess:
+    - name: contactsFound
+      type: goto
+      stepId: describeContact
+      criteria:
+      - context: $response.body
+        condition: $.Contacts.length > 0
+        type: jsonpath
+    - name: noContacts
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Contacts.length == 0
+        type: jsonpath
+  - stepId: describeContact
+    description: >-
+      Describe the first contact returned by the search.
+    operationId: describeContact
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.searchContacts.outputs.firstContactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactRecord: $response.body#/Contact
+      channel: $response.body#/Contact/Channel
+  - stepId: getAttributes
+    description: >-
+      Retrieve the user-defined attributes for the inspected contact.
+    operationId: getContactAttributes
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.searchContacts.outputs.firstContactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      attributes: $response.body#/Attributes
+  outputs:
+    firstContactId: $steps.searchContacts.outputs.firstContactId
+    channel: $steps.describeContact.outputs.channel
+    attributes: $steps.getAttributes.outputs.attributes

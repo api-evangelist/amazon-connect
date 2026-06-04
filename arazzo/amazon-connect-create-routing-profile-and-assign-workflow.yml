@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Create Routing Profile and Assign to User
+  summary: Create a routing profile with media concurrencies and assign it to an existing agent.
+  description: >-
+    Stands up a new routing profile in an Amazon Connect instance with its
+    default outbound queue and media concurrencies, then assigns it to an
+    existing agent user and reads the user back to confirm the new routing
+    profile took effect. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-routing-profile-and-assign
+  summary: Create a routing profile and assign it to an existing user.
+  description: >-
+    Creates a routing profile, assigns it to the supplied user, and confirms the
+    assignment by describing the user.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - userId
+    - name
+    - defaultOutboundQueueId
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      userId:
+        type: string
+        description: The identifier of the existing user to assign the profile to.
+      name:
+        type: string
+        description: The name of the new routing profile.
+      description:
+        type: string
+        description: A description for the new routing profile.
+      defaultOutboundQueueId:
+        type: string
+        description: The identifier of the default outbound queue for the profile.
+      concurrency:
+        type: integer
+        description: The number of simultaneous voice contacts the agent can handle.
+  steps:
+  - stepId: createProfile
+    description: >-
+      Create the routing profile with its default outbound queue and a single
+      voice media concurrency.
+    operationId: createRoutingProfile
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.name
+        Description: $inputs.description
+        DefaultOutboundQueueId: $inputs.defaultOutboundQueueId
+        MediaConcurrencies:
+        - Channel: VOICE
+          Concurrency: $inputs.concurrency
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      routingProfileId: $response.body#/RoutingProfileId
+      routingProfileArn: $response.body#/RoutingProfileArn
+  - stepId: assignToUser
+    description: >-
+      Assign the newly created routing profile to the existing user.
+    operationId: updateUserRoutingProfile
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $inputs.userId
+    requestBody:
+      contentType: application/json
+      payload:
+        RoutingProfileId: $steps.createProfile.outputs.routingProfileId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: confirmAssignment
+    description: >-
+      Describe the user and confirm the newly created routing profile is now the
+      one assigned to them.
+    operationId: describeUser
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.User.RoutingProfileId == $steps.createProfile.outputs.routingProfileId
+      type: jsonpath
+    outputs:
+      assignedRoutingProfile: $response.body#/User/RoutingProfileId
+  outputs:
+    routingProfileId: $steps.createProfile.outputs.routingProfileId
+    assignedRoutingProfile: $steps.confirmAssignment.outputs.assignedRoutingProfile

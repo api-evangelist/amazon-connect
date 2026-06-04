@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Provision Queue with Hours of Operation
+  summary: Create an hours-of-operation schedule, build a queue that uses it, and verify the queue.
+  description: >-
+    Provisions a contact queue together with its operating schedule. The
+    workflow first creates an hours-of-operation record with a weekday config,
+    then creates a queue that references that schedule, and finally describes the
+    queue to confirm it was created and bound to the new hours of operation.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-queue-with-hours
+  summary: Create hours of operation and a queue bound to them.
+  description: >-
+    Creates an hours-of-operation schedule, then a queue that references it, and
+    confirms the queue carries the new schedule.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - hoursName
+    - timeZone
+    - queueName
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      hoursName:
+        type: string
+        description: The name of the hours-of-operation schedule.
+      hoursDescription:
+        type: string
+        description: A description for the hours-of-operation schedule.
+      timeZone:
+        type: string
+        description: The time zone for the hours of operation (e.g. America/New_York).
+      queueName:
+        type: string
+        description: The name of the queue to create.
+      queueDescription:
+        type: string
+        description: A description for the queue.
+      maxContacts:
+        type: integer
+        description: The maximum number of contacts allowed in the queue.
+  steps:
+  - stepId: createHours
+    description: >-
+      Create an hours-of-operation schedule covering a standard Monday window.
+    operationId: createHoursOfOperation
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.hoursName
+        Description: $inputs.hoursDescription
+        TimeZone: $inputs.timeZone
+        Config:
+        - Day: MONDAY
+          StartTime:
+            Hours: 9
+            Minutes: 0
+          EndTime:
+            Hours: 17
+            Minutes: 0
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      hoursOfOperationId: $response.body#/HoursOfOperationId
+      hoursOfOperationArn: $response.body#/HoursOfOperationArn
+  - stepId: createQueue
+    description: >-
+      Create a queue that uses the hours-of-operation schedule created in the
+      previous step.
+    operationId: createQueue
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.queueName
+        Description: $inputs.queueDescription
+        HoursOfOperationId: $steps.createHours.outputs.hoursOfOperationId
+        MaxContacts: $inputs.maxContacts
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queueId: $response.body#/QueueId
+      queueArn: $response.body#/QueueArn
+  - stepId: confirmQueue
+    description: >-
+      Describe the queue and confirm it references the hours-of-operation
+      schedule that was just created.
+    operationId: describeQueue
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: QueueId
+      in: path
+      value: $steps.createQueue.outputs.queueId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.Queue.HoursOfOperationId == $steps.createHours.outputs.hoursOfOperationId
+      type: jsonpath
+    outputs:
+      queueRecord: $response.body#/Queue
+      boundHoursOfOperationId: $response.body#/Queue/HoursOfOperationId
+  outputs:
+    hoursOfOperationId: $steps.createHours.outputs.hoursOfOperationId
+    queueId: $steps.createQueue.outputs.queueId
+    boundHoursOfOperationId: $steps.confirmQueue.outputs.boundHoursOfOperationId

@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Start Task Contact and Stop It
+  summary: Create a task contact, confirm it through describe, then end the contact.
+  description: >-
+    Drives the lifecycle of a task contact. The workflow starts a new task
+    contact against a contact flow, describes it to confirm the task was created,
+    and then stops the contact to close it out. This is useful for automated task
+    creation paths that need to verify and immediately resolve a contact. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-task-and-stop
+  summary: Start a task contact, confirm it, and stop it.
+  description: >-
+    Starts a task contact, reads it back through describeContact, then ends the
+    contact with stopContact.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - contactFlowId
+    - name
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      contactFlowId:
+        type: string
+        description: The identifier of the contact flow to run for the task.
+      name:
+        type: string
+        description: The name of the task.
+      description:
+        type: string
+        description: A description of the task.
+  steps:
+  - stepId: startTask
+    description: >-
+      Start a new task contact against the specified contact flow.
+    operationId: startTaskContact
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        ContactFlowId: $inputs.contactFlowId
+        Name: $inputs.name
+        Description: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/ContactId
+  - stepId: confirmTask
+    description: >-
+      Describe the task contact to confirm it was created before stopping it.
+    operationId: describeContact
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startTask.outputs.contactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      channel: $response.body#/Contact/Channel
+    onSuccess:
+    - name: taskExists
+      type: goto
+      stepId: stopTask
+      criteria:
+      - context: $response.body
+        condition: $.Contact.Id != null
+        type: jsonpath
+  - stepId: stopTask
+    description: >-
+      End the task contact.
+    operationId: stopContact
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startTask.outputs.contactId
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        ContactId: $steps.startTask.outputs.contactId
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    contactId: $steps.startTask.outputs.contactId
+    channel: $steps.confirmTask.outputs.channel

@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Provision Agent User
+  summary: Create an agent user, assign a routing profile, and confirm the final account state.
+  description: >-
+    Onboards a new agent into an Amazon Connect instance. The workflow creates
+    the user account with its security profile and initial routing profile, then
+    explicitly assigns (or re-assigns) the routing profile so the agent receives
+    the correct contact mix, and finally describes the user to confirm the
+    account was provisioned with the expected routing profile. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-user
+  summary: Create an agent user and assign their routing profile.
+  description: >-
+    Creates a user account in the specified Amazon Connect instance, assigns the
+    supplied routing profile to the new user, and reads the user back to confirm
+    the provisioning result.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - username
+    - password
+    - securityProfileId
+    - routingProfileId
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      username:
+        type: string
+        description: The login name for the new agent user.
+      password:
+        type: string
+        description: The initial password for the new agent user.
+      securityProfileId:
+        type: string
+        description: The identifier of the security profile to grant the user.
+      routingProfileId:
+        type: string
+        description: The identifier of the routing profile to assign to the user.
+      firstName:
+        type: string
+        description: The agent's first name for their identity information.
+      lastName:
+        type: string
+        description: The agent's last name for their identity information.
+      email:
+        type: string
+        description: The agent's email address for their identity information.
+  steps:
+  - stepId: createAgent
+    description: >-
+      Create the agent user account with its identity info, soft-phone
+      configuration, security profile, and initial routing profile.
+    operationId: createUser
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Username: $inputs.username
+        Password: $inputs.password
+        IdentityInfo:
+          FirstName: $inputs.firstName
+          LastName: $inputs.lastName
+          Email: $inputs.email
+        PhoneConfig:
+          PhoneType: SOFT_PHONE
+          AutoAccept: false
+          AfterContactWorkTimeLimit: 0
+        SecurityProfileIds:
+        - $inputs.securityProfileId
+        RoutingProfileId: $inputs.routingProfileId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/UserId
+      userArn: $response.body#/UserArn
+  - stepId: assignRoutingProfile
+    description: >-
+      Assign the routing profile to the newly created user so they receive the
+      intended contact routing.
+    operationId: updateUserRoutingProfile
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $steps.createAgent.outputs.userId
+    requestBody:
+      contentType: application/json
+      payload:
+        RoutingProfileId: $inputs.routingProfileId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: confirmUser
+    description: >-
+      Read the user account back to confirm it exists and carries the assigned
+      routing profile.
+    operationId: describeUser
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $steps.createAgent.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.User.RoutingProfileId == $inputs.routingProfileId
+      type: jsonpath
+    outputs:
+      userRecord: $response.body#/User
+      assignedRoutingProfile: $response.body#/User/RoutingProfileId
+  outputs:
+    userId: $steps.createAgent.outputs.userId
+    userArn: $steps.createAgent.outputs.userArn
+    assignedRoutingProfile: $steps.confirmUser.outputs.assignedRoutingProfile

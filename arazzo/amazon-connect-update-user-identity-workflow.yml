@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Update User Identity Info
+  summary: Read a user, update their identity information, then re-read to confirm the change.
+  description: >-
+    Safely edits an agent's identity information. The workflow describes the user
+    to confirm the account exists, updates the user's first name, last name, and
+    email, and then describes the user again to verify the new email took effect.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: update-user-identity
+  summary: Update an agent's identity information and confirm the change.
+  description: >-
+    Confirms a user exists, updates their identity info, and re-reads the user to
+    verify the update.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - userId
+    - firstName
+    - lastName
+    - email
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      userId:
+        type: string
+        description: The identifier of the user account to update.
+      firstName:
+        type: string
+        description: The agent's updated first name.
+      lastName:
+        type: string
+        description: The agent's updated last name.
+      email:
+        type: string
+        description: The agent's updated email address.
+  steps:
+  - stepId: readUser
+    description: >-
+      Describe the user to confirm the account exists before editing it.
+    operationId: describeUser
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      username: $response.body#/User/Username
+    onSuccess:
+    - name: userExists
+      type: goto
+      stepId: updateIdentity
+      criteria:
+      - context: $response.body
+        condition: $.User.Id != null
+        type: jsonpath
+  - stepId: updateIdentity
+    description: >-
+      Update the user's identity information with the supplied name and email.
+    operationId: updateUserIdentityInfo
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $inputs.userId
+    requestBody:
+      contentType: application/json
+      payload:
+        IdentityInfo:
+          FirstName: $inputs.firstName
+          LastName: $inputs.lastName
+          Email: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: confirmUpdate
+    description: >-
+      Re-read the user and confirm the email now matches the supplied value.
+    operationId: describeUser
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: UserId
+      in: path
+      value: $inputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.User.IdentityInfo.Email == $inputs.email
+      type: jsonpath
+    outputs:
+      updatedEmail: $response.body#/User/IdentityInfo/Email
+  outputs:
+    username: $steps.readUser.outputs.username
+    updatedEmail: $steps.confirmUpdate.outputs.updatedEmail

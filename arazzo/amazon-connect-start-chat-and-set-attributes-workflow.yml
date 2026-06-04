@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Start Chat Contact and Set Attributes
+  summary: Start a customer chat, confirm the contact, and attach routing attributes.
+  description: >-
+    Initiates a customer chat against a contact flow and prepares it for routing.
+    The workflow starts the chat contact, reads the contact back to confirm it is
+    live, and writes user-defined attributes onto the contact so the flow can
+    branch on customer context such as tier or topic. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-chat-and-set-attributes
+  summary: Start a chat contact and attach routing attributes.
+  description: >-
+    Starts a chat contact, confirms it through describeContact, and writes
+    user-defined attributes onto the contact.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - contactFlowId
+    - displayName
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      contactFlowId:
+        type: string
+        description: The identifier of the contact flow to run for the chat.
+      displayName:
+        type: string
+        description: The display name of the participant (customer).
+      attributes:
+        type: object
+        description: User-defined attributes to attach to the contact.
+        additionalProperties:
+          type: string
+  steps:
+  - stepId: startChat
+    description: >-
+      Start the chat contact for the customer against the specified contact flow.
+    operationId: startChatContact
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        ContactFlowId: $inputs.contactFlowId
+        ParticipantDetails:
+          DisplayName: $inputs.displayName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/ContactId
+      participantId: $response.body#/ParticipantId
+      participantToken: $response.body#/ParticipantToken
+  - stepId: confirmContact
+    description: >-
+      Read the contact back to confirm the chat was created before attaching
+      attributes.
+    operationId: describeContact
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startChat.outputs.contactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      channel: $response.body#/Contact/Channel
+    onSuccess:
+    - name: contactReady
+      type: goto
+      stepId: attachAttributes
+      criteria:
+      - context: $response.body
+        condition: $.Contact.Id != null
+        type: jsonpath
+  - stepId: attachAttributes
+    description: >-
+      Write user-defined attributes onto the chat contact so the flow can route
+      on customer context.
+    operationId: updateContactAttributes
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startChat.outputs.contactId
+    requestBody:
+      contentType: application/json
+      payload:
+        Attributes: $inputs.attributes
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    contactId: $steps.startChat.outputs.contactId
+    participantToken: $steps.startChat.outputs.participantToken
+    channel: $steps.confirmContact.outputs.channel

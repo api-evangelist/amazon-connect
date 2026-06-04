@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Queue Real-Time Health
+  summary: Confirm a queue is enabled, then pull live agent and in-queue metrics for it.
+  description: >-
+    Produces a real-time health read for a single queue. The workflow describes
+    the queue to confirm it is enabled, branches on that status, and then pulls
+    current metric data filtered to the queue so an operator can see agents
+    online and contacts waiting. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: queue-realtime-health
+  summary: Describe a queue and pull its real-time metrics.
+  description: >-
+    Confirms a queue is enabled, then retrieves current metric data scoped to
+    that queue.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - queueId
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      queueId:
+        type: string
+        description: The identifier of the queue to inspect.
+  steps:
+  - stepId: describeQueue
+    description: >-
+      Describe the queue and capture its status before reading live metrics.
+    operationId: describeQueue
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: QueueId
+      in: path
+      value: $inputs.queueId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queueName: $response.body#/Queue/Name
+      queueStatus: $response.body#/Queue/Status
+    onSuccess:
+    - name: queueEnabled
+      type: goto
+      stepId: currentMetrics
+      criteria:
+      - context: $response.body
+        condition: $.Queue.Status == "ENABLED"
+        type: jsonpath
+  - stepId: currentMetrics
+    description: >-
+      Retrieve real-time metrics for the queue, including agents online and
+      contacts in queue.
+    operationId: getCurrentMetricData
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Filters:
+          Queues:
+          - $inputs.queueId
+          Channels:
+          - VOICE
+        CurrentMetrics:
+        - Name: AGENTS_ONLINE
+          Unit: COUNT
+        - Name: CONTACTS_IN_QUEUE
+          Unit: COUNT
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      metricResults: $response.body#/MetricResults
+  outputs:
+    queueName: $steps.describeQueue.outputs.queueName
+    metricResults: $steps.currentMetrics.outputs.metricResults

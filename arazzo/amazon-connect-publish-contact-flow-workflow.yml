@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Publish and Verify Contact Flow
+  summary: Create a contact flow from flow-language content and read it back to verify it published.
+  description: >-
+    Publishes a new contact flow into an Amazon Connect instance and verifies the
+    result. The workflow creates the contact flow from its Amazon Connect Flow
+    language content, then describes the flow to confirm it was stored with the
+    expected name and active state. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-contact-flow
+  summary: Create a contact flow and verify it published.
+  description: >-
+    Creates a contact flow from flow-language content and reads it back to
+    confirm the stored definition.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - name
+    - type
+    - content
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      name:
+        type: string
+        description: The name of the contact flow.
+      type:
+        type: string
+        description: The type of contact flow (e.g. CONTACT_FLOW).
+      description:
+        type: string
+        description: A description for the contact flow.
+      content:
+        type: string
+        description: The Amazon Connect Flow language JSON content, as a string.
+  steps:
+  - stepId: createFlow
+    description: >-
+      Create the contact flow from the supplied flow-language content.
+    operationId: createContactFlow
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.name
+        Type: $inputs.type
+        Description: $inputs.description
+        Content: $inputs.content
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactFlowId: $response.body#/ContactFlowId
+      contactFlowArn: $response.body#/ContactFlowArn
+  - stepId: verifyFlow
+    description: >-
+      Describe the contact flow to confirm it was published with the expected
+      name.
+    operationId: describeContactFlow
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactFlowId
+      in: path
+      value: $steps.createFlow.outputs.contactFlowId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.ContactFlow.Name == $inputs.name
+      type: jsonpath
+    outputs:
+      contactFlow: $response.body#/ContactFlow
+      state: $response.body#/ContactFlow/State
+  outputs:
+    contactFlowId: $steps.createFlow.outputs.contactFlowId
+    state: $steps.verifyFlow.outputs.state

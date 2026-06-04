@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Start Outbound Voice Contact and Track
+  summary: Place an outbound voice call, then describe the contact and tag it with attributes.
+  description: >-
+    Launches an outbound voice contact through a contact flow and then tracks it.
+    The workflow starts the outbound call against a queue and contact flow,
+    describes the resulting contact to confirm it is active, and writes campaign
+    attributes onto the contact so downstream flow logic and reporting can key off
+    them. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-outbound-contact-and-track
+  summary: Start an outbound voice contact, describe it, and set attributes.
+  description: >-
+    Places an outbound voice call, reads the resulting contact back, and writes
+    user-defined attributes onto the contact.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - contactFlowId
+    - destinationPhoneNumber
+    - queueId
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      contactFlowId:
+        type: string
+        description: The identifier of the contact flow to run for the call.
+      destinationPhoneNumber:
+        type: string
+        description: The phone number of the customer, in E.164 format.
+      queueId:
+        type: string
+        description: The identifier of the queue to associate with the contact.
+      attributes:
+        type: object
+        description: User-defined attributes to attach to the contact.
+        additionalProperties:
+          type: string
+  steps:
+  - stepId: startCall
+    description: >-
+      Place the outbound voice call against the specified contact flow and queue.
+    operationId: startOutboundVoiceContact
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        ContactFlowId: $inputs.contactFlowId
+        DestinationPhoneNumber: $inputs.destinationPhoneNumber
+        QueueId: $inputs.queueId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/ContactId
+  - stepId: describeContact
+    description: >-
+      Read the contact back to confirm the outbound call was created and capture
+      its channel and queue placement.
+    operationId: describeContact
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startCall.outputs.contactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactRecord: $response.body#/Contact
+      channel: $response.body#/Contact/Channel
+    onSuccess:
+    - name: contactReady
+      type: goto
+      stepId: setAttributes
+      criteria:
+      - context: $response.body
+        condition: $.Contact.Id != null
+        type: jsonpath
+  - stepId: setAttributes
+    description: >-
+      Write campaign attributes onto the contact so flow logic and reporting can
+      reference them.
+    operationId: updateContactAttributes
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: ContactId
+      in: path
+      value: $steps.startCall.outputs.contactId
+    requestBody:
+      contentType: application/json
+      payload:
+        Attributes: $inputs.attributes
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    contactId: $steps.startCall.outputs.contactId
+    channel: $steps.describeContact.outputs.channel

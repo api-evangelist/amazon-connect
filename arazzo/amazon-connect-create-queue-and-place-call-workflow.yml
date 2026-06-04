@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: Amazon Connect Create Queue and Place Outbound Call
+  summary: Create a queue against an hours schedule, confirm it, and place an outbound call into it.
+  description: >-
+    Stands up a new outbound campaign queue and immediately uses it. The workflow
+    creates a queue bound to an existing hours-of-operation schedule, confirms the
+    queue exists with describeQueue, and then places an outbound voice contact
+    that is associated with the freshly created queue. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonConnectApi
+  url: ../openapi/amazon-connect-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-queue-and-place-call
+  summary: Create a queue and place an outbound call into it.
+  description: >-
+    Creates a queue, confirms it through describeQueue, and places an outbound
+    voice contact routed through the new queue.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - queueName
+    - hoursOfOperationId
+    - contactFlowId
+    - destinationPhoneNumber
+    properties:
+      instanceId:
+        type: string
+        description: The identifier of the Amazon Connect instance.
+      queueName:
+        type: string
+        description: The name of the queue to create.
+      queueDescription:
+        type: string
+        description: A description for the queue.
+      hoursOfOperationId:
+        type: string
+        description: The identifier of an existing hours-of-operation schedule.
+      maxContacts:
+        type: integer
+        description: The maximum number of contacts allowed in the queue.
+      contactFlowId:
+        type: string
+        description: The identifier of the contact flow for the outbound call.
+      destinationPhoneNumber:
+        type: string
+        description: The customer phone number to dial, in E.164 format.
+  steps:
+  - stepId: createQueue
+    description: >-
+      Create the campaign queue bound to the supplied hours-of-operation
+      schedule.
+    operationId: createQueue
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.queueName
+        Description: $inputs.queueDescription
+        HoursOfOperationId: $inputs.hoursOfOperationId
+        MaxContacts: $inputs.maxContacts
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queueId: $response.body#/QueueId
+      queueArn: $response.body#/QueueArn
+  - stepId: confirmQueue
+    description: >-
+      Confirm the queue was created and is enabled before routing a call into it.
+    operationId: describeQueue
+    parameters:
+    - name: InstanceId
+      in: path
+      value: $inputs.instanceId
+    - name: QueueId
+      in: path
+      value: $steps.createQueue.outputs.queueId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queueStatus: $response.body#/Queue/Status
+    onSuccess:
+    - name: queueReady
+      type: goto
+      stepId: placeCall
+      criteria:
+      - context: $response.body
+        condition: $.Queue.QueueId != null
+        type: jsonpath
+  - stepId: placeCall
+    description: >-
+      Place an outbound voice contact routed through the newly created queue.
+    operationId: startOutboundVoiceContact
+    requestBody:
+      contentType: application/json
+      payload:
+        InstanceId: $inputs.instanceId
+        ContactFlowId: $inputs.contactFlowId
+        DestinationPhoneNumber: $inputs.destinationPhoneNumber
+        QueueId: $steps.createQueue.outputs.queueId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/ContactId
+  outputs:
+    queueId: $steps.createQueue.outputs.queueId
+    contactId: $steps.placeCall.outputs.contactId
