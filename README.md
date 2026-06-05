@@ -1,331 +1,303 @@
 # Amazon Connect (amazon-connect)
+
 Amazon Connect is a cloud-based contact center service that makes it easy to set up and manage a customer contact center and provide reliable customer engagement at any scale, with omnichannel support for voice, chat, email, and task management. It includes AI-powered features for agent assistance, customer profiles, conversation analytics, and outbound campaign management.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml)
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Scope
 
-## Tags:
+- **Type:** Index
 
- - AWS, Chat, Contact Center, Customer Service, Voice, AI, Omnichannel
+## Tags
+
+- AWS
+- Chat
+- Contact Center
+- Customer Service
+- Voice
+- AI
+- Omnichannel
 
 ## Timestamps
 
 - **Created:** 2024-01-15
-- **Modified:** 2026-04-19
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Amazon Connect Service API
+
 The Amazon Connect Service API provides programmatic access to manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html)
+- **Base URL:** `https://connect.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Contact Center, AWS, Voice, Chat
+- Contact Center
+- AWS
+- Voice
+- Chat
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html)
-- [OpenAPI](openapi/amazon-connect-openapi.yml)
-- [OpenAPI](https://api.apis.guru/v2/specs/amazonaws.com/connect/2017-08-08/openapi.yaml)
-- [JSONSchema](json-schema/amazon-connect-instance-schema.json)
-- [JSONLD](json-ld/amazon-connect-context.jsonld)
+- [OpenAPI](openapi/amazon-connect-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](https://api.apis.guru/v2/specs/amazonaws.com/connect/2017-08-08/openapi.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](json-schema/amazon-connect-instance-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/amazon-connect-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 - [Pricing](https://aws.amazon.com/connect/pricing/)
-- [GettingStarted](https://aws.amazon.com/connect/getting-started/)
-- [FAQ](https://aws.amazon.com/connect/faqs/)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/)
-- [CLI](https://docs.aws.amazon.com/cli/latest/reference/connect/)
+- [Getting Started](https://aws.amazon.com/connect/getting-started/)
+- [F A Q](https://aws.amazon.com/connect/faqs/)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/)
+- [C L I](https://docs.aws.amazon.com/cli/latest/reference/connect/)
 - [Security](https://docs.aws.amazon.com/connect/latest/adminguide/security.html)
-- [JSONSchema](json-schema/user-schema.json)
-- [JSONSchema](json-schema/queue-schema.json)
-- [JSONSchema](json-schema/contact-schema.json)
-- [JSONSchema](json-schema/routing-profile-schema.json)
-- [JSONSchema](json-schema/contact-flow-schema.json)
-- [JSONSchema](json-schema/instance-schema.json)
+- [JSON Schema](json-schema/user-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/queue-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/contact-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/routing-profile-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/contact-flow-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/instance-schema.json) — [JSON Schema](https://json-schema.org/specification)
 
 ### Amazon Connect Streams SDK
+
 Amazon Connect Streams is a browser-based integration API and JavaScript SDK that enables embedding and controlling the Amazon Connect Contact Control Panel (CCP) within your web application or CRM system.
 
-**Human URL:** [https://github.com/amazon-connect/amazon-connect-streams](https://github.com/amazon-connect/amazon-connect-streams)
+- **Human URL:** [https://github.com/amazon-connect/amazon-connect-streams](https://github.com/amazon-connect/amazon-connect-streams)
+- **Base URL:** `https://github.com/amazon-connect/amazon-connect-streams`
 
-#### Tags:
+#### Tags
 
- - SDK, JavaScript, Browser, Contact Center
+- SDK
+- JavaScript
+- Browser
+- Contact Center
 
 #### Properties
 
-- [SDK - JavaScript Streams SDK](https://github.com/amazon-connect/amazon-connect-streams)
-- [SDK - npm Package](https://www.npmjs.com/package/amazon-connect-streams)
-- [CodeExamples - Code Snippets](https://github.com/amazon-connect/amazon-connect-snippets)
-- [CodeExamples - Chat UI Examples](https://github.com/amazon-connect/amazon-connect-chat-ui-examples)
-- [SDK - JavaScript Chat SDK](https://github.com/amazon-connect/amazon-connect-chatjs)
-- [SDK - iOS Chat SDK](https://github.com/amazon-connect/amazon-connect-chat-ios)
-- [SDK - Android Chat SDK](https://github.com/amazon-connect/amazon-connect-chat-android)
-- [SDK - Amazon Connect SDK](https://github.com/amazon-connect/AmazonConnectSDK)
-- [Tutorials - Amazon Connect Workshops](https://github.com/amazon-connect/amazon-connect-workshops)
+- [SDK](https://github.com/amazon-connect/amazon-connect-streams)
+- [SDK](https://www.npmjs.com/package/amazon-connect-streams)
+- [Code Examples](https://github.com/amazon-connect/amazon-connect-snippets)
+- [Code Examples](https://github.com/amazon-connect/amazon-connect-chat-ui-examples)
+- [SDK](https://github.com/amazon-connect/amazon-connect-chatjs)
+- [SDK](https://github.com/amazon-connect/amazon-connect-chat-ios)
+- [SDK](https://github.com/amazon-connect/amazon-connect-chat-android)
+- [SDK](https://github.com/amazon-connect/AmazonConnectSDK)
+- [Tutorials](https://github.com/amazon-connect/amazon-connect-workshops)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon AppIntegrations API
+
 The Amazon AppIntegrations service enables you to configure and reuse connections to external applications, powering third-party integrations in the Amazon Connect agent workspace.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html)
+- **Base URL:** `https://app-integrations.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Integrations, AWS, Contact Center
+- Integrations
+- AWS
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html)
-- [APIReference](https://docs.aws.amazon.com/appintegrations/latest/APIReference/)
+- [API Reference](https://docs.aws.amazon.com/appintegrations/latest/APIReference/)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Contact Lens API
+
 Amazon Connect Contact Lens enables you to analyze conversations between customers and agents using speech transcription, natural language processing, and intelligent search capabilities. It performs sentiment analysis, detects issues, and enables automatic categorization of contacts with both real-time and post-call analytics.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html)
+- **Base URL:** `https://contact-lens.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Analytics, AI, Contact Center, NLP
+- Analytics
+- AI
+- Contact Center
+- NLP
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Outbound Campaigns API
+
 With the outbound campaigns feature of Amazon Connect, you can create high-volume outbound campaigns for appointment reminders, telemarketing, subscription renewals, or debt collection.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html)
+- **Base URL:** `https://connect-campaigns.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Outbound, Campaigns, Contact Center
+- Outbound
+- Campaigns
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Outbound Campaigns V2 API
+
 The outbound campaigns V2 API provides an updated interface for creating high-volume outbound campaigns including multi-channel support and availability in all Amazon Connect regions.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html)
+- **Base URL:** `https://connect-campaigns.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Outbound, Campaigns, Contact Center
+- Outbound
+- Campaigns
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Cases API
+
 With Amazon Connect Cases, agents can track and manage customer issues that require multiple interactions, follow-up tasks, and teams in your contact center. A case represents a customer issue including the steps and interactions taken to resolve it.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html)
+- **Base URL:** `https://cases.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Cases, Case Management, Contact Center
+- Cases
+- Case Management
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Participant Service API
+
 The Amazon Connect Participant Service enables managing chat participants including agents, customers, and managers. Use it to send messages and events, manage connection state, share attachments, and retrieve chat transcripts within a chat contact.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html)
+- **Base URL:** `https://participant.connect.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Chat, Participants, Contact Center
+- Chat
+- Participants
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Connect Customer Profiles API
+
 Amazon Connect Customer Profiles provides a unified customer profile for your contact center with pre-built connectors powered by AppFlow that make it easy to combine customer information from third-party applications such as Salesforce (CRM), ServiceNow (ITSM), and ERP systems with contact history from Amazon Connect.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html)
+- **Base URL:** `https://profile.profile.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Customer Profiles, CRM, Contact Center
+- Customer Profiles
+- CRM
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Q Connect API
+
 Amazon Q in Connect is a generative AI customer service assistant built on Amazon Bedrock. It provides real-time recommendations to help contact center agents resolve customer issues quickly and accurately by detecting customer intent and providing immediate generative responses, suggested actions, and links to relevant documents.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html)
+- **Base URL:** `https://wisdom.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - AI, Generative AI, Agent Assist, Contact Center
+- AI
+- Generative AI
+- Agent Assist
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Amazon Voice ID API
+
 Amazon Connect Voice ID provides real-time caller authentication and fraud risk detection to make voice interactions in contact centers more secure and efficient. Note - Voice ID end of support is scheduled for May 20, 2026.
 
-**Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html)
+- **Human URL:** [https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html)
+- **Base URL:** `https://voiceid.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Voice, Authentication, Fraud Detection, Contact Center
+- Voice
+- Authentication
+- Fraud Detection
+- Contact Center
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html)
-- [APIReference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html)
+- [API Reference](https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html)
+- [Postman Collection](collections/amazon-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/amazon-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
 - [Portal](https://aws.amazon.com/)
-- [DeveloperPortal](https://aws.amazon.com/connect/)
+- [Developer Portal](https://aws.amazon.com/connect/)
 - [Documentation](https://docs.aws.amazon.com/connect/latest/adminguide/)
-- [TermsOfService](https://aws.amazon.com/service-terms/)
-- [PrivacyPolicy](https://aws.amazon.com/privacy/)
+- [Terms of Service](https://aws.amazon.com/service-terms/)
+- [Privacy Policy](https://aws.amazon.com/privacy/)
 - [Support](https://aws.amazon.com/support/)
 - [Blog](https://aws.amazon.com/blogs/contact-center/)
-- [GitHubOrganization](https://github.com/aws)
-- [GitHubOrganization](https://github.com/amazon-connect)
+- [GitHub Organization](https://github.com/aws)
+- [GitHub Organization](https://github.com/amazon-connect)
 - [Console](https://console.aws.amazon.com/connect/)
-- [SignUp](https://portal.aws.amazon.com/billing/signup)
+- [Sign Up](https://portal.aws.amazon.com/billing/signup)
 - [Login](https://signin.aws.amazon.com/)
-- [StatusPage](https://health.aws.amazon.com/health/status)
-- [KnowledgeCenter](https://repost.aws/knowledge-center)
+- [Status Page](https://health.aws.amazon.com/health/status)
+- [Knowledge Center](https://repost.aws/knowledge-center)
 - [YouTube](https://www.youtube.com/user/AmazonWebServices)
-- [StackOverflow](https://stackoverflow.com/questions/tagged/amazon-connect)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/amazon-connect)
 - [Contact](https://aws.amazon.com/contact-us/)
 - [Security](https://aws.amazon.com/security/)
 - [Compliance](https://aws.amazon.com/compliance/)
 - [Pricing](https://aws.amazon.com/connect/pricing/)
-- [SpectralRules](rules/amazon-connect-spectral-rules.yml)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Spectral Rules](rules/amazon-connect-spectral-rules.yml)
 - [Vocabulary](vocabulary/amazon-connect-vocabulary.yaml)
-- [NaftikoCapability](capabilities/contact-center-operations.yaml)
-- [NaftikoCapability](capabilities/shared/connect-service.yaml)
-
-## Features
-
-| Name | Description |
-|------|-------------|
-| Omnichannel Routing | Unified routing across voice, chat, email, and tasks through a single platform with skills-based routing and priority queuing. |
-| AI-Powered Agent Assist | Amazon Q in Connect provides real-time AI-generated recommendations and answers to help agents resolve customer issues faster. |
-| Contact Flows | Drag-and-drop contact flow designer for building IVR, chatbot, and agent guidance workflows without extensive coding. |
-| Conversational Analytics | Contact Lens provides speech transcription, sentiment analysis, and NLP-powered insights across all customer interactions. |
-| Customer Profiles | Unified customer profile combining CRM, ITSM, ERP, and contact history data for context-aware agent interactions. |
-| Outbound Campaigns | High-volume multi-channel outbound campaigns with predictive dialer, answering machine detection, and multiple dialing modes. |
-| Cases Management | Structured case tracking for customer issues requiring multiple interactions, follow-up tasks, and cross-team coordination. |
-| Voice and Video Calling | In-app, web, and video calling with screen share capabilities using 16kHz high-quality audio with packet loss resistance. |
-| Chat and Messaging | Real-time and asynchronous messaging including SMS, WhatsApp Business, and Apple Messages for Business integration. |
-| Real-Time and Historical Metrics | Comprehensive dashboards and reporting for contact center performance optimization and workforce planning. |
-
-## Use Cases
-
-| Name | Description |
-|------|-------------|
-| Customer Support Contact Center | Deploy an omnichannel contact center handling voice, chat, email, and messaging with intelligent routing to the right agents. |
-| AI-Powered Self-Service | Build conversational AI flows that handle common customer requests in 30+ languages without agent involvement. |
-| Agent Productivity Improvement | Reduce average handle time with real-time AI guidance, unified agent workspace, and automated post-contact work. |
-| Outbound Customer Engagement | Run appointment reminders, subscription renewals, payment notifications, and telemarketing campaigns at scale. |
-| Fraud Prevention | Use Voice ID for real-time caller authentication and fraud risk detection in voice contact center interactions. |
-| Compliance and Quality Monitoring | Analyze 100% of customer interactions with Contact Lens for regulatory compliance and quality assurance. |
-
-## Integrations
-
-| Name | Description |
-|------|-------------|
-| Salesforce CRM | Pre-built AppFlow connector to sync Salesforce customer data into Amazon Connect Customer Profiles. |
-| ServiceNow | ITSM integration via AppFlow to bring ServiceNow customer and case data into the Amazon Connect agent workspace. |
-| AWS Lambda | Native integration with AWS Lambda for custom automation within contact flows and agent events. |
-| Amazon Lex | Built-in integration with Amazon Lex for building conversational AI bots for voice and chat self-service. |
-| Amazon Bedrock | Foundation for Amazon Q in Connect generative AI features, providing real-time agent recommendations and answers. |
-| Amazon S3 | Storage integration for call recordings, contact transcripts, exported reports, and Contact Lens output data. |
-| Amazon Kinesis | Real-time streaming of contact trace records (CTRs) and agent events to data lakes and analytics pipelines. |
-| WhatsApp Business | Native channel integration to handle customer messaging through WhatsApp Business within the Amazon Connect platform. |
-
-## Artifacts
-
-Machine-readable API specifications organized by format.
-
-### OpenAPI
-
-- [Amazon Connect Openapi](openapi/amazon-connect-openapi.yml)
-
-### JSON Schema
-
-- [Agent Status Summary](json-schema/agent-status-summary-schema.json)
-- [Amazon Connect Instance](json-schema/amazon-connect-instance-schema.json)
-- [Contact Flow](json-schema/contact-flow-schema.json)
-- [Contact Flow Summary](json-schema/contact-flow-summary-schema.json)
-- [Contact](json-schema/contact-schema.json)
-- [Contact Summary](json-schema/contact-summary-schema.json)
-- [Create Contact Flow Request](json-schema/create-contact-flow-request-schema.json)
-- [Create Contact Flow Response](json-schema/create-contact-flow-response-schema.json)
-- [Create Hours Of Operation Request](json-schema/create-hours-of-operation-request-schema.json)
-- [Create Hours Of Operation Response](json-schema/create-hours-of-operation-response-schema.json)
-- *...and 48 more*
-
-### JSON-LD
-
-- [Amazon Connect Context](json-ld/amazon-connect-context.jsonld)
-
-### JSON Structure
-
-- [Agent Status Summary](json-structure/agent-status-summary-structure.json)
-- [Amazon Connect Instance](json-structure/amazon-connect-instance-structure.json)
-- [Contact Flow](json-structure/contact-flow-structure.json)
-- [Contact Flow Summary](json-structure/contact-flow-summary-structure.json)
-- [Contact](json-structure/contact-structure.json)
-- *...and 53 more*
-
-### Examples
-
-- [Agent Status Summary](examples/agent-status-summary-example.json)
-- [Amazon Connect Instance](examples/amazon-connect-instance-example.json)
-- [Contact](examples/contact-example.json)
-- [Contact Flow](examples/contact-flow-example.json)
-- [Contact Flow Summary](examples/contact-flow-summary-example.json)
-- *...and 53 more*
-
-## Capabilities
-
-Naftiko capabilities organized as shared per-API definitions composed into customer-facing workflows.
-
-### Shared Per-API Definitions
-
-- [Connect Service](capabilities/shared/connect-service.yaml)
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Amazon Connect Contact Center Operations](capabilities/contact-center-operations.yaml) | Amazon Connect Service | 13 | contact center administrators, supervisors, and operations teams to manage and monitor the Amazon Connect contact center platform |
-
-## Vocabulary
-
-- [Amazon Connect Vocabulary](vocabulary/amazon-connect-vocabulary.yaml) — Unified taxonomy mapping 12 resources, 10 actions, 1 workflows, and 3 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [amazon-connect-spectral-rules.yml](rules/amazon-connect-spectral-rules.yml) — 36 rules enforcing Amazon Connect API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- [Integrations](undefined)
+- [Integrations](https://aws.amazon.com/marketplace)
