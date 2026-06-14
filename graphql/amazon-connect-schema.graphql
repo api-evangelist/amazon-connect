@@ -1,0 +1,1170 @@
+"""
+Amazon Connect GraphQL Schema
+Cloud-based contact center service providing omnichannel routing,
+AI-powered agent assistance, and real-time/historical analytics.
+Source: https://docs.aws.amazon.com/connect/latest/APIReference/
+"""
+
+# ─── Scalars ──────────────────────────────────────────────────────────────────
+scalar AWSDateTime
+scalar AWSJSON
+scalar AWSPhone
+scalar AWSARN
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum InstanceStatus {
+  CREATION_IN_PROGRESS
+  ACTIVE
+  CREATION_FAILED
+}
+
+enum QueueType {
+  STANDARD
+  AGENT
+}
+
+enum QueueStatus {
+  ENABLED
+  DISABLED
+}
+
+enum ContactFlowType {
+  CONTACT_FLOW
+  CUSTOMER_QUEUE
+  CUSTOMER_HOLD
+  CUSTOMER_WHISPER
+  AGENT_HOLD
+  AGENT_WHISPER
+  OUTBOUND_WHISPER
+  AGENT_TRANSFER
+  QUEUE_TRANSFER
+}
+
+enum ContactFlowStatus {
+  PUBLISHED
+  SAVED
+}
+
+enum ContactState {
+  INCOMING
+  PENDING
+  CONNECTING
+  CONNECTED
+  CONNECTED_ONHOLD
+  MISSED
+  ERROR
+  ENDED
+  REJECTED
+}
+
+enum ContactInitiationMethod {
+  INBOUND
+  OUTBOUND
+  TRANSFER
+  QUEUE_TRANSFER
+  CALLBACK
+  API
+  DISCONNECT
+  MONITOR
+  EXTERNAL_OUTBOUND
+  WEBRTC_API
+  AGENT_REPLY
+  FLOW
+}
+
+enum Channel {
+  VOICE
+  CHAT
+  TASK
+  EMAIL
+}
+
+enum PhoneNumberType {
+  TOLL_FREE
+  DID
+  UIFN
+  SHARED
+  THIRD_PARTY_TF
+  THIRD_PARTY_DID
+  SHORT_CODE
+}
+
+enum PhoneNumberStatus {
+  CLAIMED
+  IN_PROGRESS
+  FAILED
+}
+
+enum AgentStatusType {
+  ROUTABLE
+  CUSTOM
+  OFFLINE
+}
+
+enum HierarchyLevelName {
+  LEVEL_1
+  LEVEL_2
+  LEVEL_3
+  LEVEL_4
+  LEVEL_5
+}
+
+enum StorageType {
+  S3
+  KINESIS_VIDEO_STREAM
+  KINESIS_STREAM
+  KINESIS_FIREHOSE
+}
+
+enum ResourceType {
+  CONTACT
+  CONTACT_FLOW
+  INSTANCE
+  PARTICIPANT
+  HIERARCHY_LEVEL
+  HIERARCHY_GROUP
+  USER
+  USER_PROFICIENCIES
+  ROUTING_PROFILE
+  ROUTING_PROFILE_QUEUES
+  AGENT_STATUS
+  FLOW_ASSOCIATION
+}
+
+enum TrafficDistributionGroupStatus {
+  CREATION_IN_PROGRESS
+  ACTIVE
+  CREATION_FAILED
+  PENDING_DELETION
+  DELETION_FAILED
+  UPDATE_IN_PROGRESS
+}
+
+# ─── Supporting Types ─────────────────────────────────────────────────────────
+
+type TimeRange {
+  startTime: String!
+  endTime: String!
+}
+
+type StorageLocation {
+  bucketName: String!
+  bucketPrefix: String
+  encryptionConfig: EncryptionConfig
+}
+
+type EncryptionConfig {
+  encryptionType: String!
+  keyId: String!
+}
+
+type StorageConfig {
+  associationId: String
+  storageType: StorageType!
+  s3Config: StorageLocation
+  kinesisVideoStreamConfig: KinesisVideoStreamConfig
+  kinesisStreamConfig: KinesisStreamConfig
+  kinesisFirehoseConfig: KinesisFirehoseConfig
+}
+
+type KinesisVideoStreamConfig {
+  prefix: String!
+  retentionPeriodHours: Int!
+  encryptionConfig: EncryptionConfig!
+}
+
+type KinesisStreamConfig {
+  streamArn: AWSARN!
+}
+
+type KinesisFirehoseConfig {
+  firehoseArn: AWSARN!
+}
+
+type Priority {
+  queueId: String!
+  priority: Int!
+  delay: Int!
+}
+
+type Endpoint {
+  type: String!
+  address: String!
+}
+
+type ContactAttribute {
+  key: String!
+  value: String!
+}
+
+type ContactTimestamp {
+  connectedToSystemTimestamp: AWSDateTime
+  agentConnectedToCustomerTimestamp: AWSDateTime
+  connectedToAgentTimestamp: AWSDateTime
+  initiationTimestamp: AWSDateTime
+  disconnectTimestamp: AWSDateTime
+  scheduledTimestamp: AWSDateTime
+  lastPausedTimestamp: AWSDateTime
+  lastResumedTimestamp: AWSDateTime
+}
+
+type Tag {
+  key: String!
+  value: String!
+}
+
+# ─── Instance ─────────────────────────────────────────────────────────────────
+
+type Instance {
+  id: String!
+  arn: AWSARN
+  identityManagementType: String
+  instanceAlias: String
+  createdTime: AWSDateTime
+  serviceRole: AWSARN
+  instanceStatus: InstanceStatus!
+  statusReason: String
+  inboundCallsEnabled: Boolean!
+  outboundCallsEnabled: Boolean!
+  instanceAccessUrl: String
+  tags: [Tag!]
+}
+
+# ─── Queue ────────────────────────────────────────────────────────────────────
+
+type Queue {
+  queueId: String!
+  queueArn: AWSARN
+  name: String!
+  description: String
+  outboundCallerConfig: OutboundCallerConfig
+  hoursOfOperationId: String
+  maxContacts: Int
+  status: QueueStatus!
+  tags: [Tag!]
+  queueType: QueueType!
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type QueueName {
+  id: String!
+  arn: AWSARN
+  name: String!
+}
+
+type OutboundCallerConfig {
+  outboundCallerIdName: String
+  outboundCallerIdNumberId: String
+  outboundFlowId: String
+}
+
+type QueueMetric {
+  queueId: String!
+  channel: Channel
+  contactsQueued: Int
+  contactsHandled: Int
+  contactsAbandoned: Int
+  contactsConsulted: Int
+  contactsAgentHungUpFirst: Int
+  contactsHandledIncoming: Int
+  contactsHandledOutbound: Int
+  contactsHoldAbandons: Int
+  contactsTransferredIn: Int
+  contactsTransferredOut: Int
+  contactsTransferredInFromQueue: Int
+  contactsTransferredOutFromQueue: Int
+  longestQueueWaitTime: Int
+  oldestContactAge: Int
+  agentsOnline: Int
+  agentsOnCall: Int
+  agentsNonProductive: Int
+  agentsAvailable: Int
+  agentsError: Int
+  agentsStaffed: Int
+  contactsInQueue: Int
+  agentsAfterContactWork: Int
+  averageQueueAnswerTime: Float
+  averageHandleTime: Float
+  averageAfterContactWorkTime: Float
+  serviceLevel: Float
+}
+
+# ─── Routing Profile ──────────────────────────────────────────────────────────
+
+type RoutingProfile {
+  instanceId: String!
+  name: String!
+  routingProfileArn: AWSARN
+  routingProfileId: String!
+  description: String
+  mediaConcurrencies: [MediaConcurrency!]!
+  defaultOutboundQueueId: String
+  tags: [Tag!]
+  numberOfAssociatedQueues: Int
+  numberOfAssociatedUsers: Int
+  agentAvailabilityTimer: String
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+  isDefault: Boolean
+}
+
+type MediaConcurrency {
+  channel: Channel!
+  concurrency: Int!
+  crossChannelBehavior: CrossChannelBehavior
+}
+
+type CrossChannelBehavior {
+  behaviorType: String!
+}
+
+type RoutingProfileQueue {
+  queueReference: QueueReference!
+  priority: Int!
+  delay: Int!
+}
+
+type QueueReference {
+  queueId: String!
+  channel: Channel!
+}
+
+type DefaultContactFlow {
+  channel: Channel!
+  contactFlowId: String!
+}
+
+type RoutingProfileAssociation {
+  routingProfileId: String!
+  queueId: String!
+  priority: Int!
+  delay: Int!
+  channel: Channel!
+}
+
+# ─── Contact Flow ─────────────────────────────────────────────────────────────
+
+type ContactFlow {
+  arn: AWSARN
+  id: String!
+  name: String!
+  type: ContactFlowType!
+  state: ContactFlowStatus
+  status: ContactFlowStatus
+  description: String
+  content: String
+  tags: [Tag!]
+  flowContentSha256: String
+  version: Int
+  versionDescription: String
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type ContactFlowSummary {
+  id: String!
+  arn: AWSARN
+  name: String!
+  contactFlowType: ContactFlowType!
+  contactFlowState: ContactFlowStatus
+  contactFlowStatus: ContactFlowStatus
+}
+
+type ContactFlowModule {
+  arn: AWSARN
+  id: String!
+  name: String!
+  content: String
+  description: String
+  state: String
+  status: String
+  tags: [Tag!]
+}
+
+# ─── Contact ──────────────────────────────────────────────────────────────────
+
+type Contact {
+  contactId: String!
+  initialContactId: String
+  previousContactId: String
+  initiationMethod: ContactInitiationMethod
+  name: String
+  description: String
+  channel: Channel!
+  queueInfo: QueueInfo
+  agentInfo: AgentInfo
+  initiationTimestamp: AWSDateTime
+  disconnectTimestamp: AWSDateTime
+  lastUpdateTimestamp: AWSDateTime
+  lastPausedTimestamp: AWSDateTime
+  lastResumedTimestamp: AWSDateTime
+  totalPauseCount: Int
+  totalPauseDurationInSeconds: Int
+  scheduledTimestamp: AWSDateTime
+  relatedContactId: String
+  wisdomData: WisdomInfo
+  segmentAttributes: AWSJSON
+  contactState: ContactState
+  attributes: [ContactAttribute!]
+  tags: [Tag!]
+}
+
+type QueueInfo {
+  id: String
+  enqueueTimestamp: AWSDateTime
+}
+
+type AgentInfo {
+  id: String
+  connectedToAgentTimestamp: AWSDateTime
+  agentPauseDurationInSeconds: Int
+}
+
+type WisdomInfo {
+  sessionArn: AWSARN
+}
+
+# ─── Voice / Chat / Task ──────────────────────────────────────────────────────
+
+type Voice {
+  contactId: String!
+  channel: Channel!
+  phoneNumber: String
+  autoAccept: Boolean
+  deskPhoneNumber: String
+}
+
+type Chat {
+  contactId: String!
+  participantId: String
+  participantToken: String
+  connectionCredentials: ConnectionCredentials
+  chatDurationInMinutes: Int
+  supportedMessagingContentTypes: [String!]
+  persistentChat: PersistentChat
+}
+
+type ConnectionCredentials {
+  connectionToken: String!
+  expiry: AWSDateTime!
+}
+
+type PersistentChat {
+  rehydrationType: String!
+  sourceContactId: String
+}
+
+type Task {
+  contactId: String!
+  name: String!
+  description: String
+  references: AWSJSON
+  scheduledTime: AWSDateTime
+  taskTemplateId: String
+  relatedContactId: String
+}
+
+# ─── Agent ────────────────────────────────────────────────────────────────────
+
+type Agent {
+  id: String!
+  arn: AWSARN
+  username: String!
+  identityInfo: UserIdentityInfo
+  phoneConfig: UserPhoneConfig
+  directoryUserId: String
+  securityProfileIds: [String!]!
+  routingProfileId: String!
+  hierarchyGroupId: String
+  instanceId: String!
+  tags: [Tag!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type AgentSummary {
+  id: String!
+  arn: AWSARN
+  username: String!
+  firstName: String
+  lastName: String
+  routingProfileId: String
+}
+
+type UserIdentityInfo {
+  firstName: String
+  lastName: String
+  email: String
+  secondaryEmail: String
+  mobile: String
+}
+
+type UserPhoneConfig {
+  phoneType: String!
+  autoAccept: Boolean!
+  afterContactWorkTimeLimit: Int!
+  deskPhoneNumber: String
+}
+
+type AgentStatus {
+  agentStatusId: String!
+  agentStatusArn: AWSARN
+  name: String!
+  description: String
+  type: AgentStatusType!
+  displayOrder: Int
+  state: String
+  tags: [Tag!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type AgentHierarchy {
+  level1: HierarchyGroupSummary
+  level2: HierarchyGroupSummary
+  level3: HierarchyGroupSummary
+  level4: HierarchyGroupSummary
+  level5: HierarchyGroupSummary
+}
+
+type HierarchyGroup {
+  id: String!
+  arn: AWSARN
+  name: String!
+  levelId: String!
+  hierarchyPath: AgentHierarchy
+  tags: [Tag!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type HierarchyGroupSummary {
+  id: String!
+  arn: AWSARN
+  name: String!
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type HierarchyLevel {
+  id: String!
+  arn: AWSARN
+  name: String!
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+# ─── Security Profile ─────────────────────────────────────────────────────────
+
+type SecurityProfile {
+  id: String!
+  organizationResourceId: String
+  arn: AWSARN
+  securityProfileName: String!
+  description: String
+  tags: [Tag!]
+  allowedAccessControlTags: [Tag!]
+  tagRestrictedResources: [String!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+  hierarchyRestrictedResources: [String!]
+  allowedAccessControlHierarchyGroupId: String
+}
+
+# ─── Phone Number ─────────────────────────────────────────────────────────────
+
+type PhoneNumber {
+  phoneNumberId: String!
+  phoneNumberArn: AWSARN
+  phoneNumber: AWSPhone!
+  phoneNumberCountryCode: String!
+  phoneNumberType: PhoneNumberType!
+  phoneNumberDescription: String
+  targetArn: AWSARN
+  instanceId: String
+  tags: [Tag!]
+  phoneNumberStatus: PhoneNumberStatus
+  sourcePhoneNumberArn: AWSARN
+}
+
+# ─── Hours of Operation ───────────────────────────────────────────────────────
+
+type HoursOfOperation {
+  hoursOfOperationId: String!
+  hoursOfOperationArn: AWSARN
+  name: String!
+  description: String
+  timeZone: String!
+  config: [HoursOfOperationDay!]!
+  tags: [Tag!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type HoursOfOperationDay {
+  day: String!
+  startTime: HoursOfOperationTimeSlice!
+  endTime: HoursOfOperationTimeSlice!
+}
+
+type HoursOfOperationTimeSlice {
+  hours: Int!
+  minutes: Int!
+}
+
+# ─── Metrics ──────────────────────────────────────────────────────────────────
+
+type RealTimeMetric {
+  name: String!
+  unit: String
+}
+
+type HistoricalMetric {
+  name: String!
+  threshold: [MetricThreshold!]
+  statistic: String!
+  unit: String!
+}
+
+type MetricThreshold {
+  comparison: String!
+  thresholdValue: Float
+}
+
+type MetricInterval {
+  timeZone: String
+  intervalPeriod: String!
+  startTime: AWSDateTime!
+  endTime: AWSDateTime!
+}
+
+type MetricResult {
+  dimensions: MetricDimensions
+  collections: [MetricDataV2!]
+}
+
+type MetricDataV2 {
+  metric: MetricV2!
+  value: Float
+}
+
+type MetricV2 {
+  name: String!
+  unit: String
+  metricFilters: [MetricFilterV2!]
+}
+
+type MetricFilterV2 {
+  metricFilterKey: String!
+  metricFilterValues: [String!]
+  negate: Boolean
+}
+
+type MetricDimensions {
+  queue: QueueDimension
+  channel: Channel
+  routingProfile: RoutingProfileDimension
+  agent: AgentDimension
+  contact: ContactDimension
+}
+
+type QueueDimension {
+  id: String
+  arn: AWSARN
+  name: String
+}
+
+type RoutingProfileDimension {
+  id: String
+  arn: AWSARN
+  name: String
+}
+
+type AgentDimension {
+  id: String
+  arn: AWSARN
+  username: String
+  firstName: String
+  lastName: String
+  hierarchyGroups: AgentHierarchy
+}
+
+type ContactDimension {
+  id: String
+  channel: Channel
+  initiationMethod: ContactInitiationMethod
+  agentInteractionDuration: Int
+  disconnectTimestamp: AWSDateTime
+  scheduledTimestamp: AWSDateTime
+}
+
+# ─── User Data & Current State ────────────────────────────────────────────────
+
+type UserData {
+  user: UserReference!
+  routingProfile: RoutingProfileReference
+  hierarchyPath: AgentHierarchy
+  status: AgentStatusReference
+  availableSlotsByChannel: AWSJSON
+  maxSlotsByChannel: AWSJSON
+  activeSlotsByChannel: AWSJSON
+  contacts: [AgentContactReference!]
+  nextStatus: String
+}
+
+type UserReference {
+  id: String!
+  arn: AWSARN
+}
+
+type RoutingProfileReference {
+  id: String!
+  arn: AWSARN
+}
+
+type AgentStatusReference {
+  statusStartTimestamp: AWSDateTime
+  statusArn: AWSARN
+  statusName: String
+}
+
+type AgentContactReference {
+  contactId: String!
+  channel: Channel!
+  initiationMethod: ContactInitiationMethod
+  agentContactState: ContactState
+  stateStartTimestamp: AWSDateTime
+  connectedToAgentTimestamp: AWSDateTime
+  queue: QueueReference
+}
+
+type CurrentUserData {
+  user: UserReference!
+  currentAgentStatus: AgentStatusReference
+  activeContact: AgentContactReference
+  nextAgentStatus: String
+}
+
+# ─── Prompt & Voice Recording ─────────────────────────────────────────────────
+
+type PromptConfig {
+  promptId: String!
+  promptArn: AWSARN
+  name: String!
+  description: String
+  tags: [Tag!]
+  lastModifiedTime: AWSDateTime
+  lastModifiedRegion: String
+}
+
+type VoiceRecording {
+  voiceRecordingTrack: String!
+  contactId: String!
+  instanceId: String!
+  recordingId: String
+  s3Location: String
+}
+
+# ─── Chat Transcript ──────────────────────────────────────────────────────────
+
+type ChatTranscript {
+  initialContactId: String!
+  nextToken: String
+  transcript: [TranscriptEvent!]!
+}
+
+type TranscriptEvent {
+  id: String!
+  type: String!
+  participantId: String
+  participantRole: String
+  contentType: String
+  content: String
+  displayName: String
+  timestamp: AWSDateTime
+  attachments: [AttachmentItem!]
+  messageMetadata: MessageMetadata
+  relatedContactId: String
+}
+
+type AttachmentItem {
+  contentType: String!
+  attachmentId: String!
+  attachmentName: String
+  status: String
+}
+
+type MessageMetadata {
+  messageId: String
+  receipts: [Receipt!]
+}
+
+type Receipt {
+  deliveredTimestamp: AWSDateTime
+  readTimestamp: AWSDateTime
+  recipientParticipantId: String
+}
+
+# ─── Integration ──────────────────────────────────────────────────────────────
+
+type IntegrationAssociation {
+  integrationAssociationId: String!
+  integrationAssociationArn: AWSARN
+  instanceId: String!
+  integrationType: String!
+  integrationArn: AWSARN
+  sourceApplicationUrl: String
+  sourceApplicationName: String
+  sourceType: String
+}
+
+type LexBot {
+  name: String!
+  lexRegion: String!
+}
+
+type LexBotV2 {
+  aliasArn: AWSARN!
+}
+
+type Lambda {
+  functionArn: AWSARN!
+}
+
+# ─── Auth / Token ─────────────────────────────────────────────────────────────
+
+type APIKey {
+  keyId: String!
+  key: String!
+  createdTime: AWSDateTime!
+  expiresTime: AWSDateTime
+  description: String
+}
+
+type Token {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  refreshToken: String
+}
+
+# ─── Contact Center (top-level resource) ─────────────────────────────────────
+
+type ContactCenter {
+  instanceId: String!
+  instanceArn: AWSARN
+  alias: String
+  status: InstanceStatus!
+  region: String!
+  createdTime: AWSDateTime
+  outboundCallsEnabled: Boolean!
+  inboundCallsEnabled: Boolean!
+  serviceRole: AWSARN
+  storageConfigs: [StorageConfig!]
+  queues: [Queue!]
+  routingProfiles: [RoutingProfile!]
+  contactFlows: [ContactFlow!]
+  agents: [Agent!]
+  hoursOfOperation: [HoursOfOperation!]
+  phoneNumbers: [PhoneNumber!]
+  securityProfiles: [SecurityProfile!]
+  hierarchyGroups: [HierarchyGroup!]
+  prompts: [PromptConfig!]
+  integrations: [IntegrationAssociation!]
+}
+
+# ─── Queries ──────────────────────────────────────────────────────────────────
+
+type Query {
+  # Instance / Contact Center
+  getInstance(instanceId: String!): Instance
+  listInstances(maxResults: Int, nextToken: String): [Instance!]!
+  getContactCenter(instanceId: String!): ContactCenter
+
+  # Queues
+  getQueue(instanceId: String!, queueId: String!): Queue
+  listQueues(instanceId: String!, queueTypes: [QueueType!], maxResults: Int, nextToken: String): [Queue!]!
+  searchQueues(instanceId: String!, searchFilter: AWSJSON, searchCriteria: AWSJSON, maxResults: Int, nextToken: String): [Queue!]!
+
+  # Routing Profiles
+  getRoutingProfile(instanceId: String!, routingProfileId: String!): RoutingProfile
+  listRoutingProfiles(instanceId: String!, maxResults: Int, nextToken: String): [RoutingProfile!]!
+  listRoutingProfileQueues(instanceId: String!, routingProfileId: String!, maxResults: Int, nextToken: String): [RoutingProfileQueue!]!
+
+  # Contact Flows
+  getContactFlow(instanceId: String!, contactFlowId: String!): ContactFlow
+  listContactFlows(instanceId: String!, contactFlowTypes: [ContactFlowType!], maxResults: Int, nextToken: String): [ContactFlowSummary!]!
+  getContactFlowModule(instanceId: String!, contactFlowModuleId: String!): ContactFlowModule
+  listContactFlowModules(instanceId: String!, maxResults: Int, nextToken: String): [ContactFlowModule!]!
+
+  # Contacts
+  getContact(instanceId: String!, contactId: String!): Contact
+  searchContacts(instanceId: String!, timeRange: TimeRange!, searchCriteria: AWSJSON, maxResults: Int, nextToken: String, sort: AWSJSON): [Contact!]!
+  getContactAttributes(instanceId: String!, contactId: String!): [ContactAttribute!]!
+  getChatTranscript(instanceId: String!, contactId: String!, participantId: String!, clientToken: String, maxResults: Int, nextToken: String, scanDirection: String, sortOrder: String, startPosition: AWSJSON): ChatTranscript
+
+  # Agents / Users
+  getUser(instanceId: String!, userId: String!): Agent
+  listUsers(instanceId: String!, maxResults: Int, nextToken: String): [AgentSummary!]!
+  searchUsers(instanceId: String!, searchFilter: AWSJSON, searchCriteria: AWSJSON, maxResults: Int, nextToken: String): [Agent!]!
+  getUserData(instanceId: String!, userId: String!): UserData
+  getCurrentUserData(instanceId: String!, filters: AWSJSON, maxResults: Int, nextToken: String): [CurrentUserData!]!
+
+  # Agent Status
+  getAgentStatus(instanceId: String!, agentStatusId: String!): AgentStatus
+  listAgentStatuses(instanceId: String!, maxResults: Int, nextToken: String, agentStatusTypes: [AgentStatusType!]): [AgentStatus!]!
+
+  # Hierarchy
+  getUserHierarchyGroup(instanceId: String!, hierarchyGroupId: String!): HierarchyGroup
+  listUserHierarchyGroups(instanceId: String!, maxResults: Int, nextToken: String): [HierarchyGroup!]!
+  getUserHierarchyStructure(instanceId: String!): [HierarchyLevel!]!
+
+  # Security Profiles
+  getSecurityProfile(instanceId: String!, securityProfileId: String!): SecurityProfile
+  listSecurityProfiles(instanceId: String!, maxResults: Int, nextToken: String): [SecurityProfile!]!
+
+  # Phone Numbers
+  getPhoneNumber(phoneNumberId: String!): PhoneNumber
+  listPhoneNumbers(instanceId: String!, phoneNumberTypes: [PhoneNumberType!], phoneNumberCountryCodes: [String!], maxResults: Int, nextToken: String): [PhoneNumber!]!
+  searchAvailablePhoneNumbers(targetArn: AWSARN!, phoneNumberCountryCode: String!, phoneNumberType: PhoneNumberType!, phoneNumberPrefix: String, maxResults: Int, nextToken: String): [PhoneNumber!]!
+
+  # Hours of Operation
+  getHoursOfOperation(instanceId: String!, hoursOfOperationId: String!): HoursOfOperation
+  listHoursOfOperations(instanceId: String!, maxResults: Int, nextToken: String): [HoursOfOperation!]!
+
+  # Metrics
+  getCurrentMetricData(instanceId: String!, filters: AWSJSON!, currentMetrics: [RealTimeMetric!]!, groupings: [String!], maxResults: Int, nextToken: String): [MetricResult!]!
+  getMetricDataV2(resourceArn: AWSARN!, startTime: AWSDateTime!, endTime: AWSDateTime!, interval: MetricInterval, filters: [AWSJSON!]!, groupings: [String!], metrics: [MetricV2!]!, maxResults: Int, nextToken: String): [MetricResult!]!
+
+  # Prompts
+  getPrompt(instanceId: String!, promptId: String!): PromptConfig
+  listPrompts(instanceId: String!, maxResults: Int, nextToken: String): [PromptConfig!]!
+
+  # Storage
+  getInstanceStorageConfig(instanceId: String!, associationId: String!, resourceType: ResourceType!): StorageConfig
+  listInstanceStorageConfigs(instanceId: String!, resourceType: ResourceType!, maxResults: Int, nextToken: String): [StorageConfig!]!
+
+  # Integrations
+  getIntegrationAssociation(instanceId: String!, integrationAssociationId: String!): IntegrationAssociation
+  listIntegrationAssociations(instanceId: String!, integrationType: String, maxResults: Int, nextToken: String): [IntegrationAssociation!]!
+  listLambdaFunctions(instanceId: String!, maxResults: Int, nextToken: String): [Lambda!]!
+  listLexBots(instanceId: String!, maxResults: Int, nextToken: String): [LexBot!]!
+}
+
+# ─── Mutations ────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Instance
+  createInstance(clientToken: String, identityManagementType: String!, instanceAlias: String, directoryId: String, inboundCallsEnabled: Boolean!, outboundCallsEnabled: Boolean!, tags: [TagInput!]): Instance
+  deleteInstance(instanceId: String!): Boolean
+  updateInstanceAttribute(instanceId: String!, attributeType: String!, value: String!): Boolean
+
+  # Queue
+  createQueue(instanceId: String!, name: String!, description: String, outboundCallerConfig: OutboundCallerConfigInput, hoursOfOperationId: String!, maxContacts: Int, quickConnectIds: [String!], tags: [TagInput!], queueType: QueueType): Queue
+  updateQueueName(instanceId: String!, queueId: String!, name: String, description: String): Boolean
+  updateQueueStatus(instanceId: String!, queueId: String!, status: QueueStatus!): Boolean
+  updateQueueHoursOfOperation(instanceId: String!, queueId: String!, hoursOfOperationId: String!): Boolean
+  updateQueueMaxContacts(instanceId: String!, queueId: String!, maxContacts: Int!): Boolean
+  deleteQueue(instanceId: String!, queueId: String!): Boolean
+  associateQueueQuickConnects(instanceId: String!, queueId: String!, quickConnectIds: [String!]!): Boolean
+  disassociateQueueQuickConnects(instanceId: String!, queueId: String!, quickConnectIds: [String!]!): Boolean
+
+  # Routing Profile
+  createRoutingProfile(instanceId: String!, name: String!, description: String!, defaultOutboundQueueId: String!, queueConfigs: [RoutingProfileQueueConfigInput!], mediaConcurrencies: [MediaConcurrencyInput!]!, tags: [TagInput!]): RoutingProfile
+  updateRoutingProfileName(instanceId: String!, routingProfileId: String!, name: String, description: String): Boolean
+  updateRoutingProfileDefaultOutboundQueue(instanceId: String!, routingProfileId: String!, defaultOutboundQueueId: String!): Boolean
+  updateRoutingProfileConcurrency(instanceId: String!, routingProfileId: String!, mediaConcurrencies: [MediaConcurrencyInput!]!): Boolean
+  associateRoutingProfileQueues(instanceId: String!, routingProfileId: String!, queueConfigs: [RoutingProfileQueueConfigInput!]!): Boolean
+  disassociateRoutingProfileQueues(instanceId: String!, routingProfileId: String!, queueReferences: [QueueReferenceInput!]!): Boolean
+  deleteRoutingProfile(instanceId: String!, routingProfileId: String!): Boolean
+
+  # Contact Flow
+  createContactFlow(instanceId: String!, name: String!, type: ContactFlowType!, description: String, content: String!, tags: [TagInput!]): ContactFlow
+  updateContactFlowContent(instanceId: String!, contactFlowId: String!, content: String!): Boolean
+  updateContactFlowName(instanceId: String!, contactFlowId: String!, name: String, description: String): Boolean
+  updateContactFlowMetadata(instanceId: String!, contactFlowId: String!, name: String, description: String, contactFlowState: ContactFlowStatus): Boolean
+  publishContactFlow(instanceId: String!, contactFlowId: String!, description: String): ContactFlow
+  deleteContactFlow(instanceId: String!, contactFlowId: String!): Boolean
+  importContactFlow(instanceId: String!, contactFlowId: String, content: String!): ContactFlow
+
+  # Contact
+  startOutboundVoiceContact(destinationPhoneNumber: String!, contactFlowId: String!, instanceId: String!, clientToken: String, sourcePhoneNumber: String, queueId: String, attributes: AWSJSON, trafficDistributionGroupId: String, answerMachineDetectionConfig: AWSJSON, campaignId: String, trafficType: String): Contact
+  startChatContact(instanceId: String!, contactFlowId: String!, attributes: AWSJSON, participantDetails: ParticipantDetailsInput!, initialMessage: ChatMessageInput, clientToken: String, chatDurationInMinutes: Int, supportedMessagingContentTypes: [String!], persistentChat: PersistentChatInput, relatedContactId: String): Chat
+  startTaskContact(instanceId: String!, previousContactId: String, contactFlowId: String, attributes: AWSJSON, name: String!, references: AWSJSON, description: String, clientToken: String, scheduledTime: AWSDateTime, taskTemplateId: String, relatedContactId: String, quickConnectId: String): Task
+  stopContact(contactId: String!, instanceId: String!, disconnectReason: AWSJSON): Boolean
+  suspendContact(contactId: String!, instanceId: String!): Boolean
+  resumeContact(contactId: String!, instanceId: String!, contactFlowId: String): Boolean
+  updateContactAttributes(instanceId: String!, initialContactId: String!, attributes: AWSJSON!): Boolean
+  updateContactSchedule(instanceId: String!, contactId: String!, scheduledTime: AWSDateTime!): Boolean
+  transferContact(instanceId: String!, contactId: String!, queueId: String, userId: String, contactFlowId: String!, clientToken: String): Contact
+  tagContact(instanceId: String!, contactId: String!, tags: AWSJSON!): Boolean
+  untagContact(instanceId: String!, contactId: String!, tagKeys: [String!]!): Boolean
+
+  # Agent / User
+  createUser(instanceId: String!, username: String!, password: String, identityInfo: UserIdentityInfoInput, phoneConfig: UserPhoneConfigInput!, directoryUserId: String, securityProfileIds: [String!]!, routingProfileId: String!, hierarchyGroupId: String, tags: [TagInput!]): Agent
+  updateUserIdentityInfo(instanceId: String!, userId: String!, identityInfo: UserIdentityInfoInput!): Boolean
+  updateUserPhoneConfig(instanceId: String!, userId: String!, phoneConfig: UserPhoneConfigInput!): Boolean
+  updateUserRoutingProfile(instanceId: String!, userId: String!, routingProfileId: String!): Boolean
+  updateUserSecurityProfiles(instanceId: String!, userId: String!, securityProfileIds: [String!]!): Boolean
+  updateUserHierarchy(instanceId: String!, userId: String!, hierarchyGroupId: String): Boolean
+  deleteUser(instanceId: String!, userId: String!): Boolean
+  updateUserProficiencies(instanceId: String!, userId: String!, userProficiencies: AWSJSON!): Boolean
+
+  # Agent Status
+  createAgentStatus(instanceId: String!, name: String!, description: String, state: String!, displayOrder: Int, tags: [TagInput!]): AgentStatus
+  updateAgentStatus(instanceId: String!, agentStatusId: String!, name: String, description: String, state: String, displayOrder: Int, resetOrderNumber: Boolean): Boolean
+
+  # Hours of Operation
+  createHoursOfOperation(instanceId: String!, name: String!, description: String, timeZone: String!, config: [HoursOfOperationDayInput!]!, tags: [TagInput!]): HoursOfOperation
+  updateHoursOfOperation(instanceId: String!, hoursOfOperationId: String!, name: String, description: String, timeZone: String, config: [HoursOfOperationDayInput!]): Boolean
+  deleteHoursOfOperation(instanceId: String!, hoursOfOperationId: String!): Boolean
+
+  # Phone Numbers
+  claimPhoneNumber(targetArn: AWSARN!, phoneNumber: AWSPhone!, phoneNumberDescription: String, tags: [TagInput!], clientToken: String): PhoneNumber
+  releasePhoneNumber(phoneNumberId: String!, clientToken: String): Boolean
+  updatePhoneNumber(phoneNumberId: String!, targetArn: AWSARN, instanceId: String, clientToken: String): PhoneNumber
+
+  # Storage
+  associateInstanceStorageConfig(instanceId: String!, resourceType: ResourceType!, storageConfig: StorageConfigInput!): StorageConfig
+  updateInstanceStorageConfig(instanceId: String!, associationId: String!, resourceType: ResourceType!, storageConfig: StorageConfigInput!): Boolean
+  disassociateInstanceStorageConfig(instanceId: String!, associationId: String!, resourceType: ResourceType!): Boolean
+
+  # Prompts
+  createPrompt(instanceId: String!, name: String!, description: String, s3Uri: String!, tags: [TagInput!]): PromptConfig
+  updatePrompt(instanceId: String!, promptId: String!, name: String, description: String, s3Uri: String): Boolean
+  deletePrompt(instanceId: String!, promptId: String!): Boolean
+
+  # Integrations
+  createIntegrationAssociation(instanceId: String!, integrationType: String!, integrationArn: AWSARN!, sourceApplicationUrl: String, sourceApplicationName: String, sourceType: String, tags: [TagInput!]): IntegrationAssociation
+  deleteIntegrationAssociation(instanceId: String!, integrationAssociationId: String!): Boolean
+  associateLambdaFunction(instanceId: String!, functionArn: AWSARN!): Boolean
+  disassociateLambdaFunction(instanceId: String!, functionArn: AWSARN!): Boolean
+  associateLexBot(instanceId: String!, lexBot: LexBotInput!): Boolean
+  disassociateLexBot(instanceId: String!, lexBot: LexBotInput!): Boolean
+
+  # Security Profiles
+  createSecurityProfile(instanceId: String!, securityProfileName: String!, description: String, permissions: [String!], tags: [TagInput!], allowedAccessControlTags: [TagInput!], tagRestrictedResources: [String!], hierarchyRestrictedResources: [String!], allowedAccessControlHierarchyGroupId: String): SecurityProfile
+  updateSecurityProfile(instanceId: String!, securityProfileId: String!, description: String, permissions: [String!], allowedAccessControlTags: [TagInput!], tagRestrictedResources: [String!], hierarchyRestrictedResources: [String!], allowedAccessControlHierarchyGroupId: String): Boolean
+  deleteSecurityProfile(instanceId: String!, securityProfileId: String!): Boolean
+
+  # Tags
+  tagResource(resourceArn: AWSARN!, tags: AWSJSON!): Boolean
+  untagResource(resourceArn: AWSARN!, tagKeys: [String!]!): Boolean
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input TagInput {
+  key: String!
+  value: String!
+}
+
+input OutboundCallerConfigInput {
+  outboundCallerIdName: String
+  outboundCallerIdNumberId: String
+  outboundFlowId: String
+}
+
+input RoutingProfileQueueConfigInput {
+  queueReference: QueueReferenceInput!
+  priority: Int!
+  delay: Int!
+}
+
+input QueueReferenceInput {
+  queueId: String!
+  channel: Channel!
+}
+
+input MediaConcurrencyInput {
+  channel: Channel!
+  concurrency: Int!
+}
+
+input ParticipantDetailsInput {
+  displayName: String!
+}
+
+input ChatMessageInput {
+  contentType: String!
+  content: String!
+}
+
+input PersistentChatInput {
+  rehydrationType: String!
+  sourceContactId: String
+}
+
+input UserIdentityInfoInput {
+  firstName: String
+  lastName: String
+  email: String
+  secondaryEmail: String
+  mobile: String
+}
+
+input UserPhoneConfigInput {
+  phoneType: String!
+  autoAccept: Boolean
+  afterContactWorkTimeLimit: Int
+  deskPhoneNumber: String
+}
+
+input HoursOfOperationDayInput {
+  day: String!
+  startTime: HoursOfOperationTimeSliceInput!
+  endTime: HoursOfOperationTimeSliceInput!
+}
+
+input HoursOfOperationTimeSliceInput {
+  hours: Int!
+  minutes: Int!
+}
+
+input StorageConfigInput {
+  storageType: StorageType!
+  s3Config: StorageLocationInput
+  kinesisVideoStreamConfig: KinesisVideoStreamConfigInput
+  kinesisStreamConfig: KinesisStreamConfigInput
+  kinesisFirehoseConfig: KinesisFirehoseConfigInput
+}
+
+input StorageLocationInput {
+  bucketName: String!
+  bucketPrefix: String
+  encryptionConfig: EncryptionConfigInput
+}
+
+input EncryptionConfigInput {
+  encryptionType: String!
+  keyId: String!
+}
+
+input KinesisVideoStreamConfigInput {
+  prefix: String!
+  retentionPeriodHours: Int!
+  encryptionConfig: EncryptionConfigInput!
+}
+
+input KinesisStreamConfigInput {
+  streamArn: AWSARN!
+}
+
+input KinesisFirehoseConfigInput {
+  firehoseArn: AWSARN!
+}
+
+input LexBotInput {
+  name: String!
+  lexRegion: String!
+}
+
+# ─── Subscriptions ────────────────────────────────────────────────────────────
+
+type Subscription {
+  onContactStateChanged(instanceId: String!, contactId: String): Contact
+  onAgentStatusChanged(instanceId: String!, agentId: String): UserData
+  onQueueMetricUpdated(instanceId: String!, queueId: String): QueueMetric
+}
