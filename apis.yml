@@ -83,10 +83,10 @@ apis:
   - Browser
   - Contact Center
   properties:
-  - type: SDK
+  - type: SDKs
     url: https://github.com/amazon-connect/amazon-connect-streams
     title: JavaScript Streams SDK
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/amazon-connect-streams
     title: npm Package
   - type: CodeExamples
@@ -95,16 +95,16 @@ apis:
   - type: CodeExamples
     url: https://github.com/amazon-connect/amazon-connect-chat-ui-examples
     title: Chat UI Examples
-  - type: SDK
+  - type: SDKs
     url: https://github.com/amazon-connect/amazon-connect-chatjs
     title: JavaScript Chat SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/amazon-connect/amazon-connect-chat-ios
     title: iOS Chat SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/amazon-connect/amazon-connect-chat-android
     title: Android Chat SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/amazon-connect/AmazonConnectSDK
     title: Amazon Connect SDK
   - type: Tutorials
@@ -268,55 +268,42 @@ apis:
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/amazon-connect/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/amazon-connect-create-queue-and-place-call-workflow.yml
-    name: Amazon Connect Create Queue and Place Outbound Call
-    summary: Create a queue against an hours schedule, confirm it, and place an outbound
-      call into it.
-  - url: arazzo/amazon-connect-create-routing-profile-and-assign-workflow.yml
-    name: Amazon Connect Create Routing Profile and Assign to User
-    summary: Create a routing profile with media concurrencies and assign it to an
-      existing agent.
-  - url: arazzo/amazon-connect-instance-overview-workflow.yml
-    name: Amazon Connect Instance Configuration Overview
-    summary: Describe an instance, then inventory its contact flows and queues once
-      it is active.
-  - url: arazzo/amazon-connect-provision-queue-with-hours-workflow.yml
-    name: Amazon Connect Provision Queue with Hours of Operation
-    summary: Create an hours-of-operation schedule, build a queue that uses it, and
-      verify the queue.
-  - url: arazzo/amazon-connect-provision-user-workflow.yml
-    name: Amazon Connect Provision Agent User
-    summary: Create an agent user, assign a routing profile, and confirm the final
-      account state.
-  - url: arazzo/amazon-connect-publish-contact-flow-workflow.yml
-    name: Amazon Connect Publish and Verify Contact Flow
-    summary: Create a contact flow from flow-language content and read it back to
-      verify it published.
-  - url: arazzo/amazon-connect-queue-realtime-health-workflow.yml
-    name: Amazon Connect Queue Real-Time Health
-    summary: Confirm a queue is enabled, then pull live agent and in-queue metrics
-      for it.
-  - url: arazzo/amazon-connect-search-and-inspect-contact-workflow.yml
-    name: Amazon Connect Search and Inspect Contact
-    summary: Search contacts in a time range, then describe and read the attributes
-      of the first match.
-  - url: arazzo/amazon-connect-start-chat-and-set-attributes-workflow.yml
-    name: Amazon Connect Start Chat Contact and Set Attributes
-    summary: Start a customer chat, confirm the contact, and attach routing attributes.
-  - url: arazzo/amazon-connect-start-outbound-contact-and-track-workflow.yml
-    name: Amazon Connect Start Outbound Voice Contact and Track
-    summary: Place an outbound voice call, then describe the contact and tag it with
-      attributes.
-  - url: arazzo/amazon-connect-start-task-and-stop-workflow.yml
-    name: Amazon Connect Start Task Contact and Stop It
-    summary: Create a task contact, confirm it through describe, then end the contact.
-  - url: arazzo/amazon-connect-update-user-identity-workflow.yml
-    name: Amazon Connect Update User Identity Info
-    summary: Read a user, update their identity information, then re-read to confirm
-      the change.
+- type: Arazzo
+  url: arazzo/amazon-connect-create-queue-and-place-call-workflow.yml
+  name: Amazon Connect Create Queue and Place Outbound Call
+- type: Arazzo
+  url: arazzo/amazon-connect-create-routing-profile-and-assign-workflow.yml
+  name: Amazon Connect Create Routing Profile and Assign to User
+- type: Arazzo
+  url: arazzo/amazon-connect-instance-overview-workflow.yml
+  name: Amazon Connect Instance Configuration Overview
+- type: Arazzo
+  url: arazzo/amazon-connect-provision-queue-with-hours-workflow.yml
+  name: Amazon Connect Provision Queue with Hours of Operation
+- type: Arazzo
+  url: arazzo/amazon-connect-provision-user-workflow.yml
+  name: Amazon Connect Provision Agent User
+- type: Arazzo
+  url: arazzo/amazon-connect-publish-contact-flow-workflow.yml
+  name: Amazon Connect Publish and Verify Contact Flow
+- type: Arazzo
+  url: arazzo/amazon-connect-queue-realtime-health-workflow.yml
+  name: Amazon Connect Queue Real-Time Health
+- type: Arazzo
+  url: arazzo/amazon-connect-search-and-inspect-contact-workflow.yml
+  name: Amazon Connect Search and Inspect Contact
+- type: Arazzo
+  url: arazzo/amazon-connect-start-chat-and-set-attributes-workflow.yml
+  name: Amazon Connect Start Chat Contact and Set Attributes
+- type: Arazzo
+  url: arazzo/amazon-connect-start-outbound-contact-and-track-workflow.yml
+  name: Amazon Connect Start Outbound Voice Contact and Track
+- type: Arazzo
+  url: arazzo/amazon-connect-start-task-and-stop-workflow.yml
+  name: Amazon Connect Start Task Contact and Stop It
+- type: Arazzo
+  url: arazzo/amazon-connect-update-user-identity-workflow.yml
+  name: Amazon Connect Update User Identity Info
 - type: Portal
   url: https://aws.amazon.com/
 - type: DeveloperPortal
@@ -337,7 +324,7 @@ common:
   url: https://github.com/amazon-connect
 - type: Console
   url: https://console.aws.amazon.com/connect/
-- type: SignUp
+- type: Signup
   url: https://portal.aws.amazon.com/billing/signup
 - type: Login
   url: https://signin.aws.amazon.com/
