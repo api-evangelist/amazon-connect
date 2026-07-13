@@ -1,320 +1,347 @@
+# amazon-connect — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on amazonaws.com
+#   - path-params-casing: pascal @ 100% (n=50)
+#   - query-params-casing: camel @ 100% (n=20)
+#   - operationid-casing: camel @ 100% (n=41)
+#   - schema-names-casing: pascal @ 100% (n=58)
+#   - schema-properties-casing: pascal @ 99% (n=241)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: Error
+#   - pagination params observed: ['maxResults', 'nextToken']
+#   - merge: kept 36 existing, added 6 measured, upgraded 0
+#   - added: servers-expected-domain, path-params-casing, query-params-casing, schema-names-casing, schema-properties-casing, error-schema-defined
+extends:
+  - spectral:oas
 rules:
-  # INFO / METADATA
   info-title-prefix:
     description: API title must start with "Amazon Connect"
     severity: warn
-    given: "$.info.title"
+    given: $.info.title
     then:
       function: pattern
       functionOptions:
-        match: "^Amazon Connect"
-
+        match: ^Amazon Connect
   info-description-required:
     description: Info object must have a description of at least 50 characters
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: Info object must have a version field
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: version
       function: truthy
-
   info-contact-required:
     description: Info object should have a contact
     severity: warn
-    given: "$.info"
+    given: $.info
     then:
       field: contact
       function: truthy
-
-  # OPENAPI VERSION
   openapi-version-3x:
     description: Must use OpenAPI 3.x
     severity: error
-    given: "$"
+    given: $
     then:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
-
-  # SERVERS
+        match: ^3\.
   servers-defined:
     description: Servers array must be defined and non-empty
     severity: error
-    given: "$"
+    given: $
     then:
       field: servers
       function: truthy
-
   servers-https-only:
     description: All server URLs must use HTTPS
     severity: error
-    given: "$.servers[*].url"
+    given: $.servers[*].url
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
-
+        match: ^https://
   servers-description-required:
     description: Each server must have a description
     severity: warn
-    given: "$.servers[*]"
+    given: $.servers[*]
     then:
       field: description
       function: truthy
-
-  # PATHS — NAMING CONVENTIONS
   paths-kebab-case:
     description: Path segments must use kebab-case
     severity: warn
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^(/[a-z0-9{}-]+)+$"
-
+        match: ^(/[a-z0-9{}-]+)+$
   paths-no-trailing-slash:
     description: Paths must not have trailing slashes
     severity: warn
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        notMatch: "/$"
-
-  # OPERATIONS
+        notMatch: /$
   operation-summary-required:
     description: All operations must have a summary
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: summary
       function: truthy
-
   operation-summary-amazon-connect-prefix:
     description: Operation summary must start with "Amazon Connect"
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].summary"
+    given: $.paths[*][get,post,put,patch,delete].summary
     then:
       function: pattern
       functionOptions:
-        match: "^Amazon Connect"
-
+        match: ^Amazon Connect
   operation-description-required:
     description: All operations must have a description
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: description
       function: truthy
-
   operation-id-required:
     description: All operations must have an operationId
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: operationId
       function: truthy
-
   operation-id-camel-case:
     description: OperationId must use camelCase
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    given: $.paths[*][get,post,put,patch,delete].operationId
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]+$"
-
+        match: ^[a-z][a-zA-Z0-9]+$
   operation-tags-required:
     description: All operations must have tags
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: tags
       function: truthy
-
-  # TAGS
   tags-defined:
     description: Tags array should be defined at the global level
     severity: warn
-    given: "$"
+    given: $
     then:
       field: tags
       function: truthy
-
   tag-description-required:
     description: Each global tag must have a description
     severity: warn
-    given: "$.tags[*]"
+    given: $.tags[*]
     then:
       field: description
       function: truthy
-
-  # PARAMETERS
   parameter-description-required:
     description: All parameters must have a description
     severity: error
-    given: "$.paths[*][*].parameters[*]"
+    given: $.paths[*][*].parameters[*]
     then:
       field: description
       function: truthy
-
   parameter-schema-required:
     description: All parameters must have a schema
     severity: error
-    given: "$.paths[*][*].parameters[*]"
+    given: $.paths[*][*].parameters[*]
     then:
       field: schema
       function: truthy
-
   parameter-name-snake-case:
     description: Query and header parameter names should use camelCase (AWS convention)
     severity: info
-    given: "$.paths[*][*].parameters[?(@.in == 'query')].name"
+    given: $.paths[*][*].parameters[?(@.in == 'query')].name
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
-  # REQUEST BODIES
+        match: ^[a-z][a-zA-Z0-9]*$
   request-body-description:
     description: Request body should have a description
     severity: warn
-    given: "$.paths[*][post,put,patch].requestBody"
+    given: $.paths[*][post,put,patch].requestBody
     then:
       field: description
       function: truthy
-
   request-body-json-content:
     description: Request body should support application/json
     severity: warn
-    given: "$.paths[*][post,put,patch].requestBody.content"
+    given: $.paths[*][post,put,patch].requestBody.content
     then:
       field: application/json
       function: truthy
-
-  # RESPONSES
   response-success-required:
     description: All operations must have at least one 2xx response
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete].responses"
+    given: $.paths[*][get,post,put,patch,delete].responses
     then:
       function: schema
       functionOptions:
         schema:
           anyOf:
-            - required: ["200"]
-            - required: ["201"]
-            - required: ["204"]
-
+          - required:
+            - '200'
+          - required:
+            - '201'
+          - required:
+            - '204'
   response-description-required:
     description: All responses must have a description
     severity: error
-    given: "$.paths[*][*].responses[*]"
+    given: $.paths[*][*].responses[*]
     then:
       field: description
       function: truthy
-
   response-400-on-post:
     description: POST operations should return a 400 Bad Request response
     severity: warn
-    given: "$.paths[*].post.responses"
+    given: $.paths[*].post.responses
     then:
-      field: "400"
+      field: '400'
       function: truthy
-
   response-error-has-message:
     description: Error response schemas should include a message field
     severity: warn
-    given: "$.components.schemas.Error.properties"
+    given: $.components.schemas.Error.properties
     then:
       field: message
       function: truthy
-
-  # SCHEMAS — PROPERTY NAMING
   schema-description-required:
     description: Top-level schemas should have a description
     severity: warn
-    given: "$.components.schemas[*]"
+    given: $.components.schemas[*]
     then:
       field: description
       function: truthy
-
   schema-properties-type-required:
     description: Schema properties should have a type defined
     severity: warn
-    given: "$.components.schemas[*].properties[*]"
+    given: $.components.schemas[*].properties[*]
     then:
       field: type
       function: truthy
-
-  # SECURITY
   security-schemes-defined:
     description: Security schemes must be defined in components
     severity: error
-    given: "$.components"
+    given: $.components
     then:
       field: securitySchemes
       function: truthy
-
   security-global-defined:
     description: Global security must be defined
     severity: warn
-    given: "$"
+    given: $
     then:
       field: security
       function: truthy
-
-  # HTTP METHOD CONVENTIONS
   get-no-request-body:
     description: GET operations must not have a request body
     severity: error
-    given: "$.paths[*].get"
+    given: $.paths[*].get
     then:
       field: requestBody
       function: falsy
-
   delete-no-request-body:
     description: DELETE operations should not have a request body
     severity: warn
-    given: "$.paths[*].delete"
+    given: $.paths[*].delete
     then:
       field: requestBody
       function: falsy
-
-  # GENERAL QUALITY
   operation-examples-encouraged:
     description: Operations should have examples in responses
     severity: info
-    given: "$.paths[*][*].responses[*].content[*]"
+    given: $.paths[*][*].responses[*].content[*]
     then:
       function: schema
       functionOptions:
         schema:
           anyOf:
-            - required: ["example"]
-            - required: ["examples"]
-
+          - required:
+            - example
+          - required:
+            - examples
   no-empty-descriptions:
     description: Descriptions must not be empty strings
     severity: error
-    given: "$..description"
+    given: $..description
     then:
       function: pattern
       functionOptions:
-        match: ".+"
-
+        match: .+
   instance-id-path-param:
     description: Operations using InstanceId path parameter should document it consistently
     severity: info
-    given: "$.paths[*][*].parameters[?(@.name == 'InstanceId')]"
+    given: $.paths[*][*].parameters[?(@.name == 'InstanceId')]
     then:
       field: description
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the amazonaws.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: amazonaws\.com
+  path-params-casing:
+    description: Path parameters should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: pascal
+  query-params-casing:
+    description: Query parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  error-schema-defined:
+    description: A shared error schema (Error) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: Error
       function: truthy
