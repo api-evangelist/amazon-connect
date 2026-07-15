@@ -266,6 +266,8 @@ apis:
   - type: APIReference
     url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
 common:
+- type: AgenticAccess
+  url: agentic-access/amazon-connect-agentic-access.yml
 - type: TrustCenter
   url: security/amazon-connect-trust-center.yml
 - type: VulnerabilityDisclosure
