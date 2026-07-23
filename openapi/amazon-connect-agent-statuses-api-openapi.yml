@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Agent Statuses
+  description: Operations for managing agent status configurations
+paths:
+  /agent-status/{InstanceId}:
+    get:
+      operationId: listAgentStatuses
+      summary: Amazon Connect List Agent Statuses
+      description: This API is in preview release for Amazon Connect and is subject to change. Lists agent statuses.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      - name: agentStatusTypes
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - ROUTABLE
+            - CUSTOM
+            - OFFLINE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentStatusesResponse'
+              examples:
+                ListAgentStatuses200Example:
+                  summary: Default listAgentStatuses 200 response
+                  x-microcks-default: true
+                  value:
+                    AgentStatusSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent-state/a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+                      Name: Available
+                      Type: ROUTABLE
+      tags:
+      - Agent Statuses
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    AgentStatusSummary:
+      type: object
+      description: Contains information about an agent status.
+      properties:
+        Id:
+          type: string
+          description: The identifier for an agent status.
+          example: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the agent status.
+        Name:
+          type: string
+          description: The name of the agent status.
+          example: Available
+        Type:
+          type: string
+          description: The type of the agent status.
+          enum:
+          - ROUTABLE
+          - CUSTOM
+          - OFFLINE
+          example: ROUTABLE
+    ListAgentStatusesResponse:
+      type: object
+      properties:
+        AgentStatusSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentStatusSummary'
+        NextToken:
+          type: string
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

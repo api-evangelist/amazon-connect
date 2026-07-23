@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Queues API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Queues
+  description: Operations for managing queues
+paths:
+  /queues/{InstanceId}:
+    get:
+      operationId: listQueues
+      summary: Amazon Connect List Queues
+      description: Provides information about the queues for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: queueTypes
+        in: query
+        description: The type of queue.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - STANDARD
+            - AGENT
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListQueuesResponse'
+              examples:
+                ListQueues200Example:
+                  summary: Default listQueues 200 response
+                  x-microcks-default: true
+                  value:
+                    QueueSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Name: BasicQueue
+                      QueueType: STANDARD
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createQueue
+      summary: Amazon Connect Create Queue
+      description: This API is in preview release for Amazon Connect and is subject to change. Creates a new queue for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQueueRequest'
+            examples:
+              CreateQueueRequestExample:
+                summary: Default createQueue request
+                x-microcks-default: true
+                value:
+                  Name: Support Queue
+                  Description: Queue for support contacts
+                  HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                  MaxContacts: 100
+      responses:
+        '200':
+          description: Queue created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQueueResponse'
+              examples:
+                CreateQueue200Example:
+                  summary: Default createQueue 200 response
+                  x-microcks-default: true
+                  value:
+                    QueueArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    QueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queues/{InstanceId}/{QueueId}:
+    get:
+      operationId: describeQueue
+      summary: Amazon Connect Describe Queue
+      description: This API is in preview release for Amazon Connect and is subject to change. Describes the specified queue.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: QueueId
+        in: path
+        required: true
+        description: The identifier for the queue.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeQueueResponse'
+              examples:
+                DescribeQueue200Example:
+                  summary: Default describeQueue 200 response
+                  x-microcks-default: true
+                  value:
+                    Queue:
+                      QueueArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      QueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Name: BasicQueue
+                      Description: Default queue for basic contacts
+                      Status: ENABLED
+                      HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        '404':
+          description: Queue not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteQueue
+      summary: Amazon Connect Delete Queue
+      description: Deletes a queue.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: QueueId
+        in: path
+        required: true
+        description: The identifier for the queue.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+      responses:
+        '200':
+          description: Queue deleted successfully
+        '404':
+          description: Queue not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateQueueRequest:
+      type: object
+      required:
+      - HoursOfOperationId
+      - Name
+      properties:
+        Name:
+          type: string
+          description: The name of the queue.
+          example: Support Queue
+        Description:
+          type: string
+          description: The description of the queue.
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        MaxContacts:
+          type: integer
+          description: The maximum number of contacts that can be in the queue.
+          example: 100
+        OutboundCallerConfig:
+          type: object
+          properties:
+            OutboundCallerIdName:
+              type: string
+            OutboundCallerIdNumberId:
+              type: string
+            OutboundFlowId:
+              type: string
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    QueueSummary:
+      type: object
+      description: Contains summary information about a queue.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        Name:
+          type: string
+          description: The name of the queue.
+          example: BasicQueue
+        QueueType:
+          type: string
+          description: The type of queue.
+          enum:
+          - STANDARD
+          - AGENT
+          example: STANDARD
+    ListQueuesResponse:
+      type: object
+      properties:
+        QueueSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueSummary'
+        NextToken:
+          type: string
+    CreateQueueResponse:
+      type: object
+      properties:
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+    Queue:
+      type: object
+      description: Contains information about a queue.
+      properties:
+        Name:
+          type: string
+          description: The name of the queue.
+          example: BasicQueue
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Description:
+          type: string
+          description: The description of the queue.
+        OutboundCallerConfig:
+          type: object
+          properties:
+            OutboundCallerIdName:
+              type: string
+            OutboundCallerIdNumberId:
+              type: string
+            OutboundFlowId:
+              type: string
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+        MaxContacts:
+          type: integer
+          description: The maximum number of contacts that can be in the queue before it is considered full.
+          example: 100
+        Status:
+          type: string
+          description: The status of the queue.
+          enum:
+          - ENABLED
+          - DISABLED
+          example: ENABLED
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    DescribeQueueResponse:
+      type: object
+      properties:
+        Queue:
+          $ref: '#/components/schemas/Queue'
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

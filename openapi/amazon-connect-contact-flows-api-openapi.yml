@@ -1,0 +1,371 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Contact Flows API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Contact Flows
+  description: Operations for managing contact flows
+paths:
+  /contact-flows/{InstanceId}:
+    get:
+      operationId: listContactFlows
+      summary: Amazon Connect List Contact Flows
+      description: Provides information about the contact flows for the specified Amazon Connect instance. You can also create and update contact flows using the Amazon Connect Flow language.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: contactFlowTypes
+        in: query
+        description: The type of contact flow.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CONTACT_FLOW
+            - CUSTOMER_QUEUE
+            - CUSTOMER_HOLD
+            - CUSTOMER_WHISPER
+            - AGENT_HOLD
+            - AGENT_WHISPER
+            - OUTBOUND_WHISPER
+            - AGENT_TRANSFER
+            - QUEUE_TRANSFER
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListContactFlowsResponse'
+              examples:
+                ListContactFlows200Example:
+                  summary: Default listContactFlows 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlowSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Name: Default inbound flow
+                      ContactFlowType: CONTACT_FLOW
+                      ContactFlowState: ACTIVE
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createContactFlow
+      summary: Amazon Connect Create Contact Flow
+      description: Creates a contact flow for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactFlowRequest'
+            examples:
+              CreateContactFlowRequestExample:
+                summary: Default createContactFlow request
+                x-microcks-default: true
+                value:
+                  Name: My Contact Flow
+                  Type: CONTACT_FLOW
+                  Description: My inbound contact flow
+                  Content: '{"Version":"2019-10-30","StartAction":"1"}'
+      responses:
+        '200':
+          description: Contact flow created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateContactFlowResponse'
+              examples:
+                CreateContactFlow200Example:
+                  summary: Default createContactFlow 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlowId: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                    ContactFlowArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact-flows/{InstanceId}/{ContactFlowId}:
+    get:
+      operationId: describeContactFlow
+      summary: Amazon Connect Describe Contact Flow
+      description: Describes the specified contact flow.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: ContactFlowId
+        in: path
+        required: true
+        description: The identifier of the contact flow.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeContactFlowResponse'
+              examples:
+                DescribeContactFlow200Example:
+                  summary: Default describeContactFlow 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlow:
+                      Id: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Name: Default inbound flow
+                      Type: CONTACT_FLOW
+                      State: ACTIVE
+                      Content: '{"Version":"2019-10-30","StartAction":"1"}'
+        '404':
+          description: Contact flow not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteContactFlow
+      summary: Amazon Connect Delete Contact Flow
+      description: Deletes a contact flow for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: ContactFlowId
+        in: path
+        required: true
+        description: The identifier of the contact flow.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+      responses:
+        '200':
+          description: Contact flow deleted successfully
+        '404':
+          description: Contact flow not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ContactFlowSummary:
+      type: object
+      description: Contains summary information about a contact flow.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+        Name:
+          type: string
+          description: The name of the contact flow.
+          example: Default inbound flow
+        ContactFlowType:
+          type: string
+          description: The type of contact flow.
+          enum:
+          - CONTACT_FLOW
+          - CUSTOMER_QUEUE
+          - CUSTOMER_HOLD
+          - CUSTOMER_WHISPER
+          - AGENT_HOLD
+          - AGENT_WHISPER
+          - OUTBOUND_WHISPER
+          - AGENT_TRANSFER
+          - QUEUE_TRANSFER
+        ContactFlowState:
+          type: string
+          description: The status of the contact flow.
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          example: ACTIVE
+    CreateContactFlowResponse:
+      type: object
+      properties:
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        ContactFlowArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+    CreateContactFlowRequest:
+      type: object
+      required:
+      - Content
+      - Name
+      - Type
+      properties:
+        Name:
+          type: string
+          description: The name of the contact flow.
+          example: My Contact Flow
+        Type:
+          type: string
+          description: The type of the contact flow.
+          enum:
+          - CONTACT_FLOW
+          - CUSTOMER_QUEUE
+          - CUSTOMER_HOLD
+          - CUSTOMER_WHISPER
+          - AGENT_HOLD
+          - AGENT_WHISPER
+          - OUTBOUND_WHISPER
+          - AGENT_TRANSFER
+          - QUEUE_TRANSFER
+          example: CONTACT_FLOW
+        Description:
+          type: string
+          description: The description of the contact flow.
+        Content:
+          type: string
+          description: The content of the contact flow.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    ListContactFlowsResponse:
+      type: object
+      properties:
+        ContactFlowSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactFlowSummary'
+        NextToken:
+          type: string
+    DescribeContactFlowResponse:
+      type: object
+      properties:
+        ContactFlow:
+          $ref: '#/components/schemas/ContactFlow'
+    ContactFlow:
+      type: object
+      description: Contains information about a contact flow.
+      properties:
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+        Id:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Name:
+          type: string
+          description: The name of the contact flow.
+        Type:
+          type: string
+          description: The type of the contact flow.
+        State:
+          type: string
+          description: The state of the contact flow.
+          enum:
+          - ACTIVE
+          - ARCHIVED
+        Description:
+          type: string
+          description: The description of the contact flow.
+        Content:
+          type: string
+          description: The content of the contact flow.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

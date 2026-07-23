@@ -1,0 +1,362 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Instances API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Instances
+  description: Operations for managing Amazon Connect instances
+paths:
+  /instance:
+    get:
+      operationId: listInstances
+      summary: Amazon Connect List Instances
+      description: Returns a paginated list of all Amazon Connect instances associated with the AWS account.
+      parameters:
+      - name: nextToken
+        in: query
+        description: The token for the next set of results.
+        schema:
+          type: string
+        example: abc123token
+      - name: maxResults
+        in: query
+        description: The maximum number of results to return.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 10
+        example: 10
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInstancesResponse'
+              examples:
+                ListInstances200Example:
+                  summary: Default listInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    InstanceSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      IdentityManagementType: CONNECT_MANAGED
+                      InstanceAlias: my-contact-center
+                      CreatedTime: '2025-01-15T10:30:00Z'
+                      ServiceRole: arn:aws:iam::123456789012:role/aws-service-role/connect.amazonaws.com/AWSServiceRoleForAmazonConnect
+                      InstanceStatus: ACTIVE
+                      InboundCallsEnabled: true
+                      OutboundCallsEnabled: true
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createInstance
+      summary: Amazon Connect Create Instance
+      description: Initiates an Amazon Connect instance with all the supported channels enabled. It does not attach any storage, such as Amazon Simple Storage Service (Amazon S3) or Amazon Kinesis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInstanceRequest'
+            examples:
+              CreateInstanceRequestExample:
+                summary: Default createInstance request
+                x-microcks-default: true
+                value:
+                  IdentityManagementType: CONNECT_MANAGED
+                  InstanceAlias: my-contact-center
+                  InboundCallsEnabled: true
+                  OutboundCallsEnabled: true
+      responses:
+        '200':
+          description: Instance created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInstanceResponse'
+              examples:
+                CreateInstance200Example:
+                  summary: Default createInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                    Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Resource already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /instance/{InstanceId}:
+    get:
+      operationId: describeInstance
+      summary: Amazon Connect Describe Instance
+      description: Returns the current state of the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeInstanceResponse'
+              examples:
+                DescribeInstance200Example:
+                  summary: Default describeInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Instance:
+                      Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      IdentityManagementType: CONNECT_MANAGED
+                      InstanceAlias: my-contact-center
+                      InstanceStatus: ACTIVE
+                      InboundCallsEnabled: true
+                      OutboundCallsEnabled: true
+        '404':
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteInstance
+      summary: Amazon Connect Delete Instance
+      description: Deletes the Amazon Connect instance. The associated settings, data, metrics, and reports are also deleted.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        '200':
+          description: Instance deleted successfully
+        '404':
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Instance:
+      type: object
+      description: The Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        IdentityManagementType:
+          type: string
+          description: The identity management type.
+          enum:
+          - SAML
+          - CONNECT_MANAGED
+          - EXISTING_DIRECTORY
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The alias of the instance.
+          example: my-contact-center
+        CreatedTime:
+          type: string
+          format: date-time
+          description: When the instance was created.
+          example: '2025-01-15T10:30:00Z'
+        ServiceRole:
+          type: string
+          description: The service role of the instance.
+        InstanceStatus:
+          type: string
+          description: The state of the instance.
+          enum:
+          - CREATION_IN_PROGRESS
+          - ACTIVE
+          - CREATION_FAILED
+          example: ACTIVE
+        InboundCallsEnabled:
+          type: boolean
+          description: Whether inbound calls are enabled.
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          description: Whether outbound calls are enabled.
+          example: true
+    CreateInstanceRequest:
+      type: object
+      required:
+      - IdentityManagementType
+      - InboundCallsEnabled
+      - OutboundCallsEnabled
+      properties:
+        ClientToken:
+          type: string
+          description: The idempotency token.
+        IdentityManagementType:
+          type: string
+          description: The type of identity management for your Amazon Connect users.
+          enum:
+          - SAML
+          - CONNECT_MANAGED
+          - EXISTING_DIRECTORY
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The name for your instance.
+          example: my-contact-center
+        DirectoryId:
+          type: string
+          description: The identifier for the directory.
+        InboundCallsEnabled:
+          type: boolean
+          description: Your contact center handles incoming contacts.
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          description: Your contact center allows outbound calls.
+          example: true
+        Tags:
+          type: object
+          description: The tags used to organize, track, or control access for this resource.
+          additionalProperties:
+            type: string
+    CreateInstanceResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The identifier for the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+    InstanceSummary:
+      type: object
+      description: Information about the Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        IdentityManagementType:
+          type: string
+          description: The identity management type.
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The alias of the instance.
+          example: my-contact-center
+        InstanceStatus:
+          type: string
+          description: The state of the instance.
+          example: ACTIVE
+        InboundCallsEnabled:
+          type: boolean
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    ListInstancesResponse:
+      type: object
+      properties:
+        InstanceSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceSummary'
+        NextToken:
+          type: string
+          description: If there are additional results, this is the token for the next set.
+    DescribeInstanceResponse:
+      type: object
+      properties:
+        Instance:
+          $ref: '#/components/schemas/Instance'
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

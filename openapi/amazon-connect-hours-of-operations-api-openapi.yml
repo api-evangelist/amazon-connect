@@ -1,0 +1,228 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Hours of Operations API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Hours of Operations
+  description: Operations for managing hours of operation configurations
+paths:
+  /hours-of-operations/{InstanceId}:
+    get:
+      operationId: listHoursOfOperations
+      summary: Amazon Connect List Hours of Operations
+      description: Provides information about the hours of operation for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListHoursOfOperationsResponse'
+              examples:
+                ListHoursOfOperations200Example:
+                  summary: Default listHoursOfOperations 200 response
+                  x-microcks-default: true
+                  value:
+                    HoursOfOperationSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                      Name: Business Hours
+      tags:
+      - Hours of Operations
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHoursOfOperation
+      summary: Amazon Connect Create Hours of Operation
+      description: This API is in preview release for Amazon Connect and is subject to change. Creates hours of operation.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHoursOfOperationRequest'
+            examples:
+              CreateHoursOfOperationRequestExample:
+                summary: Default createHoursOfOperation request
+                x-microcks-default: true
+                value:
+                  Name: Business Hours
+                  Description: Standard business hours Mon-Fri
+                  TimeZone: America/New_York
+                  Config:
+                  - Day: MONDAY
+                    StartTime:
+                      Hours: 9
+                      Minutes: 0
+                    EndTime:
+                      Hours: 17
+                      Minutes: 0
+      responses:
+        '200':
+          description: Hours of operation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateHoursOfOperationResponse'
+              examples:
+                CreateHoursOfOperation200Example:
+                  summary: Default createHoursOfOperation 200 response
+                  x-microcks-default: true
+                  value:
+                    HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                    HoursOfOperationArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+      tags:
+      - Hours of Operations
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    HoursOfOperationTimeSlice:
+      type: object
+      description: The start or end time of an hours of operation.
+      required:
+      - Hours
+      - Minutes
+      properties:
+        Hours:
+          type: integer
+          description: The hours.
+          minimum: 0
+          maximum: 23
+          example: 9
+        Minutes:
+          type: integer
+          description: The minutes.
+          minimum: 0
+          maximum: 59
+          example: 0
+    HoursOfOperationConfig:
+      type: object
+      description: Contains information about the hours of operation.
+      required:
+      - Day
+      - StartTime
+      - EndTime
+      properties:
+        Day:
+          type: string
+          description: The day that the hours of operation applies to.
+          enum:
+          - SUNDAY
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          example: MONDAY
+        StartTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+        EndTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+    CreateHoursOfOperationRequest:
+      type: object
+      required:
+      - Config
+      - Name
+      - TimeZone
+      properties:
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
+        Description:
+          type: string
+          description: The description of the hours of operation.
+        TimeZone:
+          type: string
+          description: The time zone of the hours of operation.
+          example: America/New_York
+        Config:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoursOfOperationConfig'
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateHoursOfOperationResponse:
+      type: object
+      properties:
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        HoursOfOperationArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the hours of operation.
+    ListHoursOfOperationsResponse:
+      type: object
+      properties:
+        HoursOfOperationSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoursOfOperationSummary'
+        NextToken:
+          type: string
+    HoursOfOperationSummary:
+      type: object
+      description: Contains summary information about hours of operation for a contact center.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the hours of operation.
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

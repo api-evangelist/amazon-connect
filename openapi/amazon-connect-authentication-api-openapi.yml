@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Authentication API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Authentication
+  description: Operations for authentication and federation
+paths:
+  /federation-token/{InstanceId}:
+    get:
+      operationId: getFederationToken
+      summary: Amazon Connect Get Federation Token
+      description: Retrieves a token for federation. This API doesn't support root users. If you try to invoke GetFederationToken with root credentials, an error message similar to the following one appears.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Credentials:
+                    type: object
+                    description: The credentials to use for federation.
+                    properties:
+                      AccessToken:
+                        type: string
+                        description: The access token.
+                      AccessTokenExpiration:
+                        type: string
+                        format: date-time
+                        description: The timestamp when access token expires.
+                      RefreshToken:
+                        type: string
+                        description: The refresh token.
+                      RefreshTokenExpiration:
+                        type: string
+                        format: date-time
+                        description: The timestamp when refresh token expires.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Authentication
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

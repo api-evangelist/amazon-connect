@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Security Profiles API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Security Profiles
+  description: Operations for managing security profiles
+paths:
+  /security-profiles/{InstanceId}:
+    get:
+      operationId: listSecurityProfiles
+      summary: Amazon Connect List Security Profiles
+      description: This API is in preview release for Amazon Connect and is subject to change. Provides summary information about the security profiles for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSecurityProfilesResponse'
+              examples:
+                ListSecurityProfiles200Example:
+                  summary: Default listSecurityProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    SecurityProfileSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/security-profile/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                      Name: Agent
+      tags:
+      - Security Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ListSecurityProfilesResponse:
+      type: object
+      properties:
+        SecurityProfileSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityProfileSummary'
+        NextToken:
+          type: string
+    SecurityProfileSummary:
+      type: object
+      description: Contains information about a security profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the security profile.
+          example: a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the security profile.
+        Name:
+          type: string
+          description: The name of the security profile.
+          example: Agent
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

@@ -1,0 +1,387 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Metrics API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Metrics
+  description: Operations for retrieving real-time and historical metrics
+paths:
+  /metrics/historical/{InstanceId}:
+    post:
+      operationId: getMetricData
+      summary: Amazon Connect Get Historical Metric Data
+      description: Gets historical metric data from the specified Amazon Connect instance. You can use this API to get historical data for Amazon Connect queues, routing profiles, agents, and contact flows.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMetricDataRequest'
+            examples:
+              GetMetricDataRequestExample:
+                summary: Default getMetricData request
+                x-microcks-default: true
+                value:
+                  StartTime: '2025-03-15T00:00:00Z'
+                  EndTime: '2025-03-15T23:59:59Z'
+                  Filters:
+                    Queues:
+                    - a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    Channels:
+                    - VOICE
+                  HistoricalMetrics:
+                  - Name: CONTACTS_QUEUED
+                    Unit: COUNT
+                    Statistic: SUM
+                  - Name: HANDLE_TIME
+                    Unit: SECONDS
+                    Statistic: AVG
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMetricDataResponse'
+              examples:
+                GetMetricData200Example:
+                  summary: Default getMetricData 200 response
+                  x-microcks-default: true
+                  value:
+                    MetricResults:
+                    - Dimensions:
+                        Queue:
+                          Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                          Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Collections:
+                      - Metric:
+                          Name: CONTACTS_QUEUED
+                          Unit: COUNT
+                          Statistic: SUM
+                        Value: 125.0
+      tags:
+      - Metrics
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /metrics/current/{InstanceId}:
+    post:
+      operationId: getCurrentMetricData
+      summary: Amazon Connect Get Current Metric Data
+      description: Gets the real-time metric data from the specified Amazon Connect instance. For a description of each metric, see Real-time Metrics Definitions in the Amazon Connect Administrator Guide.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCurrentMetricDataRequest'
+            examples:
+              GetCurrentMetricDataRequestExample:
+                summary: Default getCurrentMetricData request
+                x-microcks-default: true
+                value:
+                  Filters:
+                    Queues:
+                    - a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    Channels:
+                    - VOICE
+                  CurrentMetrics:
+                  - Name: AGENTS_ONLINE
+                    Unit: COUNT
+                  - Name: CONTACTS_IN_QUEUE
+                    Unit: COUNT
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCurrentMetricDataResponse'
+              examples:
+                GetCurrentMetricData200Example:
+                  summary: Default getCurrentMetricData 200 response
+                  x-microcks-default: true
+                  value:
+                    MetricResults:
+                    - Dimensions:
+                        Queue:
+                          Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Collections:
+                      - Metric:
+                          Name: AGENTS_ONLINE
+                          Unit: COUNT
+                        Value: 12.0
+                      - Metric:
+                          Name: CONTACTS_IN_QUEUE
+                          Unit: COUNT
+                        Value: 3.0
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Metrics
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GetMetricDataResponse:
+      type: object
+      properties:
+        NextToken:
+          type: string
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+                properties:
+                  Queue:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                      Arn:
+                        type: string
+                  Channel:
+                    type: string
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                        Unit:
+                          type: string
+                        Statistic:
+                          type: string
+                    Value:
+                      type: number
+    GetCurrentMetricDataRequest:
+      type: object
+      required:
+      - CurrentMetrics
+      - Filters
+      properties:
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                - VOICE
+                - CHAT
+                - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+        CurrentMetrics:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                enum:
+                - AGENTS_ONLINE
+                - AGENTS_AVAILABLE
+                - AGENTS_ON_CALL
+                - AGENTS_NON_PRODUCTIVE
+                - AGENTS_AFTER_CONTACT_WORK
+                - AGENTS_ERROR
+                - AGENTS_STAFFED
+                - CONTACTS_IN_QUEUE
+                - OLDEST_CONTACT_AGE
+                - CONTACTS_SCHEDULED
+                - AGENTS_ON_CONTACT
+                - SLOTS_ACTIVE
+                - SLOTS_AVAILABLE
+              Unit:
+                type: string
+                enum:
+                - SECONDS
+                - COUNT
+                - PERCENT
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    GetCurrentMetricDataResponse:
+      type: object
+      properties:
+        NextToken:
+          type: string
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                    Value:
+                      type: number
+        DataSnapshotTime:
+          type: string
+          format: date-time
+    GetMetricDataRequest:
+      type: object
+      required:
+      - EndTime
+      - Filters
+      - HistoricalMetrics
+      - StartTime
+      properties:
+        StartTime:
+          type: string
+          format: date-time
+          description: The timestamp, in UNIX Epoch time format, at which to start the reporting interval.
+          example: '2025-03-15T00:00:00Z'
+        EndTime:
+          type: string
+          format: date-time
+          description: The timestamp, in UNIX Epoch time format, at which to end the reporting interval.
+          example: '2025-03-15T23:59:59Z'
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                - VOICE
+                - CHAT
+                - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+            enum:
+            - QUEUE
+            - CHANNEL
+            - ROUTING_PROFILE
+            - ROUTING_STEP_EXPRESSION
+        HistoricalMetrics:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                description: The name of the metric.
+                enum:
+                - CONTACTS_QUEUED
+                - CONTACTS_HANDLED
+                - CONTACTS_ABANDONED
+                - CONTACTS_CONSULTED
+                - CONTACTS_AGENT_HUNG_UP_FIRST
+                - CONTACTS_HANDLED_INCOMING
+                - CONTACTS_HANDLED_OUTBOUND
+                - CONTACTS_HOLD_ABANDONS
+                - CONTACTS_TRANSFERRED_IN
+                - CONTACTS_TRANSFERRED_OUT
+                - CONTACTS_TRANSFERRED_IN_FROM_QUEUE
+                - CONTACTS_TRANSFERRED_OUT_FROM_QUEUE
+                - CONTACTS_MISSED
+                - CALLBACK_CONTACTS_HANDLED
+                - HANDLE_TIME
+                - AFTER_CONTACT_WORK_TIME
+                - QUEUED_TIME
+                - ABANDON_TIME
+                - QUEUE_ANSWER_TIME
+                - HOLD_TIME
+                - INTERACTION_TIME
+                - INTERACTION_AND_HOLD_TIME
+                - SERVICE_LEVEL
+              Unit:
+                type: string
+                enum:
+                - SECONDS
+                - COUNT
+                - PERCENT
+              Statistic:
+                type: string
+                enum:
+                - SUM
+                - MAX
+                - AVG
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

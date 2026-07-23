@@ -1,0 +1,177 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Tags API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Tags
+  description: Operations for tagging Amazon Connect resources
+paths:
+  /tags/{ResourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon Connect List Tags for Resource
+      description: Lists the tags for the specified resource.
+      parameters:
+      - name: ResourceArn
+        in: path
+        required: true
+        description: The Amazon Resource Name (ARN) of the resource.
+        schema:
+          type: string
+        example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: object
+                    description: Information about the tags.
+                    additionalProperties:
+                      type: string
+              examples:
+                ListTagsForResource200Example:
+                  summary: Default listTagsForResource 200 response
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: production
+                      Team: contact-center
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: tagResource
+      summary: Amazon Connect Tag Resource
+      description: Adds the specified tags to the specified resource.
+      parameters:
+      - name: ResourceArn
+        in: path
+        required: true
+        description: The Amazon Resource Name (ARN) of the resource.
+        schema:
+          type: string
+        example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tags
+              properties:
+                tags:
+                  type: object
+                  description: One or more tags.
+                  additionalProperties:
+                    type: string
+            examples:
+              TagResourceRequestExample:
+                summary: Default tagResource request
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: production
+                    Team: contact-center
+      responses:
+        '200':
+          description: Tags added successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: untagResource
+      summary: Amazon Connect Untag Resource
+      description: Removes the specified tags from the specified resource.
+      parameters:
+      - name: ResourceArn
+        in: path
+        required: true
+        description: The Amazon Resource Name (ARN) of the resource.
+        schema:
+          type: string
+        example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: tagKeys
+        in: query
+        required: true
+        description: The tag keys.
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - Environment
+        - Team
+      responses:
+        '200':
+          description: Tags removed successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

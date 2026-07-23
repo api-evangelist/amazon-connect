@@ -1,0 +1,570 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Users API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Users
+  description: Operations for managing Amazon Connect users and agents
+paths:
+  /users/{InstanceId}:
+    get:
+      operationId: listUsers
+      summary: Amazon Connect List Users
+      description: Provides summary information about the users for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: nextToken
+        in: query
+        description: The token for the next set of results.
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        description: The maximum number of results to return.
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUsersResponse'
+              examples:
+                ListUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    UserSummaryList:
+                    - Id: '500123'
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+                      Username: jsmith
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Amazon Connect Create User
+      description: Creates a user account for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              CreateUserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  Username: jsmith
+                  Password: TempPass123!
+                  IdentityInfo:
+                    FirstName: Jane
+                    LastName: Smith
+                    Email: jsmith@example.com
+                  PhoneConfig:
+                    PhoneType: SOFT_PHONE
+                    AutoAccept: false
+                    AfterContactWorkTimeLimit: 0
+                  SecurityProfileIds:
+                  - a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                  RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+              examples:
+                CreateUser200Example:
+                  summary: Default createUser 200 response
+                  x-microcks-default: true
+                  value:
+                    UserId: '500123'
+                    UserArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}:
+    get:
+      operationId: describeUser
+      summary: Amazon Connect Describe User
+      description: Describes the specified user account.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: UserId
+        in: path
+        required: true
+        description: The identifier of the user account.
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeUserResponse'
+              examples:
+                DescribeUser200Example:
+                  summary: Default describeUser 200 response
+                  x-microcks-default: true
+                  value:
+                    User:
+                      Id: '500123'
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+                      Username: jsmith
+                      IdentityInfo:
+                        FirstName: Jane
+                        LastName: Smith
+                        Email: jsmith@example.com
+                      PhoneConfig:
+                        PhoneType: SOFT_PHONE
+                        AutoAccept: false
+                        AfterContactWorkTimeLimit: 0
+                      SecurityProfileIds:
+                      - a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                      RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: Amazon Connect Delete User
+      description: Deletes a user account from the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: UserId
+        in: path
+        required: true
+        description: The identifier of the user account.
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/identity-info:
+    post:
+      operationId: updateUserIdentityInfo
+      summary: Amazon Connect Update User Identity Info
+      description: Updates the identity information for the specified user in an Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: UserId
+        in: path
+        required: true
+        description: The identifier of the user account.
+        schema:
+          type: string
+        example: '500123'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserIdentityInfoRequest'
+            examples:
+              UpdateUserIdentityInfoRequestExample:
+                summary: Default updateUserIdentityInfo request
+                x-microcks-default: true
+                value:
+                  IdentityInfo:
+                    FirstName: Jane
+                    LastName: Smith
+                    Email: jsmith@example.com
+      responses:
+        '200':
+          description: User identity info updated successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/routing-profile:
+    post:
+      operationId: updateUserRoutingProfile
+      summary: Amazon Connect Update User Routing Profile
+      description: Assigns the specified routing profile to the specified user.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: UserId
+        in: path
+        required: true
+        description: The identifier of the user account.
+        schema:
+          type: string
+        example: '500123'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - RoutingProfileId
+              properties:
+                RoutingProfileId:
+                  type: string
+                  description: The identifier of the routing profile for the user.
+                  example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        '200':
+          description: Routing profile updated successfully
+        '404':
+          description: User or routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/status:
+    put:
+      operationId: putUserStatus
+      summary: Amazon Connect Put User Status
+      description: Changes the current status of a user or agent in Amazon Connect. If the agent is currently handling a contact, this sets the agent's next status.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: UserId
+        in: path
+        required: true
+        description: The identifier of the user account.
+        schema:
+          type: string
+        example: '500123'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - AgentStatusId
+              properties:
+                AgentStatusId:
+                  type: string
+                  description: The identifier of the agent status.
+                  example: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+      responses:
+        '200':
+          description: User status updated successfully
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UserPhoneConfig:
+      type: object
+      description: Contains information about the phone configuration settings for a user.
+      required:
+      - PhoneType
+      properties:
+        PhoneType:
+          type: string
+          description: The phone type.
+          enum:
+          - SOFT_PHONE
+          - DESK_PHONE
+          example: SOFT_PHONE
+        AutoAccept:
+          type: boolean
+          description: The Auto accept setting.
+          example: false
+        AfterContactWorkTimeLimit:
+          type: integer
+          description: The After Contact Work (ACW) timeout setting, in seconds.
+          example: 0
+        DeskPhoneNumber:
+          type: string
+          description: The phone number for the user's desk phone.
+    User:
+      type: object
+      description: Contains information about a user account for an Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The user name assigned to the user account.
+          example: jsmith
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+        PhoneConfig:
+          $ref: '#/components/schemas/UserPhoneConfig'
+        DirectoryUserId:
+          type: string
+          description: The identifier of the user account in the directory service that Amazon Connect uses to authenticate users.
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifiers of the security profiles for the user.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
+          type: string
+          description: The identifier of the hierarchy group for the user.
+        Tags:
+          type: object
+          description: The tags.
+          additionalProperties:
+            type: string
+    ListUsersResponse:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+        NextToken:
+          type: string
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
+    CreateUserRequest:
+      type: object
+      required:
+      - PhoneConfig
+      - RoutingProfileId
+      - SecurityProfileIds
+      - Username
+      properties:
+        Username:
+          type: string
+          description: The user name for the account.
+          example: jsmith
+        Password:
+          type: string
+          description: The password for the user account.
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+        PhoneConfig:
+          $ref: '#/components/schemas/UserPhoneConfig'
+        DirectoryUserId:
+          type: string
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifier of the security profile for the user.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
+          type: string
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    UserSummary:
+      type: object
+      description: Contains summary information about a user.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The Amazon Connect user name of the user account.
+          example: jsmith
+    UpdateUserIdentityInfoRequest:
+      type: object
+      required:
+      - IdentityInfo
+      properties:
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+    UserIdentityInfo:
+      type: object
+      description: Contains information about the identity of a user.
+      properties:
+        FirstName:
+          type: string
+          description: The first name.
+          example: Jane
+        LastName:
+          type: string
+          description: The last name.
+          example: Smith
+        Email:
+          type: string
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
+          type: string
+          format: email
+          description: The secondary email address.
+        Mobile:
+          type: string
+          description: The user's mobile number.
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    CreateUserResponse:
+      type: object
+      properties:
+        UserId:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        UserArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.

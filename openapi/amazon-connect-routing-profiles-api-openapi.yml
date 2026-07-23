@@ -1,0 +1,369 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service Agent Statuses Routing Profiles API
+  description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
+  version: '2017-08-08'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: '2026-04-19'
+servers:
+- url: https://connect.amazonaws.com
+  description: Amazon Connect API endpoint
+security:
+- aws_signature: []
+tags:
+- name: Routing Profiles
+  description: Operations for managing routing profiles
+paths:
+  /routing-profiles/{InstanceId}:
+    get:
+      operationId: listRoutingProfiles
+      summary: Amazon Connect List Routing Profiles
+      description: Provides summary information about the routing profiles for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+        example: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRoutingProfilesResponse'
+              examples:
+                ListRoutingProfiles200Example:
+                  summary: Default listRoutingProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfileSummaryList:
+                    - Id: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      Name: Basic Routing Profile
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createRoutingProfile
+      summary: Amazon Connect Create Routing Profile
+      description: Creates a new routing profile for the specified Amazon Connect instance.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoutingProfileRequest'
+            examples:
+              CreateRoutingProfileRequestExample:
+                summary: Default createRoutingProfile request
+                x-microcks-default: true
+                value:
+                  Name: Voice Agents
+                  Description: Routing profile for voice agents
+                  DefaultOutboundQueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                  MediaConcurrencies:
+                  - Channel: VOICE
+                    Concurrency: 1
+      responses:
+        '200':
+          description: Routing profile created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRoutingProfileResponse'
+              examples:
+                CreateRoutingProfile200Example:
+                  summary: Default createRoutingProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfileArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                    RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /routing-profiles/{InstanceId}/{RoutingProfileId}:
+    get:
+      operationId: describeRoutingProfile
+      summary: Amazon Connect Describe Routing Profile
+      description: Describes the specified routing profile.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: RoutingProfileId
+        in: path
+        required: true
+        description: The identifier of the routing profile.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeRoutingProfileResponse'
+              examples:
+                DescribeRoutingProfile200Example:
+                  summary: Default describeRoutingProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfile:
+                      RoutingProfileArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      Name: Voice Agents
+                      Description: Routing profile for voice agents
+                      DefaultOutboundQueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        '404':
+          description: Routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteRoutingProfile
+      summary: Amazon Connect Delete Routing Profile
+      description: Deletes a routing profile.
+      parameters:
+      - name: InstanceId
+        in: path
+        required: true
+        description: The identifier of the Amazon Connect instance.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      - name: RoutingProfileId
+        in: path
+        required: true
+        description: The identifier of the routing profile.
+        schema:
+          type: string
+        example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        '200':
+          description: Routing profile deleted successfully
+        '404':
+          description: Routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfileArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+    RoutingProfileSummary:
+      type: object
+      description: Contains summary information about a routing profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Basic Routing Profile
+    CreateRoutingProfileRequest:
+      type: object
+      required:
+      - DefaultOutboundQueueId
+      - Description
+      - MediaConcurrencies
+      - Name
+      properties:
+        Name:
+          type: string
+          description: The name of the routing profile. Must not be more than 127 characters.
+          example: Voice Agents
+        Description:
+          type: string
+          description: Description of the routing profile.
+          example: Routing profile for voice agents
+        DefaultOutboundQueueId:
+          type: string
+          description: The default outbound queue for the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        QueueConfigs:
+          type: array
+          items:
+            type: object
+            properties:
+              QueueReference:
+                type: object
+                properties:
+                  QueueId:
+                    type: string
+                  Channel:
+                    type: string
+              Priority:
+                type: integer
+              Delay:
+                type: integer
+        MediaConcurrencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaConcurrency'
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    RoutingProfile:
+      type: object
+      description: Contains information about a routing profile.
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Voice Agents
+        RoutingProfileArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Description:
+          type: string
+          description: The description of the routing profile.
+        MediaConcurrencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaConcurrency'
+        DefaultOutboundQueueId:
+          type: string
+          description: The identifier of the default outbound queue for this routing profile.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        NumberOfAssociatedQueues:
+          type: integer
+          description: The number of associated queues in routing profile.
+        NumberOfAssociatedUsers:
+          type: integer
+          description: The number of associated users in routing profile.
+    MediaConcurrency:
+      type: object
+      description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
+      required:
+      - Channel
+      - Concurrency
+      properties:
+        Channel:
+          type: string
+          description: The channels that agents can handle in the Contact Control Panel (CCP).
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        Concurrency:
+          type: integer
+          description: The number of contacts an agent can have on a channel simultaneously.
+          minimum: 1
+          maximum: 10
+          example: 1
+    ListRoutingProfilesResponse:
+      type: object
+      properties:
+        RoutingProfileSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingProfileSummary'
+        NextToken:
+          type: string
+    DescribeRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfile:
+          $ref: '#/components/schemas/RoutingProfile'
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: AWS Signature Version 4 authentication. Requests must be signed using IAM credentials with appropriate Amazon Connect permissions.
