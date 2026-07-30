@@ -2,7 +2,20 @@ aid: amazon-connect
 url: https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml
 name: Amazon Connect
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-connect.png
 specificationVersion: '0.19'
 description: Amazon Connect is a cloud-based contact center service that makes it
   easy to set up and manage a customer contact center and provide reliable customer
@@ -20,60 +33,11 @@ tags:
 - AI
 - Omnichannel
 apis:
-- name: Amazon Connect Service API
-  description: The Amazon Connect Service API provides programmatic access to manage
-    contact center instances, users, routing profiles, contact flows, queues, hours
-    of operation, security profiles, and real-time and historical metrics for customer
-    engagement operations.
-  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
-  baseURL: https://connect.amazonaws.com
-  tags:
-  - Contact Center
-  - AWS
-  - Voice
-  - Chat
-  properties:
-  - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
-  - type: OpenAPI
-    url: openapi/amazon-connect-openapi.yml
-  - type: OpenAPI
-    url: https://api.apis.guru/v2/specs/amazonaws.com/connect/2017-08-08/openapi.yaml
-  - type: JSONSchema
-    url: json-schema/amazon-connect-instance-schema.json
-  - type: JSONLD
-    url: json-ld/amazon-connect-context.jsonld
-  - type: Pricing
-    url: https://aws.amazon.com/connect/pricing/
-  - type: GettingStarted
-    url: https://aws.amazon.com/connect/getting-started/
-  - type: FAQ
-    url: https://aws.amazon.com/connect/faqs/
-  - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/
-  - type: CLI
-    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
-  - type: Security
-    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
-  - type: JSONSchema
-    url: json-schema/user-schema.json
-  - type: JSONSchema
-    url: json-schema/queue-schema.json
-  - type: JSONSchema
-    url: json-schema/contact-schema.json
-  - type: JSONSchema
-    url: json-schema/routing-profile-schema.json
-  - type: JSONSchema
-    url: json-schema/contact-flow-schema.json
-  - type: JSONSchema
-    url: json-schema/instance-schema.json
-  - url: graphql/amazon-connect-graphql.md
-    type: GraphQL
 - name: Amazon Connect Streams SDK
-  description: Amazon Connect Streams is a browser-based integration API and JavaScript
-    SDK that enables embedding and controlling the Amazon Connect Contact Control
-    Panel (CCP) within your web application or CRM system.
+  description: >-
+    Amazon Connect Streams is a browser-based integration API and JavaScript SDK that enables embedding
+    and controlling the Amazon Connect Contact Control Panel (CCP) within your web application or CRM
+    system.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
   humanURL: https://github.com/amazon-connect/amazon-connect-streams
   baseURL: https://github.com/amazon-connect/amazon-connect-streams
@@ -111,11 +75,12 @@ apis:
     url: https://github.com/amazon-connect/amazon-connect-workshops
     title: Amazon Connect Workshops
 - name: Amazon AppIntegrations API
-  description: The Amazon AppIntegrations service enables you to configure and reuse
-    connections to external applications, powering third-party integrations in the
-    Amazon Connect agent workspace.
+  description: >-
+    The Amazon AppIntegrations service enables you to configure and reuse connections to external applications,
+    powering third-party integrations in the Amazon Connect agent workspace.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
   baseURL: https://app-integrations.amazonaws.com
   tags:
   - Integrations
@@ -123,17 +88,19 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
   - type: APIReference
     url: https://docs.aws.amazon.com/appintegrations/latest/APIReference/
 - name: Amazon Connect Contact Lens API
-  description: Amazon Connect Contact Lens enables you to analyze conversations between
-    customers and agents using speech transcription, natural language processing,
-    and intelligent search capabilities. It performs sentiment analysis, detects issues,
-    and enables automatic categorization of contacts with both real-time and post-call
-    analytics.
+  description: >-
+    Amazon Connect Contact Lens enables you to analyze conversations between customers and agents using
+    speech transcription, natural language processing, and intelligent search capabilities. It performs
+    sentiment analysis, detects issues, and enables automatic categorization of contacts with both real-time
+    and post-call analytics.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
   baseURL: https://contact-lens.amazonaws.com
   tags:
   - Analytics
@@ -142,15 +109,18 @@ apis:
   - NLP
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
 - name: Amazon Connect Outbound Campaigns API
-  description: With the outbound campaigns feature of Amazon Connect, you can create
-    high-volume outbound campaigns for appointment reminders, telemarketing, subscription
-    renewals, or debt collection.
+  description: >-
+    With the outbound campaigns feature of Amazon Connect, you can create high-volume outbound campaigns
+    for appointment reminders, telemarketing, subscription renewals, or debt collection.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
   baseURL: https://connect-campaigns.amazonaws.com
   tags:
   - Outbound
@@ -158,15 +128,18 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
 - name: Amazon Connect Outbound Campaigns V2 API
-  description: The outbound campaigns V2 API provides an updated interface for creating
-    high-volume outbound campaigns including multi-channel support and availability
-    in all Amazon Connect regions.
+  description: >-
+    The outbound campaigns V2 API provides an updated interface for creating high-volume outbound campaigns
+    including multi-channel support and availability in all Amazon Connect regions.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
   baseURL: https://connect-campaigns.amazonaws.com
   tags:
   - Outbound
@@ -174,16 +147,19 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
 - name: Amazon Connect Cases API
-  description: With Amazon Connect Cases, agents can track and manage customer issues
-    that require multiple interactions, follow-up tasks, and teams in your contact
-    center. A case represents a customer issue including the steps and interactions
-    taken to resolve it.
+  description: >-
+    With Amazon Connect Cases, agents can track and manage customer issues that require multiple interactions,
+    follow-up tasks, and teams in your contact center. A case represents a customer issue including the
+    steps and interactions taken to resolve it.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
   baseURL: https://cases.amazonaws.com
   tags:
   - Cases
@@ -191,16 +167,19 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
 - name: Amazon Connect Participant Service API
-  description: The Amazon Connect Participant Service enables managing chat participants
-    including agents, customers, and managers. Use it to send messages and events,
-    manage connection state, share attachments, and retrieve chat transcripts within
-    a chat contact.
+  description: >-
+    The Amazon Connect Participant Service enables managing chat participants including agents, customers,
+    and managers. Use it to send messages and events, manage connection state, share attachments, and
+    retrieve chat transcripts within a chat contact.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
   baseURL: https://participant.connect.amazonaws.com
   tags:
   - Chat
@@ -208,17 +187,20 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
 - name: Amazon Connect Customer Profiles API
-  description: Amazon Connect Customer Profiles provides a unified customer profile
-    for your contact center with pre-built connectors powered by AppFlow that make
-    it easy to combine customer information from third-party applications such as
-    Salesforce (CRM), ServiceNow (ITSM), and ERP systems with contact history from
+  description: >-
+    Amazon Connect Customer Profiles provides a unified customer profile for your contact center with
+    pre-built connectors powered by AppFlow that make it easy to combine customer information from third-party
+    applications such as Salesforce (CRM), ServiceNow (ITSM), and ERP systems with contact history from
     Amazon Connect.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
   baseURL: https://profile.profile.amazonaws.com
   tags:
   - Customer Profiles
@@ -226,17 +208,20 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
 - name: Amazon Q Connect API
-  description: Amazon Q in Connect is a generative AI customer service assistant built
-    on Amazon Bedrock. It provides real-time recommendations to help contact center
-    agents resolve customer issues quickly and accurately by detecting customer intent
-    and providing immediate generative responses, suggested actions, and links to
-    relevant documents.
+  description: >-
+    Amazon Q in Connect is a generative AI customer service assistant built on Amazon Bedrock. It provides
+    real-time recommendations to help contact center agents resolve customer issues quickly and accurately
+    by detecting customer intent and providing immediate generative responses, suggested actions, and
+    links to relevant documents.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
   baseURL: https://wisdom.amazonaws.com
   tags:
   - AI
@@ -245,15 +230,19 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
 - name: Amazon Voice ID API
-  description: Amazon Connect Voice ID provides real-time caller authentication and
-    fraud risk detection to make voice interactions in contact centers more secure
-    and efficient. Note - Voice ID end of support is scheduled for May 20, 2026.
+  description: >-
+    Amazon Connect Voice ID provides real-time caller authentication and fraud risk detection to make
+    voice interactions in contact centers more secure and efficient. Note - Voice ID end of support is
+    scheduled for May 20, 2026.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
   baseURL: https://voiceid.amazonaws.com
   tags:
   - Voice
@@ -262,9 +251,539 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
   - type: APIReference
-    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+- aid: amazon-connect:amazon-connect-agent-statuses-api
+  name: Amazon Connect Agent Statuses API
+  description: Operations for managing agent status configurations
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Agent Statuses
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-agent-statuses-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-authentication-api
+  name: Amazon Connect Authentication API
+  description: Operations for authentication and federation
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-authentication-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-contact-flows-api
+  name: Amazon Connect Contact Flows API
+  description: Operations for managing contact flows
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Contact Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-contact-flows-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-contacts-api
+  name: Amazon Connect Contacts API
+  description: Operations for managing contacts and contact interactions
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-contacts-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-hours-of-operations-api
+  name: Amazon Connect Hours of Operations API
+  description: Operations for managing hours of operation configurations
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Hours of Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-hours-of-operations-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-instances-api
+  name: Amazon Connect Instances API
+  description: Operations for managing Amazon Connect instances
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-instances-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-metrics-api
+  name: Amazon Connect Metrics API
+  description: Operations for retrieving real-time and historical metrics
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-metrics-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-queues-api
+  name: Amazon Connect Queues API
+  description: Operations for managing queues
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-queues-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-routing-profiles-api
+  name: Amazon Connect Routing Profiles API
+  description: Operations for managing routing profiles
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Routing Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-routing-profiles-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-security-profiles-api
+  name: Amazon Connect Security Profiles API
+  description: Operations for managing security profiles
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Security Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-security-profiles-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-tags-api
+  name: Amazon Connect Tags API
+  description: Operations for tagging Amazon Connect resources
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-tags-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
+- aid: amazon-connect:amazon-connect-users-api
+  name: Amazon Connect Users API
+  description: Operations for managing Amazon Connect users and agents
+  humanURL: >-
+    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  baseURL: https://connect.amazonaws.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-connect-users-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  - type: JSONSchema
+    url: json-schema/amazon-connect-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-connect-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/connect/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/connect/getting-started/
+  - type: FAQ
+    url: https://aws.amazon.com/connect/faqs/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/connect/
+  - type: Security
+    url: https://docs.aws.amazon.com/connect/latest/adminguide/security.html
+  - type: JSONSchema
+    url: json-schema/user-schema.json
+  - type: JSONSchema
+    url: json-schema/queue-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-schema.json
+  - type: JSONSchema
+    url: json-schema/routing-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/contact-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/instance-schema.json
+  - type: GraphQL
+    url: graphql/amazon-connect-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/amazon-connect-agentic-access.yml
