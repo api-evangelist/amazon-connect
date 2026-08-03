@@ -1,0 +1,3575 @@
+openapi: 3.1.0
+info:
+  title: Amazon Connect Service API
+  description: >-
+    Amazon Connect is a cloud-based contact center service. The API provides
+    programmatic access to create and manage contact center instances, users,
+    routing profiles, contact flows, queues, hours of operation, security
+    profiles, and real-time and historical metrics for customer engagement
+    operations.
+  version: "2017-08-08"
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/connect/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-generated-from: documentation
+  x-last-validated: "2026-04-19"
+servers:
+  - url: https://connect.amazonaws.com
+    description: Amazon Connect API endpoint
+security:
+  - aws_signature: []
+paths:
+  /instance:
+    get:
+      operationId: listInstances
+      summary: Amazon Connect List Instances
+      description: >-
+        Returns a paginated list of all Amazon Connect instances associated with
+        the AWS account.
+      parameters:
+        - name: nextToken
+          in: query
+          description: The token for the next set of results.
+          schema:
+            type: string
+          example: abc123token
+        - name: maxResults
+          in: query
+          description: The maximum number of results to return.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10
+          example: 10
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListInstancesResponse"
+              examples:
+                ListInstances200Example:
+                  summary: Default listInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    InstanceSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                        IdentityManagementType: CONNECT_MANAGED
+                        InstanceAlias: my-contact-center
+                        CreatedTime: "2025-01-15T10:30:00Z"
+                        ServiceRole: arn:aws:iam::123456789012:role/aws-service-role/connect.amazonaws.com/AWSServiceRoleForAmazonConnect
+                        InstanceStatus: ACTIVE
+                        InboundCallsEnabled: true
+                        OutboundCallsEnabled: true
+        "400":
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createInstance
+      summary: Amazon Connect Create Instance
+      description: >-
+        Initiates an Amazon Connect instance with all the supported channels
+        enabled. It does not attach any storage, such as Amazon Simple Storage
+        Service (Amazon S3) or Amazon Kinesis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateInstanceRequest"
+            examples:
+              CreateInstanceRequestExample:
+                summary: Default createInstance request
+                x-microcks-default: true
+                value:
+                  IdentityManagementType: CONNECT_MANAGED
+                  InstanceAlias: my-contact-center
+                  InboundCallsEnabled: true
+                  OutboundCallsEnabled: true
+      responses:
+        "200":
+          description: Instance created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateInstanceResponse"
+              examples:
+                CreateInstance200Example:
+                  summary: Default createInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                    Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Resource already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /instance/{InstanceId}:
+    get:
+      operationId: describeInstance
+      summary: Amazon Connect Describe Instance
+      description: Returns the current state of the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeInstanceResponse"
+              examples:
+                DescribeInstance200Example:
+                  summary: Default describeInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Instance:
+                      Id: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                      IdentityManagementType: CONNECT_MANAGED
+                      InstanceAlias: my-contact-center
+                      InstanceStatus: ACTIVE
+                      InboundCallsEnabled: true
+                      OutboundCallsEnabled: true
+        "404":
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteInstance
+      summary: Amazon Connect Delete Instance
+      description: >-
+        Deletes the Amazon Connect instance. The associated settings, data,
+        metrics, and reports are also deleted.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        "200":
+          description: Instance deleted successfully
+        "404":
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Instances
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}:
+    get:
+      operationId: listUsers
+      summary: Amazon Connect List Users
+      description: >-
+        Provides summary information about the users for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: nextToken
+          in: query
+          description: The token for the next set of results.
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          description: The maximum number of results to return.
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListUsersResponse"
+              examples:
+                ListUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    UserSummaryList:
+                      - Id: "500123"
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+                        Username: jsmith
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createUser
+      summary: Amazon Connect Create User
+      description: Creates a user account for the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+            examples:
+              CreateUserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  Username: jsmith
+                  Password: TempPass123!
+                  IdentityInfo:
+                    FirstName: Jane
+                    LastName: Smith
+                    Email: jsmith@example.com
+                  PhoneConfig:
+                    PhoneType: SOFT_PHONE
+                    AutoAccept: false
+                    AfterContactWorkTimeLimit: 0
+                  SecurityProfileIds:
+                    - a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                  RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUserResponse"
+              examples:
+                CreateUser200Example:
+                  summary: Default createUser 200 response
+                  x-microcks-default: true
+                  value:
+                    UserId: "500123"
+                    UserArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}:
+    get:
+      operationId: describeUser
+      summary: Amazon Connect Describe User
+      description: Describes the specified user account.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: UserId
+          in: path
+          required: true
+          description: The identifier of the user account.
+          schema:
+            type: string
+          example: "500123"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeUserResponse"
+              examples:
+                DescribeUser200Example:
+                  summary: Default describeUser 200 response
+                  x-microcks-default: true
+                  value:
+                    User:
+                      Id: "500123"
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+                      Username: jsmith
+                      IdentityInfo:
+                        FirstName: Jane
+                        LastName: Smith
+                        Email: jsmith@example.com
+                      PhoneConfig:
+                        PhoneType: SOFT_PHONE
+                        AutoAccept: false
+                        AfterContactWorkTimeLimit: 0
+                      SecurityProfileIds:
+                        - a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                      RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: Amazon Connect Delete User
+      description: Deletes a user account from the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: UserId
+          in: path
+          required: true
+          description: The identifier of the user account.
+          schema:
+            type: string
+          example: "500123"
+      responses:
+        "200":
+          description: User deleted successfully
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/identity-info:
+    post:
+      operationId: updateUserIdentityInfo
+      summary: Amazon Connect Update User Identity Info
+      description: >-
+        Updates the identity information for the specified user in an Amazon
+        Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: UserId
+          in: path
+          required: true
+          description: The identifier of the user account.
+          schema:
+            type: string
+          example: "500123"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserIdentityInfoRequest"
+            examples:
+              UpdateUserIdentityInfoRequestExample:
+                summary: Default updateUserIdentityInfo request
+                x-microcks-default: true
+                value:
+                  IdentityInfo:
+                    FirstName: Jane
+                    LastName: Smith
+                    Email: jsmith@example.com
+      responses:
+        "200":
+          description: User identity info updated successfully
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/routing-profile:
+    post:
+      operationId: updateUserRoutingProfile
+      summary: Amazon Connect Update User Routing Profile
+      description: Assigns the specified routing profile to the specified user.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: UserId
+          in: path
+          required: true
+          description: The identifier of the user account.
+          schema:
+            type: string
+          example: "500123"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - RoutingProfileId
+              properties:
+                RoutingProfileId:
+                  type: string
+                  description: The identifier of the routing profile for the user.
+                  example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        "200":
+          description: Routing profile updated successfully
+        "404":
+          description: User or routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users/{InstanceId}/{UserId}/status:
+    put:
+      operationId: putUserStatus
+      summary: Amazon Connect Put User Status
+      description: >-
+        Changes the current status of a user or agent in Amazon Connect. If the
+        agent is currently handling a contact, this sets the agent's next status.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: UserId
+          in: path
+          required: true
+          description: The identifier of the user account.
+          schema:
+            type: string
+          example: "500123"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - AgentStatusId
+              properties:
+                AgentStatusId:
+                  type: string
+                  description: The identifier of the agent status.
+                  example: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+      responses:
+        "200":
+          description: User status updated successfully
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Users
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /routing-profiles/{InstanceId}:
+    get:
+      operationId: listRoutingProfiles
+      summary: Amazon Connect List Routing Profiles
+      description: >-
+        Provides summary information about the routing profiles for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListRoutingProfilesResponse"
+              examples:
+                ListRoutingProfiles200Example:
+                  summary: Default listRoutingProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfileSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                        Name: Basic Routing Profile
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createRoutingProfile
+      summary: Amazon Connect Create Routing Profile
+      description: >-
+        Creates a new routing profile for the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateRoutingProfileRequest"
+            examples:
+              CreateRoutingProfileRequestExample:
+                summary: Default createRoutingProfile request
+                x-microcks-default: true
+                value:
+                  Name: Voice Agents
+                  Description: Routing profile for voice agents
+                  DefaultOutboundQueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                  MediaConcurrencies:
+                    - Channel: VOICE
+                      Concurrency: 1
+      responses:
+        "200":
+          description: Routing profile created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateRoutingProfileResponse"
+              examples:
+                CreateRoutingProfile200Example:
+                  summary: Default createRoutingProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfileArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                    RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /routing-profiles/{InstanceId}/{RoutingProfileId}:
+    get:
+      operationId: describeRoutingProfile
+      summary: Amazon Connect Describe Routing Profile
+      description: Describes the specified routing profile.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: RoutingProfileId
+          in: path
+          required: true
+          description: The identifier of the routing profile.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeRoutingProfileResponse"
+              examples:
+                DescribeRoutingProfile200Example:
+                  summary: Default describeRoutingProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    RoutingProfile:
+                      RoutingProfileArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/routing-profile/a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      RoutingProfileId: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+                      Name: Voice Agents
+                      Description: Routing profile for voice agents
+                      DefaultOutboundQueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        "404":
+          description: Routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteRoutingProfile
+      summary: Amazon Connect Delete Routing Profile
+      description: Deletes a routing profile.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: RoutingProfileId
+          in: path
+          required: true
+          description: The identifier of the routing profile.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+      responses:
+        "200":
+          description: Routing profile deleted successfully
+        "404":
+          description: Routing profile not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Routing Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queues/{InstanceId}:
+    get:
+      operationId: listQueues
+      summary: Amazon Connect List Queues
+      description: >-
+        Provides information about the queues for the specified Amazon
+        Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: queueTypes
+          in: query
+          description: The type of queue.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - STANDARD
+                - AGENT
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListQueuesResponse"
+              examples:
+                ListQueues200Example:
+                  summary: Default listQueues 200 response
+                  x-microcks-default: true
+                  value:
+                    QueueSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                        Name: BasicQueue
+                        QueueType: STANDARD
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createQueue
+      summary: Amazon Connect Create Queue
+      description: This API is in preview release for Amazon Connect and is subject to change.
+        Creates a new queue for the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateQueueRequest"
+            examples:
+              CreateQueueRequestExample:
+                summary: Default createQueue request
+                x-microcks-default: true
+                value:
+                  Name: Support Queue
+                  Description: Queue for support contacts
+                  HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                  MaxContacts: 100
+      responses:
+        "200":
+          description: Queue created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateQueueResponse"
+              examples:
+                CreateQueue200Example:
+                  summary: Default createQueue 200 response
+                  x-microcks-default: true
+                  value:
+                    QueueArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    QueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queues/{InstanceId}/{QueueId}:
+    get:
+      operationId: describeQueue
+      summary: Amazon Connect Describe Queue
+      description: This API is in preview release for Amazon Connect and is subject to change.
+        Describes the specified queue.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: QueueId
+          in: path
+          required: true
+          description: The identifier for the queue.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeQueueResponse"
+              examples:
+                DescribeQueue200Example:
+                  summary: Default describeQueue 200 response
+                  x-microcks-default: true
+                  value:
+                    Queue:
+                      QueueArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      QueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                      Name: BasicQueue
+                      Description: Default queue for basic contacts
+                      Status: ENABLED
+                      HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        "404":
+          description: Queue not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteQueue
+      summary: Amazon Connect Delete Queue
+      description: Deletes a queue.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: QueueId
+          in: path
+          required: true
+          description: The identifier for the queue.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+      responses:
+        "200":
+          description: Queue deleted successfully
+        "404":
+          description: Queue not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Queues
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact-flows/{InstanceId}:
+    get:
+      operationId: listContactFlows
+      summary: Amazon Connect List Contact Flows
+      description: >-
+        Provides information about the contact flows for the specified
+        Amazon Connect instance. You can also create and update contact flows
+        using the Amazon Connect Flow language.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: contactFlowTypes
+          in: query
+          description: The type of contact flow.
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - CONTACT_FLOW
+                - CUSTOMER_QUEUE
+                - CUSTOMER_HOLD
+                - CUSTOMER_WHISPER
+                - AGENT_HOLD
+                - AGENT_WHISPER
+                - OUTBOUND_WHISPER
+                - AGENT_TRANSFER
+                - QUEUE_TRANSFER
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListContactFlowsResponse"
+              examples:
+                ListContactFlows200Example:
+                  summary: Default listContactFlows 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlowSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                        Name: Default inbound flow
+                        ContactFlowType: CONTACT_FLOW
+                        ContactFlowState: ACTIVE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createContactFlow
+      summary: Amazon Connect Create Contact Flow
+      description: Creates a contact flow for the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateContactFlowRequest"
+            examples:
+              CreateContactFlowRequestExample:
+                summary: Default createContactFlow request
+                x-microcks-default: true
+                value:
+                  Name: My Contact Flow
+                  Type: CONTACT_FLOW
+                  Description: My inbound contact flow
+                  Content: "{\"Version\":\"2019-10-30\",\"StartAction\":\"1\"}"
+      responses:
+        "200":
+          description: Contact flow created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateContactFlowResponse"
+              examples:
+                CreateContactFlow200Example:
+                  summary: Default createContactFlow 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlowId: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                    ContactFlowArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact-flows/{InstanceId}/{ContactFlowId}:
+    get:
+      operationId: describeContactFlow
+      summary: Amazon Connect Describe Contact Flow
+      description: Describes the specified contact flow.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactFlowId
+          in: path
+          required: true
+          description: The identifier of the contact flow.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeContactFlowResponse"
+              examples:
+                DescribeContactFlow200Example:
+                  summary: Default describeContactFlow 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactFlow:
+                      Id: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                      Name: Default inbound flow
+                      Type: CONTACT_FLOW
+                      State: ACTIVE
+                      Content: "{\"Version\":\"2019-10-30\",\"StartAction\":\"1\"}"
+        "404":
+          description: Contact flow not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteContactFlow
+      summary: Amazon Connect Delete Contact Flow
+      description: Deletes a contact flow for the specified Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactFlowId
+          in: path
+          required: true
+          description: The identifier of the contact flow.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+      responses:
+        "200":
+          description: Contact flow deleted successfully
+        "404":
+          description: Contact flow not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contact Flows
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hours-of-operations/{InstanceId}:
+    get:
+      operationId: listHoursOfOperations
+      summary: Amazon Connect List Hours of Operations
+      description: >-
+        Provides information about the hours of operation for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListHoursOfOperationsResponse"
+              examples:
+                ListHoursOfOperations200Example:
+                  summary: Default listHoursOfOperations 200 response
+                  x-microcks-default: true
+                  value:
+                    HoursOfOperationSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                        Name: Business Hours
+      tags:
+        - Hours of Operations
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createHoursOfOperation
+      summary: Amazon Connect Create Hours of Operation
+      description: >-
+        This API is in preview release for Amazon Connect and is subject to change.
+        Creates hours of operation.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateHoursOfOperationRequest"
+            examples:
+              CreateHoursOfOperationRequestExample:
+                summary: Default createHoursOfOperation request
+                x-microcks-default: true
+                value:
+                  Name: Business Hours
+                  Description: Standard business hours Mon-Fri
+                  TimeZone: America/New_York
+                  Config:
+                    - Day: MONDAY
+                      StartTime:
+                        Hours: 9
+                        Minutes: 0
+                      EndTime:
+                        Hours: 17
+                        Minutes: 0
+      responses:
+        "200":
+          description: Hours of operation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateHoursOfOperationResponse"
+              examples:
+                CreateHoursOfOperation200Example:
+                  summary: Default createHoursOfOperation 200 response
+                  x-microcks-default: true
+                  value:
+                    HoursOfOperationId: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+                    HoursOfOperationArn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+      tags:
+        - Hours of Operations
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /agent-status/{InstanceId}:
+    get:
+      operationId: listAgentStatuses
+      summary: Amazon Connect List Agent Statuses
+      description: >-
+        This API is in preview release for Amazon Connect and is subject to change.
+        Lists agent statuses.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+        - name: agentStatusTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ROUTABLE
+                - CUSTOM
+                - OFFLINE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListAgentStatusesResponse"
+              examples:
+                ListAgentStatuses200Example:
+                  summary: Default listAgentStatuses 200 response
+                  x-microcks-default: true
+                  value:
+                    AgentStatusSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent-state/a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+                        Name: Available
+                        Type: ROUTABLE
+      tags:
+        - Agent Statuses
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /security-profiles/{InstanceId}:
+    get:
+      operationId: listSecurityProfiles
+      summary: Amazon Connect List Security Profiles
+      description: >-
+        This API is in preview release for Amazon Connect and is subject to change.
+        Provides summary information about the security profiles for the specified
+        Amazon Connect instance.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+          example: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListSecurityProfilesResponse"
+              examples:
+                ListSecurityProfiles200Example:
+                  summary: Default listSecurityProfiles 200 response
+                  x-microcks-default: true
+                  value:
+                    SecurityProfileSummaryList:
+                      - Id: a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/security-profile/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+                        Name: Agent
+      tags:
+        - Security Profiles
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact/chat:
+    post:
+      operationId: startChatContact
+      summary: Amazon Connect Start Chat Contact
+      description: >-
+        Initiates a chat contact with a customer. Response of this API provides
+        a token required to obtain credentials from the CreateParticipantConnection
+        API in the Amazon Connect Participant Service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StartChatContactRequest"
+            examples:
+              StartChatContactRequestExample:
+                summary: Default startChatContact request
+                x-microcks-default: true
+                value:
+                  InstanceId: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                  ContactFlowId: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                  ParticipantDetails:
+                    DisplayName: Jane Smith
+      responses:
+        "200":
+          description: Chat contact started successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StartChatContactResponse"
+              examples:
+                StartChatContact200Example:
+                  summary: Default startChatContact 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactId: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+                    ParticipantId: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
+                    ParticipantToken: a1b2c3d4token
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact/outbound-voice:
+    post:
+      operationId: startOutboundVoiceContact
+      summary: Amazon Connect Start Outbound Voice Contact
+      description: >-
+        Places an outbound call to a contact, and then initiates the contact flow.
+        It performs the actions in the contact flow that's specified (in ContactFlowId).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StartOutboundVoiceContactRequest"
+            examples:
+              StartOutboundVoiceContactRequestExample:
+                summary: Default startOutboundVoiceContact request
+                x-microcks-default: true
+                value:
+                  InstanceId: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                  ContactFlowId: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                  DestinationPhoneNumber: "+12065551212"
+                  QueueId: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+      responses:
+        "200":
+          description: Outbound voice contact started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ContactId:
+                    type: string
+                    description: The identifier of the contact.
+              examples:
+                StartOutboundVoiceContact200Example:
+                  summary: Default startOutboundVoiceContact 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactId: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contact/task:
+    post:
+      operationId: startTaskContact
+      summary: Amazon Connect Start Task Contact
+      description: Initiates a flow to start a new task contact. For more information, see
+        Concepts - Tasks in the Amazon Connect Administrator Guide.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StartTaskContactRequest"
+            examples:
+              StartTaskContactRequestExample:
+                summary: Default startTaskContact request
+                x-microcks-default: true
+                value:
+                  InstanceId: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                  ContactFlowId: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+                  Name: Follow-up with customer
+                  Description: Call customer back regarding their support case
+      responses:
+        "200":
+          description: Task contact started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ContactId:
+                    type: string
+                    description: The identifier of the contact.
+              examples:
+                StartTaskContact200Example:
+                  summary: Default startTaskContact 200 response
+                  x-microcks-default: true
+                  value:
+                    ContactId: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contacts/{InstanceId}/{ContactId}:
+    get:
+      operationId: describeContact
+      summary: Amazon Connect Describe Contact
+      description: This API is in preview release for Amazon Connect and is subject to change.
+        Describes the specified contact.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactId
+          in: path
+          required: true
+          description: The identifier of the contact.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeContactResponse"
+              examples:
+                DescribeContact200Example:
+                  summary: Default describeContact 200 response
+                  x-microcks-default: true
+                  value:
+                    Contact:
+                      Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+                      Id: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+                      Channel: VOICE
+                      InitiationMethod: INBOUND
+                      AgentInfo:
+                        Id: "500123"
+                      QueueInfo:
+                        Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                        EnqueueTimestamp: "2025-03-15T14:30:00Z"
+        "404":
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contacts/{InstanceId}/{ContactId}/attributes:
+    get:
+      operationId: getContactAttributes
+      summary: Amazon Connect Get Contact Attributes
+      description: Retrieves the contact attributes for the specified contact.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactId
+          in: path
+          required: true
+          description: The identifier of the initial contact.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Attributes:
+                    type: object
+                    description: Information about the contact attributes.
+                    additionalProperties:
+                      type: string
+              examples:
+                GetContactAttributes200Example:
+                  summary: Default getContactAttributes 200 response
+                  x-microcks-default: true
+                  value:
+                    Attributes:
+                      CustomerType: premium
+                      TicketNumber: "TKT-500123"
+        "404":
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: updateContactAttributes
+      summary: Amazon Connect Update Contact Attributes
+      description: >-
+        Creates or updates user-defined contact attributes associated with the
+        specified contact.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactId
+          in: path
+          required: true
+          description: The identifier of the contact.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Attributes
+              properties:
+                Attributes:
+                  type: object
+                  description: The Amazon Connect attributes. These are additional attributes that
+                    can be referenced in a contact flow.
+                  additionalProperties:
+                    type: string
+            examples:
+              UpdateContactAttributesRequestExample:
+                summary: Default updateContactAttributes request
+                x-microcks-default: true
+                value:
+                  Attributes:
+                    CustomerType: premium
+                    TicketNumber: TKT-500123
+      responses:
+        "200":
+          description: Contact attributes updated successfully
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /contacts/{InstanceId}/{ContactId}/stop:
+    post:
+      operationId: stopContact
+      summary: Amazon Connect Stop Contact
+      description: >-
+        Ends the specified contact. This call does not work for voice contacts
+        that use the following initiation methods: DISCONNECT, TRANSFER, QUEUE_TRANSFER,
+        CALLBACK, or EXTERNAL_OUTBOUND.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: ContactId
+          in: path
+          required: true
+          description: The identifier of the contact.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - InstanceId
+                - ContactId
+              properties:
+                InstanceId:
+                  type: string
+                  description: The identifier of the Amazon Connect instance.
+                ContactId:
+                  type: string
+                  description: The identifier of the contact.
+            examples:
+              StopContactRequestExample:
+                summary: Default stopContact request
+                x-microcks-default: true
+                value:
+                  InstanceId: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                  ContactId: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+      responses:
+        "200":
+          description: Contact stopped successfully
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /metrics/historical/{InstanceId}:
+    post:
+      operationId: getMetricData
+      summary: Amazon Connect Get Historical Metric Data
+      description: >-
+        Gets historical metric data from the specified Amazon Connect instance.
+        You can use this API to get historical data for Amazon Connect queues,
+        routing profiles, agents, and contact flows.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetMetricDataRequest"
+            examples:
+              GetMetricDataRequestExample:
+                summary: Default getMetricData request
+                x-microcks-default: true
+                value:
+                  StartTime: "2025-03-15T00:00:00Z"
+                  EndTime: "2025-03-15T23:59:59Z"
+                  Filters:
+                    Queues:
+                      - a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    Channels:
+                      - VOICE
+                  HistoricalMetrics:
+                    - Name: CONTACTS_QUEUED
+                      Unit: COUNT
+                      Statistic: SUM
+                    - Name: HANDLE_TIME
+                      Unit: SECONDS
+                      Statistic: AVG
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMetricDataResponse"
+              examples:
+                GetMetricData200Example:
+                  summary: Default getMetricData 200 response
+                  x-microcks-default: true
+                  value:
+                    MetricResults:
+                      - Dimensions:
+                          Queue:
+                            Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                            Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                        Collections:
+                          - Metric:
+                              Name: CONTACTS_QUEUED
+                              Unit: COUNT
+                              Statistic: SUM
+                            Value: 125.0
+      tags:
+        - Metrics
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /metrics/current/{InstanceId}:
+    post:
+      operationId: getCurrentMetricData
+      summary: Amazon Connect Get Current Metric Data
+      description: >-
+        Gets the real-time metric data from the specified Amazon Connect instance.
+        For a description of each metric, see Real-time Metrics Definitions in the
+        Amazon Connect Administrator Guide.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetCurrentMetricDataRequest"
+            examples:
+              GetCurrentMetricDataRequestExample:
+                summary: Default getCurrentMetricData request
+                x-microcks-default: true
+                value:
+                  Filters:
+                    Queues:
+                      - a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                    Channels:
+                      - VOICE
+                  CurrentMetrics:
+                    - Name: AGENTS_ONLINE
+                      Unit: COUNT
+                    - Name: CONTACTS_IN_QUEUE
+                      Unit: COUNT
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCurrentMetricDataResponse"
+              examples:
+                GetCurrentMetricData200Example:
+                  summary: Default getCurrentMetricData 200 response
+                  x-microcks-default: true
+                  value:
+                    MetricResults:
+                      - Dimensions:
+                          Queue:
+                            Id: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+                        Collections:
+                          - Metric:
+                              Name: AGENTS_ONLINE
+                              Unit: COUNT
+                            Value: 12.0
+                          - Metric:
+                              Name: CONTACTS_IN_QUEUE
+                              Unit: COUNT
+                            Value: 3.0
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Metrics
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /search-contacts:
+    post:
+      operationId: searchContacts
+      summary: Amazon Connect Search Contacts
+      description: Searches contacts in an Amazon Connect instance.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchContactsRequest"
+            examples:
+              SearchContactsRequestExample:
+                summary: Default searchContacts request
+                x-microcks-default: true
+                value:
+                  InstanceId: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+                  TimeRange:
+                    Type: INITIATION_TIMESTAMP
+                    StartTime: "2025-03-15T00:00:00Z"
+                    EndTime: "2025-03-15T23:59:59Z"
+                  MaxResults: 50
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchContactsResponse"
+              examples:
+                SearchContacts200Example:
+                  summary: Default searchContacts 200 response
+                  x-microcks-default: true
+                  value:
+                    Contacts:
+                      - Id: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+                        Arn: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+                        Channel: VOICE
+                        InitiationMethod: INBOUND
+                        InitiationTimestamp: "2025-03-15T14:30:00Z"
+                        DisconnectTimestamp: "2025-03-15T14:45:00Z"
+                    TotalCount: 1
+      tags:
+        - Contacts
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tags/{ResourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon Connect List Tags for Resource
+      description: Lists the tags for the specified resource.
+      parameters:
+        - name: ResourceArn
+          in: path
+          required: true
+          description: The Amazon Resource Name (ARN) of the resource.
+          schema:
+            type: string
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: object
+                    description: Information about the tags.
+                    additionalProperties:
+                      type: string
+              examples:
+                ListTagsForResource200Example:
+                  summary: Default listTagsForResource 200 response
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: production
+                      Team: contact-center
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: tagResource
+      summary: Amazon Connect Tag Resource
+      description: Adds the specified tags to the specified resource.
+      parameters:
+        - name: ResourceArn
+          in: path
+          required: true
+          description: The Amazon Resource Name (ARN) of the resource.
+          schema:
+            type: string
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tags
+              properties:
+                tags:
+                  type: object
+                  description: One or more tags.
+                  additionalProperties:
+                    type: string
+            examples:
+              TagResourceRequestExample:
+                summary: Default tagResource request
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: production
+                    Team: contact-center
+      responses:
+        "200":
+          description: Tags added successfully
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: untagResource
+      summary: Amazon Connect Untag Resource
+      description: Removes the specified tags from the specified resource.
+      parameters:
+        - name: ResourceArn
+          in: path
+          required: true
+          description: The Amazon Resource Name (ARN) of the resource.
+          schema:
+            type: string
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        - name: tagKeys
+          in: query
+          required: true
+          description: The tag keys.
+          schema:
+            type: array
+            items:
+              type: string
+          example:
+            - Environment
+            - Team
+      responses:
+        "200":
+          description: Tags removed successfully
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /federation-token/{InstanceId}:
+    get:
+      operationId: getFederationToken
+      summary: Amazon Connect Get Federation Token
+      description: >-
+        Retrieves a token for federation. This API doesn't support root users.
+        If you try to invoke GetFederationToken with root credentials, an error
+        message similar to the following one appears.
+      parameters:
+        - name: InstanceId
+          in: path
+          required: true
+          description: The identifier of the Amazon Connect instance.
+          schema:
+            type: string
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Credentials:
+                    type: object
+                    description: The credentials to use for federation.
+                    properties:
+                      AccessToken:
+                        type: string
+                        description: The access token.
+                      AccessTokenExpiration:
+                        type: string
+                        format: date-time
+                        description: The timestamp when access token expires.
+                      RefreshToken:
+                        type: string
+                        description: The refresh token.
+                      RefreshTokenExpiration:
+                        type: string
+                        format: date-time
+                        description: The timestamp when refresh token expires.
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      tags:
+        - Authentication
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    aws_signature:
+      type: http
+      scheme: bearer
+      description: >-
+        AWS Signature Version 4 authentication. Requests must be signed using
+        IAM credentials with appropriate Amazon Connect permissions.
+  schemas:
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    Instance:
+      type: object
+      description: The Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        IdentityManagementType:
+          type: string
+          description: The identity management type.
+          enum:
+            - SAML
+            - CONNECT_MANAGED
+            - EXISTING_DIRECTORY
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The alias of the instance.
+          example: my-contact-center
+        CreatedTime:
+          type: string
+          format: date-time
+          description: When the instance was created.
+          example: "2025-01-15T10:30:00Z"
+        ServiceRole:
+          type: string
+          description: The service role of the instance.
+        InstanceStatus:
+          type: string
+          description: The state of the instance.
+          enum:
+            - CREATION_IN_PROGRESS
+            - ACTIVE
+            - CREATION_FAILED
+          example: ACTIVE
+        InboundCallsEnabled:
+          type: boolean
+          description: Whether inbound calls are enabled.
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          description: Whether outbound calls are enabled.
+          example: true
+    InstanceSummary:
+      type: object
+      description: Information about the Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        IdentityManagementType:
+          type: string
+          description: The identity management type.
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The alias of the instance.
+          example: my-contact-center
+        InstanceStatus:
+          type: string
+          description: The state of the instance.
+          example: ACTIVE
+        InboundCallsEnabled:
+          type: boolean
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          example: true
+    ListInstancesResponse:
+      type: object
+      properties:
+        InstanceSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/InstanceSummary"
+        NextToken:
+          type: string
+          description: If there are additional results, this is the token for the next set.
+    CreateInstanceRequest:
+      type: object
+      required:
+        - IdentityManagementType
+        - InboundCallsEnabled
+        - OutboundCallsEnabled
+      properties:
+        ClientToken:
+          type: string
+          description: The idempotency token.
+        IdentityManagementType:
+          type: string
+          description: The type of identity management for your Amazon Connect users.
+          enum:
+            - SAML
+            - CONNECT_MANAGED
+            - EXISTING_DIRECTORY
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The name for your instance.
+          example: my-contact-center
+        DirectoryId:
+          type: string
+          description: The identifier for the directory.
+        InboundCallsEnabled:
+          type: boolean
+          description: Your contact center handles incoming contacts.
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          description: Your contact center allows outbound calls.
+          example: true
+        Tags:
+          type: object
+          description: The tags used to organize, track, or control access for this resource.
+          additionalProperties:
+            type: string
+    CreateInstanceResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The identifier for the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+    DescribeInstanceResponse:
+      type: object
+      properties:
+        Instance:
+          $ref: "#/components/schemas/Instance"
+    User:
+      type: object
+      description: Contains information about a user account for an Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: "500123"
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The user name assigned to the user account.
+          example: jsmith
+        IdentityInfo:
+          $ref: "#/components/schemas/UserIdentityInfo"
+        PhoneConfig:
+          $ref: "#/components/schemas/UserPhoneConfig"
+        DirectoryUserId:
+          type: string
+          description: The identifier of the user account in the directory service that Amazon
+            Connect uses to authenticate users.
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifiers of the security profiles for the user.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
+          type: string
+          description: The identifier of the hierarchy group for the user.
+        Tags:
+          type: object
+          description: The tags.
+          additionalProperties:
+            type: string
+    UserIdentityInfo:
+      type: object
+      description: Contains information about the identity of a user.
+      properties:
+        FirstName:
+          type: string
+          description: The first name.
+          example: Jane
+        LastName:
+          type: string
+          description: The last name.
+          example: Smith
+        Email:
+          type: string
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
+          type: string
+          format: email
+          description: The secondary email address.
+        Mobile:
+          type: string
+          description: The user's mobile number.
+    UserPhoneConfig:
+      type: object
+      description: Contains information about the phone configuration settings for a user.
+      required:
+        - PhoneType
+      properties:
+        PhoneType:
+          type: string
+          description: The phone type.
+          enum:
+            - SOFT_PHONE
+            - DESK_PHONE
+          example: SOFT_PHONE
+        AutoAccept:
+          type: boolean
+          description: The Auto accept setting.
+          example: false
+        AfterContactWorkTimeLimit:
+          type: integer
+          description: The After Contact Work (ACW) timeout setting, in seconds.
+          example: 0
+        DeskPhoneNumber:
+          type: string
+          description: The phone number for the user's desk phone.
+    UserSummary:
+      type: object
+      description: Contains summary information about a user.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: "500123"
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The Amazon Connect user name of the user account.
+          example: jsmith
+    ListUsersResponse:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserSummary"
+        NextToken:
+          type: string
+    CreateUserRequest:
+      type: object
+      required:
+        - PhoneConfig
+        - RoutingProfileId
+        - SecurityProfileIds
+        - Username
+      properties:
+        Username:
+          type: string
+          description: The user name for the account.
+          example: jsmith
+        Password:
+          type: string
+          description: The password for the user account.
+        IdentityInfo:
+          $ref: "#/components/schemas/UserIdentityInfo"
+        PhoneConfig:
+          $ref: "#/components/schemas/UserPhoneConfig"
+        DirectoryUserId:
+          type: string
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifier of the security profile for the user.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
+          type: string
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateUserResponse:
+      type: object
+      properties:
+        UserId:
+          type: string
+          description: The identifier of the user account.
+          example: "500123"
+        UserArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: "#/components/schemas/User"
+    UpdateUserIdentityInfoRequest:
+      type: object
+      required:
+        - IdentityInfo
+      properties:
+        IdentityInfo:
+          $ref: "#/components/schemas/UserIdentityInfo"
+    RoutingProfileSummary:
+      type: object
+      description: Contains summary information about a routing profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Basic Routing Profile
+    ListRoutingProfilesResponse:
+      type: object
+      properties:
+        RoutingProfileSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoutingProfileSummary"
+        NextToken:
+          type: string
+    RoutingProfile:
+      type: object
+      description: Contains information about a routing profile.
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Voice Agents
+        RoutingProfileArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Description:
+          type: string
+          description: The description of the routing profile.
+        MediaConcurrencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/MediaConcurrency"
+        DefaultOutboundQueueId:
+          type: string
+          description: The identifier of the default outbound queue for this routing profile.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        NumberOfAssociatedQueues:
+          type: integer
+          description: The number of associated queues in routing profile.
+        NumberOfAssociatedUsers:
+          type: integer
+          description: The number of associated users in routing profile.
+    MediaConcurrency:
+      type: object
+      description: Contains information about which channels are supported, and how many contacts
+        an agent can have on a channel simultaneously.
+      required:
+        - Channel
+        - Concurrency
+      properties:
+        Channel:
+          type: string
+          description: The channels that agents can handle in the Contact Control Panel (CCP).
+          enum:
+            - VOICE
+            - CHAT
+            - TASK
+            - EMAIL
+          example: VOICE
+        Concurrency:
+          type: integer
+          description: The number of contacts an agent can have on a channel simultaneously.
+          minimum: 1
+          maximum: 10
+          example: 1
+    CreateRoutingProfileRequest:
+      type: object
+      required:
+        - DefaultOutboundQueueId
+        - Description
+        - MediaConcurrencies
+        - Name
+      properties:
+        Name:
+          type: string
+          description: The name of the routing profile. Must not be more than 127 characters.
+          example: Voice Agents
+        Description:
+          type: string
+          description: Description of the routing profile.
+          example: Routing profile for voice agents
+        DefaultOutboundQueueId:
+          type: string
+          description: The default outbound queue for the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        QueueConfigs:
+          type: array
+          items:
+            type: object
+            properties:
+              QueueReference:
+                type: object
+                properties:
+                  QueueId:
+                    type: string
+                  Channel:
+                    type: string
+              Priority:
+                type: integer
+              Delay:
+                type: integer
+        MediaConcurrencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/MediaConcurrency"
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfileArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+    DescribeRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfile:
+          $ref: "#/components/schemas/RoutingProfile"
+    QueueSummary:
+      type: object
+      description: Contains summary information about a queue.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        Name:
+          type: string
+          description: The name of the queue.
+          example: BasicQueue
+        QueueType:
+          type: string
+          description: The type of queue.
+          enum:
+            - STANDARD
+            - AGENT
+          example: STANDARD
+    Queue:
+      type: object
+      description: Contains information about a queue.
+      properties:
+        Name:
+          type: string
+          description: The name of the queue.
+          example: BasicQueue
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Description:
+          type: string
+          description: The description of the queue.
+        OutboundCallerConfig:
+          type: object
+          properties:
+            OutboundCallerIdName:
+              type: string
+            OutboundCallerIdNumberId:
+              type: string
+            OutboundFlowId:
+              type: string
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+        MaxContacts:
+          type: integer
+          description: The maximum number of contacts that can be in the queue before it is
+            considered full.
+          example: 100
+        Status:
+          type: string
+          description: The status of the queue.
+          enum:
+            - ENABLED
+            - DISABLED
+          example: ENABLED
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    ListQueuesResponse:
+      type: object
+      properties:
+        QueueSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/QueueSummary"
+        NextToken:
+          type: string
+    CreateQueueRequest:
+      type: object
+      required:
+        - HoursOfOperationId
+        - Name
+      properties:
+        Name:
+          type: string
+          description: The name of the queue.
+          example: Support Queue
+        Description:
+          type: string
+          description: The description of the queue.
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        MaxContacts:
+          type: integer
+          description: The maximum number of contacts that can be in the queue.
+          example: 100
+        OutboundCallerConfig:
+          type: object
+          properties:
+            OutboundCallerIdName:
+              type: string
+            OutboundCallerIdNumberId:
+              type: string
+            OutboundFlowId:
+              type: string
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateQueueResponse:
+      type: object
+      properties:
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+    DescribeQueueResponse:
+      type: object
+      properties:
+        Queue:
+          $ref: "#/components/schemas/Queue"
+    ContactFlowSummary:
+      type: object
+      description: Contains summary information about a contact flow.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+        Name:
+          type: string
+          description: The name of the contact flow.
+          example: Default inbound flow
+        ContactFlowType:
+          type: string
+          description: The type of contact flow.
+          enum:
+            - CONTACT_FLOW
+            - CUSTOMER_QUEUE
+            - CUSTOMER_HOLD
+            - CUSTOMER_WHISPER
+            - AGENT_HOLD
+            - AGENT_WHISPER
+            - OUTBOUND_WHISPER
+            - AGENT_TRANSFER
+            - QUEUE_TRANSFER
+        ContactFlowState:
+          type: string
+          description: The status of the contact flow.
+          enum:
+            - ACTIVE
+            - ARCHIVED
+          example: ACTIVE
+    ListContactFlowsResponse:
+      type: object
+      properties:
+        ContactFlowSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContactFlowSummary"
+        NextToken:
+          type: string
+    ContactFlow:
+      type: object
+      description: Contains information about a contact flow.
+      properties:
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+        Id:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Name:
+          type: string
+          description: The name of the contact flow.
+        Type:
+          type: string
+          description: The type of the contact flow.
+        State:
+          type: string
+          description: The state of the contact flow.
+          enum:
+            - ACTIVE
+            - ARCHIVED
+        Description:
+          type: string
+          description: The description of the contact flow.
+        Content:
+          type: string
+          description: The content of the contact flow.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateContactFlowRequest:
+      type: object
+      required:
+        - Content
+        - Name
+        - Type
+      properties:
+        Name:
+          type: string
+          description: The name of the contact flow.
+          example: My Contact Flow
+        Type:
+          type: string
+          description: The type of the contact flow.
+          enum:
+            - CONTACT_FLOW
+            - CUSTOMER_QUEUE
+            - CUSTOMER_HOLD
+            - CUSTOMER_WHISPER
+            - AGENT_HOLD
+            - AGENT_WHISPER
+            - OUTBOUND_WHISPER
+            - AGENT_TRANSFER
+            - QUEUE_TRANSFER
+          example: CONTACT_FLOW
+        Description:
+          type: string
+          description: The description of the contact flow.
+        Content:
+          type: string
+          description: The content of the contact flow.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateContactFlowResponse:
+      type: object
+      properties:
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        ContactFlowArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
+    DescribeContactFlowResponse:
+      type: object
+      properties:
+        ContactFlow:
+          $ref: "#/components/schemas/ContactFlow"
+    HoursOfOperationSummary:
+      type: object
+      description: Contains summary information about hours of operation for a contact center.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the hours of operation.
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
+    ListHoursOfOperationsResponse:
+      type: object
+      properties:
+        HoursOfOperationSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/HoursOfOperationSummary"
+        NextToken:
+          type: string
+    HoursOfOperationTimeSlice:
+      type: object
+      description: The start or end time of an hours of operation.
+      required:
+        - Hours
+        - Minutes
+      properties:
+        Hours:
+          type: integer
+          description: The hours.
+          minimum: 0
+          maximum: 23
+          example: 9
+        Minutes:
+          type: integer
+          description: The minutes.
+          minimum: 0
+          maximum: 59
+          example: 0
+    HoursOfOperationConfig:
+      type: object
+      description: Contains information about the hours of operation.
+      required:
+        - Day
+        - StartTime
+        - EndTime
+      properties:
+        Day:
+          type: string
+          description: The day that the hours of operation applies to.
+          enum:
+            - SUNDAY
+            - MONDAY
+            - TUESDAY
+            - WEDNESDAY
+            - THURSDAY
+            - FRIDAY
+            - SATURDAY
+          example: MONDAY
+        StartTime:
+          $ref: "#/components/schemas/HoursOfOperationTimeSlice"
+        EndTime:
+          $ref: "#/components/schemas/HoursOfOperationTimeSlice"
+    CreateHoursOfOperationRequest:
+      type: object
+      required:
+        - Config
+        - Name
+        - TimeZone
+      properties:
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
+        Description:
+          type: string
+          description: The description of the hours of operation.
+        TimeZone:
+          type: string
+          description: The time zone of the hours of operation.
+          example: America/New_York
+        Config:
+          type: array
+          items:
+            $ref: "#/components/schemas/HoursOfOperationConfig"
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateHoursOfOperationResponse:
+      type: object
+      properties:
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        HoursOfOperationArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the hours of operation.
+    AgentStatusSummary:
+      type: object
+      description: Contains information about an agent status.
+      properties:
+        Id:
+          type: string
+          description: The identifier for an agent status.
+          example: a1b2c3d4-5678-90ab-cdef-44444EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the agent status.
+        Name:
+          type: string
+          description: The name of the agent status.
+          example: Available
+        Type:
+          type: string
+          description: The type of the agent status.
+          enum:
+            - ROUTABLE
+            - CUSTOM
+            - OFFLINE
+          example: ROUTABLE
+    ListAgentStatusesResponse:
+      type: object
+      properties:
+        AgentStatusSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentStatusSummary"
+        NextToken:
+          type: string
+    SecurityProfileSummary:
+      type: object
+      description: Contains information about a security profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the security profile.
+          example: a1b2c3d4-5678-90ab-cdef-22222EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the security profile.
+        Name:
+          type: string
+          description: The name of the security profile.
+          example: Agent
+    ListSecurityProfilesResponse:
+      type: object
+      properties:
+        SecurityProfileSummaryList:
+          type: array
+          items:
+            $ref: "#/components/schemas/SecurityProfileSummary"
+        NextToken:
+          type: string
+    StartChatContactRequest:
+      type: object
+      required:
+        - ContactFlowId
+        - InstanceId
+        - ParticipantDetails
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the chat.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          description: A custom key-value pair using an attribute map.
+          additionalProperties:
+            type: string
+        ParticipantDetails:
+          type: object
+          required:
+            - DisplayName
+          properties:
+            DisplayName:
+              type: string
+              description: Display name of the participant.
+              example: Jane Smith
+        InitialMessage:
+          type: object
+          properties:
+            ContentType:
+              type: string
+              example: text/plain
+            Content:
+              type: string
+              example: Hello, I need help with my order.
+        ClientToken:
+          type: string
+          description: Idempotency token.
+        ChatDurationInMinutes:
+          type: integer
+          description: The total duration of the newly started chat session.
+          example: 60
+    StartChatContactResponse:
+      type: object
+      properties:
+        ContactId:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        ParticipantId:
+          type: string
+          description: The identifier for a chat participant.
+          example: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
+        ParticipantToken:
+          type: string
+          description: The token used by the chat participant to call CreateParticipantConnection.
+    StartOutboundVoiceContactRequest:
+      type: object
+      required:
+        - ContactFlowId
+        - DestinationPhoneNumber
+        - InstanceId
+      properties:
+        DestinationPhoneNumber:
+          type: string
+          description: The phone number of the customer, in E.164 format.
+          example: "+12065551212"
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for the outbound call.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ClientToken:
+          type: string
+          description: Idempotency token.
+        SourcePhoneNumber:
+          type: string
+          description: The phone number associated with the Amazon Connect instance, in E.164 format.
+        QueueId:
+          type: string
+          description: The queue for the call.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Attributes:
+          type: object
+          additionalProperties:
+            type: string
+    StartTaskContactRequest:
+      type: object
+      required:
+        - InstanceId
+        - Name
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        PreviousContactId:
+          type: string
+          description: The identifier of the previous chat, voice, or task contact.
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the tasks.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          additionalProperties:
+            type: string
+        Name:
+          type: string
+          description: The name of a task that is shown to an agent in the Contact Control Panel (CCP).
+          example: Follow-up with customer
+        References:
+          type: object
+          additionalProperties:
+            type: object
+        Description:
+          type: string
+          description: A description of the task that is shown to an agent in the Contact Control Panel.
+          example: Call customer back regarding their support case
+        ClientToken:
+          type: string
+        ScheduledTime:
+          type: string
+          format: date-time
+        TaskTemplateId:
+          type: string
+        QuickConnectId:
+          type: string
+        RelatedContactId:
+          type: string
+    Contact:
+      type: object
+      description: Contains information about a contact.
+      properties:
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the contact.
+        Id:
+          type: string
+          description: The identifier for the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        InitialContactId:
+          type: string
+          description: If this contact is related to other contacts, this is the ID of the initial contact.
+        PreviousContactId:
+          type: string
+          description: If this contact is not the first contact, this is the ID of the previous contact.
+        Channel:
+          type: string
+          description: How the contact reached your contact center.
+          enum:
+            - VOICE
+            - CHAT
+            - TASK
+            - EMAIL
+          example: VOICE
+        QueueInfo:
+          type: object
+          properties:
+            Id:
+              type: string
+            EnqueueTimestamp:
+              type: string
+              format: date-time
+        AgentInfo:
+          type: object
+          properties:
+            Id:
+              type: string
+            ConnectedToAgentTimestamp:
+              type: string
+              format: date-time
+        InitiationMethod:
+          type: string
+          description: Indicates how the contact was initiated.
+          enum:
+            - INBOUND
+            - OUTBOUND
+            - TRANSFER
+            - QUEUE_TRANSFER
+            - CALLBACK
+            - API
+          example: INBOUND
+        InitiationTimestamp:
+          type: string
+          format: date-time
+          description: The date and time this contact was initiated.
+        DisconnectTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the customer endpoint disconnected from Amazon Connect.
+        LastUpdateTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp when contact was last updated.
+    DescribeContactResponse:
+      type: object
+      properties:
+        Contact:
+          $ref: "#/components/schemas/Contact"
+    ContactSummary:
+      type: object
+      description: Contains summary information about a contact.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the contact.
+        Channel:
+          type: string
+          description: How the contact reached your contact center.
+          enum:
+            - VOICE
+            - CHAT
+            - TASK
+            - EMAIL
+          example: VOICE
+        InitiationMethod:
+          type: string
+          description: Indicates how the contact was initiated.
+          example: INBOUND
+        InitiationTimestamp:
+          type: string
+          format: date-time
+        DisconnectTimestamp:
+          type: string
+          format: date-time
+    SearchContactsRequest:
+      type: object
+      required:
+        - InstanceId
+        - TimeRange
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        TimeRange:
+          type: object
+          required:
+            - EndTime
+            - StartTime
+            - Type
+          properties:
+            Type:
+              type: string
+              enum:
+                - INITIATION_TIMESTAMP
+                - SCHEDULED_TIMESTAMP
+                - CONNECTED_TO_AGENT_TIMESTAMP
+                - DISCONNECT_TIMESTAMP
+              example: INITIATION_TIMESTAMP
+            StartTime:
+              type: string
+              format: date-time
+              example: "2025-03-15T00:00:00Z"
+            EndTime:
+              type: string
+              format: date-time
+              example: "2025-03-15T23:59:59Z"
+        SearchCriteria:
+          type: object
+          properties:
+            AgentIds:
+              type: array
+              items:
+                type: string
+            QueueIds:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+        MaxResults:
+          type: integer
+          description: The maximum number of results to return.
+          example: 50
+        NextToken:
+          type: string
+        Sort:
+          type: object
+          properties:
+            FieldName:
+              type: string
+            Order:
+              type: string
+              enum:
+                - ASCENDING
+                - DESCENDING
+    SearchContactsResponse:
+      type: object
+      properties:
+        Contacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContactSummary"
+        NextToken:
+          type: string
+        TotalCount:
+          type: integer
+          description: The total count of the search result.
+    GetMetricDataRequest:
+      type: object
+      required:
+        - EndTime
+        - Filters
+        - HistoricalMetrics
+        - StartTime
+      properties:
+        StartTime:
+          type: string
+          format: date-time
+          description: The timestamp, in UNIX Epoch time format, at which to start the reporting interval.
+          example: "2025-03-15T00:00:00Z"
+        EndTime:
+          type: string
+          format: date-time
+          description: The timestamp, in UNIX Epoch time format, at which to end the reporting interval.
+          example: "2025-03-15T23:59:59Z"
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                  - VOICE
+                  - CHAT
+                  - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+            enum:
+              - QUEUE
+              - CHANNEL
+              - ROUTING_PROFILE
+              - ROUTING_STEP_EXPRESSION
+        HistoricalMetrics:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                description: The name of the metric.
+                enum:
+                  - CONTACTS_QUEUED
+                  - CONTACTS_HANDLED
+                  - CONTACTS_ABANDONED
+                  - CONTACTS_CONSULTED
+                  - CONTACTS_AGENT_HUNG_UP_FIRST
+                  - CONTACTS_HANDLED_INCOMING
+                  - CONTACTS_HANDLED_OUTBOUND
+                  - CONTACTS_HOLD_ABANDONS
+                  - CONTACTS_TRANSFERRED_IN
+                  - CONTACTS_TRANSFERRED_OUT
+                  - CONTACTS_TRANSFERRED_IN_FROM_QUEUE
+                  - CONTACTS_TRANSFERRED_OUT_FROM_QUEUE
+                  - CONTACTS_MISSED
+                  - CALLBACK_CONTACTS_HANDLED
+                  - HANDLE_TIME
+                  - AFTER_CONTACT_WORK_TIME
+                  - QUEUED_TIME
+                  - ABANDON_TIME
+                  - QUEUE_ANSWER_TIME
+                  - HOLD_TIME
+                  - INTERACTION_TIME
+                  - INTERACTION_AND_HOLD_TIME
+                  - SERVICE_LEVEL
+              Unit:
+                type: string
+                enum:
+                  - SECONDS
+                  - COUNT
+                  - PERCENT
+              Statistic:
+                type: string
+                enum:
+                  - SUM
+                  - MAX
+                  - AVG
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    GetMetricDataResponse:
+      type: object
+      properties:
+        NextToken:
+          type: string
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+                properties:
+                  Queue:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                      Arn:
+                        type: string
+                  Channel:
+                    type: string
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                        Unit:
+                          type: string
+                        Statistic:
+                          type: string
+                    Value:
+                      type: number
+    GetCurrentMetricDataRequest:
+      type: object
+      required:
+        - CurrentMetrics
+        - Filters
+      properties:
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                  - VOICE
+                  - CHAT
+                  - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+        CurrentMetrics:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                enum:
+                  - AGENTS_ONLINE
+                  - AGENTS_AVAILABLE
+                  - AGENTS_ON_CALL
+                  - AGENTS_NON_PRODUCTIVE
+                  - AGENTS_AFTER_CONTACT_WORK
+                  - AGENTS_ERROR
+                  - AGENTS_STAFFED
+                  - CONTACTS_IN_QUEUE
+                  - OLDEST_CONTACT_AGE
+                  - CONTACTS_SCHEDULED
+                  - AGENTS_ON_CONTACT
+                  - SLOTS_ACTIVE
+                  - SLOTS_AVAILABLE
+              Unit:
+                type: string
+                enum:
+                  - SECONDS
+                  - COUNT
+                  - PERCENT
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    GetCurrentMetricDataResponse:
+      type: object
+      properties:
+        NextToken:
+          type: string
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                    Value:
+                      type: number
+        DataSnapshotTime:
+          type: string
+          format: date-time
+tags:
+  - name: Instances
+    description: Operations for managing Amazon Connect instances
+  - name: Users
+    description: Operations for managing Amazon Connect users and agents
+  - name: Routing Profiles
+    description: Operations for managing routing profiles
+  - name: Queues
+    description: Operations for managing queues
+  - name: Contact Flows
+    description: Operations for managing contact flows
+  - name: Hours of Operations
+    description: Operations for managing hours of operation configurations
+  - name: Agent Statuses
+    description: Operations for managing agent status configurations
+  - name: Security Profiles
+    description: Operations for managing security profiles
+  - name: Contacts
+    description: Operations for managing contacts and contact interactions
+  - name: Metrics
+    description: Operations for retrieving real-time and historical metrics
+  - name: Tags
+    description: Operations for tagging Amazon Connect resources
+  - name: Authentication
+    description: Operations for authentication and federation

@@ -1,0 +1,36 @@
+{
+  "provider": "amazon-connect",
+  "sources": [
+    "amazon-connect-agent-statuses-api-openapi.yml",
+    "amazon-connect-authentication-api-openapi.yml",
+    "amazon-connect-contact-flows-api-openapi.yml",
+    "amazon-connect-contacts-api-openapi.yml",
+    "amazon-connect-hours-of-operations-api-openapi.yml",
+    "amazon-connect-instances-api-openapi.yml",
+    "amazon-connect-metrics-api-openapi.yml",
+    "amazon-connect-queues-api-openapi.yml",
+    "amazon-connect-routing-profiles-api-openapi.yml",
+    "amazon-connect-security-profiles-api-openapi.yml",
+    "amazon-connect-tags-api-openapi.yml",
+    "amazon-connect-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-connect-agent-statuses-api-openapi.yml",
+    "amazon-connect-authentication-api-openapi.yml",
+    "amazon-connect-contact-flows-api-openapi.yml",
+    "amazon-connect-contacts-api-openapi.yml",
+    "amazon-connect-hours-of-operations-api-openapi.yml",
+    "amazon-connect-instances-api-openapi.yml",
+    "amazon-connect-metrics-api-openapi.yml",
+    "amazon-connect-queues-api-openapi.yml",
+    "amazon-connect-routing-profiles-api-openapi.yml",
+    "amazon-connect-security-profiles-api-openapi.yml",
+    "amazon-connect-tags-api-openapi.yml",
+    "amazon-connect-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
