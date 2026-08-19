@@ -1,0 +1,274 @@
+{
+  "item": [
+    {
+      "id": "285b125e-64e7-47e2-bf57-4c854a542704",
+      "name": "Hours of Operations",
+      "description": {
+        "content": "Operations for managing hours of operation configurations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52fe211d-2b55-4a58-b3b4-7899e9bea618",
+          "name": "Amazon Connect List Hours of Operations",
+          "request": {
+            "name": "Amazon Connect List Hours of Operations",
+            "description": {
+              "content": "Provides information about the hours of operation for the specified Amazon Connect instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hours-of-operations",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ff63b7e-7ef0-4c8f-a79b-f9380263a134",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hours-of-operations",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"HoursOfOperationSummaryList\": [\n    {\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-66666EXAMPLE\",\n      \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE\",\n      \"Name\": \"Business Hours\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3081ad1-6812-46c4-b1b4-6d6065f0247e",
+          "name": "Amazon Connect Create Hours of Operation",
+          "request": {
+            "name": "Amazon Connect Create Hours of Operation",
+            "description": {
+              "content": "This API is in preview release for Amazon Connect and is subject to change. Creates hours of operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hours-of-operations",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Config\": [\n    {\n      \"Day\": \"<string>\",\n      \"StartTime\": {\n        \"Hours\": \"<integer>\",\n        \"Minutes\": \"<integer>\"\n      },\n      \"EndTime\": {\n        \"Hours\": \"<integer>\",\n        \"Minutes\": \"<integer>\"\n      }\n    },\n    {\n      \"Day\": \"<string>\",\n      \"StartTime\": {\n        \"Hours\": \"<integer>\",\n        \"Minutes\": \"<integer>\"\n      },\n      \"EndTime\": {\n        \"Hours\": \"<integer>\",\n        \"Minutes\": \"<integer>\"\n      }\n    }\n  ],\n  \"Name\": \"<string>\",\n  \"TimeZone\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "167d7d1b-742e-4222-81c2-99ef3837f5e4",
+              "name": "Hours of operation created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hours-of-operations",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"Business Hours\",\n  \"Description\": \"Standard business hours Mon-Fri\",\n  \"TimeZone\": \"America/New_York\",\n  \"Config\": [\n    {\n      \"Day\": \"MONDAY\",\n      \"StartTime\": {\n        \"Hours\": 9,\n        \"Minutes\": 0\n      },\n      \"EndTime\": {\n        \"Hours\": 17,\n        \"Minutes\": 0\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"HoursOfOperationId\": \"a1b2c3d4-5678-90ab-cdef-66666EXAMPLE\",\n  \"HoursOfOperationArn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/operating-hours/a1b2c3d4-5678-90ab-cdef-66666EXAMPLE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f8ade4b2-3fbf-4df6-81e4-79a030d6d969",
+    "name": "Amazon Connect Service Agent Statuses Hours of Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

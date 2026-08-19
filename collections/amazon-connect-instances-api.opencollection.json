@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Instances API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/instance",
+            "params": [
+              {
+                "name": "nextToken",
+                "value": "abc123token",
+                "type": "query",
+                "description": "The token for the next set of results."
+              },
+              {
+                "name": "maxResults",
+                "value": "10",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all Amazon Connect instances associated with the AWS account."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Create Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/instance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates an Amazon Connect instance with all the supported channels enabled. It does not attach any storage, such as Amazon Simple Storage Service (Amazon S3) or Amazon Kinesis."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/instance/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ]
+          },
+          "docs": "Returns the current state of the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Delete Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/instance/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ]
+          },
+          "docs": "Deletes the Amazon Connect instance. The associated settings, data, metrics, and reports are also deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

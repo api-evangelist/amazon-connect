@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Queues API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/queues/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "queueTypes",
+                "value": "",
+                "type": "query",
+                "description": "The type of queue."
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "50",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Provides information about the queues for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Create Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/queues/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is in preview release for Amazon Connect and is subject to change. Creates a new queue for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/queues/:InstanceId/:QueueId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "QueueId",
+                "value": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+                "type": "path",
+                "description": "The identifier for the queue."
+              }
+            ]
+          },
+          "docs": "This API is in preview release for Amazon Connect and is subject to change. Describes the specified queue."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Delete Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/queues/:InstanceId/:QueueId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "QueueId",
+                "value": "a1b2c3d4-5678-90ab-cdef-55555EXAMPLE",
+                "type": "path",
+                "description": "The identifier for the queue."
+              }
+            ]
+          },
+          "docs": "Deletes a queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

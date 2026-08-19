@@ -1,0 +1,157 @@
+{
+  "item": [
+    {
+      "id": "f5886eb9-0d38-418e-99c0-ee02ad3471a5",
+      "name": "Security Profiles",
+      "description": {
+        "content": "Operations for managing security profiles",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73c49059-2877-4776-8849-63c81fba427d",
+          "name": "Amazon Connect List Security Profiles",
+          "request": {
+            "name": "Amazon Connect List Security Profiles",
+            "description": {
+              "content": "This API is in preview release for Amazon Connect and is subject to change. Provides summary information about the security profiles for the specified Amazon Connect instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "security-profiles",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac161b61-383e-4d6e-9da3-65e885893100",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "security-profiles",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"SecurityProfileSummaryList\": [\n    {\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-22222EXAMPLE\",\n      \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/security-profile/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE\",\n      \"Name\": \"Agent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dee610b3-910b-4042-8d34-8660902e49a1",
+    "name": "Amazon Connect Service Agent Statuses Security Profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

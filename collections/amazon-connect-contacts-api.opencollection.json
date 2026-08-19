@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Contacts API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect Start Chat Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contact/chat",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a chat contact with a customer. Response of this API provides a token required to obtain credentials from the CreateParticipantConnection API in the Amazon Connect Participant Service."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Start Outbound Voice Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contact/outbound-voice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Places an outbound call to a contact, and then initiates the contact flow. It performs the actions in the contact flow that's specified (in ContactFlowId)."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Start Task Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contact/task",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a flow to start a new task contact. For more information, see Concepts - Tasks in the Amazon Connect Administrator Guide."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/contacts/:InstanceId/:ContactId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactId",
+                "value": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the contact."
+              }
+            ]
+          },
+          "docs": "This API is in preview release for Amazon Connect and is subject to change. Describes the specified contact."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Get Contact Attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/contacts/:InstanceId/:ContactId/attributes",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactId",
+                "value": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the initial contact."
+              }
+            ]
+          },
+          "docs": "Retrieves the contact attributes for the specified contact."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Update Contact Attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contacts/:InstanceId/:ContactId/attributes",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactId",
+                "value": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates user-defined contact attributes associated with the specified contact."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Stop Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contacts/:InstanceId/:ContactId/stop",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactId",
+                "value": "a1b2c3d4-5678-90ab-cdef-88888EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the contact."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ends the specified contact. This call does not work for voice contacts that use the following initiation methods: DISCONNECT, TRANSFER, QUEUE_TRANSFER, CALLBACK, or EXTERNAL_OUTBOUND."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Search Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/search-contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches contacts in an Amazon Connect instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

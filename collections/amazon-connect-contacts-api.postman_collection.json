@@ -1,0 +1,1536 @@
+{
+  "item": [
+    {
+      "id": "ae569d91-14fa-4556-91d4-db2f11a90abd",
+      "name": "Contacts",
+      "description": {
+        "content": "Operations for managing contacts and contact interactions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80272ac1-7cec-43cf-b796-981ae2b241f6",
+          "name": "Amazon Connect Start Chat Contact",
+          "request": {
+            "name": "Amazon Connect Start Chat Contact",
+            "description": {
+              "content": "Initiates a chat contact with a customer. Response of this API provides a token required to obtain credentials from the CreateParticipantConnection API in the Amazon Connect Participant Service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact",
+                "chat"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ContactFlowId\": \"<string>\",\n  \"InstanceId\": \"<string>\",\n  \"ParticipantDetails\": {\n    \"DisplayName\": \"<string>\"\n  },\n  \"Attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"InitialMessage\": {\n    \"ContentType\": \"<string>\",\n    \"Content\": \"<string>\"\n  },\n  \"ClientToken\": \"<string>\",\n  \"ChatDurationInMinutes\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0bf7b6c0-1341-485c-b832-e9ac524b0172",
+              "name": "Chat contact started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"ParticipantDetails\": {\n    \"DisplayName\": \"Jane Smith\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\",\n  \"ParticipantId\": \"a1b2c3d4-5678-90ab-cdef-99999EXAMPLE\",\n  \"ParticipantToken\": \"a1b2c3d4token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "607a6f2f-b7c1-4913-8eb2-1701b3f356fe",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"ParticipantDetails\": {\n    \"DisplayName\": \"Jane Smith\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e810f368-96eb-4099-9682-ffac670f1d88",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"ParticipantDetails\": {\n    \"DisplayName\": \"Jane Smith\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "721c3e4f-4f5a-4224-baa1-43e29ee497c4",
+          "name": "Amazon Connect Start Outbound Voice Contact",
+          "request": {
+            "name": "Amazon Connect Start Outbound Voice Contact",
+            "description": {
+              "content": "Places an outbound call to a contact, and then initiates the contact flow. It performs the actions in the contact flow that's specified (in ContactFlowId).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact",
+                "outbound-voice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ContactFlowId\": \"<string>\",\n  \"DestinationPhoneNumber\": \"<string>\",\n  \"InstanceId\": \"<string>\",\n  \"ClientToken\": \"<string>\",\n  \"SourcePhoneNumber\": \"<string>\",\n  \"QueueId\": \"<string>\",\n  \"Attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b5415b9-2670-4a39-8d0d-c3613febeb4e",
+              "name": "Outbound voice contact started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "outbound-voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"DestinationPhoneNumber\": \"+12065551212\",\n  \"QueueId\": \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "655d14bf-57d4-4459-93f5-3bd5f3f3f7ce",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "outbound-voice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"DestinationPhoneNumber\": \"+12065551212\",\n  \"QueueId\": \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98f4c0f4-9da7-49ca-8ed8-221b871a5202",
+          "name": "Amazon Connect Start Task Contact",
+          "request": {
+            "name": "Amazon Connect Start Task Contact",
+            "description": {
+              "content": "Initiates a flow to start a new task contact. For more information, see Concepts - Tasks in the Amazon Connect Administrator Guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact",
+                "task"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"InstanceId\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"PreviousContactId\": \"<string>\",\n  \"ContactFlowId\": \"<string>\",\n  \"Attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"References\": {\n    \"key_0\": \"<object>\"\n  },\n  \"Description\": \"<string>\",\n  \"ClientToken\": \"<string>\",\n  \"ScheduledTime\": \"<dateTime>\",\n  \"TaskTemplateId\": \"<string>\",\n  \"QuickConnectId\": \"<string>\",\n  \"RelatedContactId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "daeca6f3-0985-472c-bcd3-f25ce8995a46",
+              "name": "Task contact started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"Name\": \"Follow-up with customer\",\n  \"Description\": \"Call customer back regarding their support case\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7587cf6-abab-4f26-a151-2a2ca7c75407",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact",
+                    "task"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"Name\": \"Follow-up with customer\",\n  \"Description\": \"Call customer back regarding their support case\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2be5f007-b3d1-4b70-bb40-a8b5941cb749",
+          "name": "Amazon Connect Describe Contact",
+          "request": {
+            "name": "Amazon Connect Describe Contact",
+            "description": {
+              "content": "This API is in preview release for Amazon Connect and is subject to change. Describes the specified contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":InstanceId",
+                ":ContactId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactId",
+                  "description": "(Required) The identifier of the contact."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f69f1b4-245e-4aed-b2cb-22dc6bd16401",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Contact\": {\n    \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\",\n    \"Id\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\",\n    \"Channel\": \"VOICE\",\n    \"InitiationMethod\": \"INBOUND\",\n    \"AgentInfo\": {\n      \"Id\": \"500123\"\n    },\n    \"QueueInfo\": {\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\",\n      \"EnqueueTimestamp\": \"2025-03-15T14:30:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7da1fa01-619a-470e-8ebe-f11d08e1906e",
+              "name": "Contact not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b500c13e-31a3-4bd5-883c-34c24fdef52f",
+          "name": "Amazon Connect Get Contact Attributes",
+          "request": {
+            "name": "Amazon Connect Get Contact Attributes",
+            "description": {
+              "content": "Retrieves the contact attributes for the specified contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":InstanceId",
+                ":ContactId",
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactId",
+                  "description": "(Required) The identifier of the initial contact."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91c72402-c1cf-4631-81d7-2a6e65ccfe92",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the initial contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Attributes\": {\n    \"CustomerType\": \"premium\",\n    \"TicketNumber\": \"TKT-500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3c6ed80-2be4-4799-b6b8-ab0153c1eee4",
+              "name": "Contact not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the initial contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5af33320-ef9d-4f16-a940-103694289422",
+          "name": "Amazon Connect Update Contact Attributes",
+          "request": {
+            "name": "Amazon Connect Update Contact Attributes",
+            "description": {
+              "content": "Creates or updates user-defined contact attributes associated with the specified contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":InstanceId",
+                ":ContactId",
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactId",
+                  "description": "(Required) The identifier of the contact."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91698265-faca-46f1-b6e3-4246fdc6d978",
+              "name": "Contact attributes updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Attributes\": {\n    \"CustomerType\": \"premium\",\n    \"TicketNumber\": \"TKT-500123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "095412f0-e978-41d6-a8e2-ee9fb9d4ee95",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Attributes\": {\n    \"CustomerType\": \"premium\",\n    \"TicketNumber\": \"TKT-500123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7cd94f1-fad6-4afc-9062-f5036eec35c8",
+              "name": "Contact not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Attributes\": {\n    \"CustomerType\": \"premium\",\n    \"TicketNumber\": \"TKT-500123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d053acf-ebfd-4559-9599-f7ff7e19a6f6",
+          "name": "Amazon Connect Stop Contact",
+          "request": {
+            "name": "Amazon Connect Stop Contact",
+            "description": {
+              "content": "Ends the specified contact. This call does not work for voice contacts that use the following initiation methods: DISCONNECT, TRANSFER, QUEUE_TRANSFER, CALLBACK, or EXTERNAL_OUTBOUND.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":InstanceId",
+                ":ContactId",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactId",
+                  "description": "(Required) The identifier of the contact."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"InstanceId\": \"<string>\",\n  \"ContactId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd62e88e-fedd-48f8-9fde-9f11c259073b",
+              "name": "Contact stopped successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f54e3a5c-8232-462b-8af8-0c80ac080828",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7869919d-fe75-4abf-a9ae-9ca5f798cfb1",
+              "name": "Contact not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":InstanceId",
+                    ":ContactId",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactId",
+                      "description": "(Required) The identifier of the contact."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"ContactId\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2758dcbd-f0e2-44ad-93d8-4c382e5565e4",
+          "name": "Amazon Connect Search Contacts",
+          "request": {
+            "name": "Amazon Connect Search Contacts",
+            "description": {
+              "content": "Searches contacts in an Amazon Connect instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search-contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"InstanceId\": \"<string>\",\n  \"TimeRange\": {\n    \"EndTime\": \"<dateTime>\",\n    \"StartTime\": \"<dateTime>\",\n    \"Type\": \"<string>\"\n  },\n  \"SearchCriteria\": {\n    \"AgentIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"QueueIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Channels\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"Sort\": {\n    \"FieldName\": \"<string>\",\n    \"Order\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a308be51-4ec0-447a-8a7b-25d55aa25e3e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search-contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"InstanceId\": \"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE\",\n  \"TimeRange\": {\n    \"Type\": \"INITIATION_TIMESTAMP\",\n    \"StartTime\": \"2025-03-15T00:00:00Z\",\n    \"EndTime\": \"2025-03-15T23:59:59Z\"\n  },\n  \"MaxResults\": 50\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Contacts\": [\n    {\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\",\n      \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact/a1b2c3d4-5678-90ab-cdef-88888EXAMPLE\",\n      \"Channel\": \"VOICE\",\n      \"InitiationMethod\": \"INBOUND\",\n      \"InitiationTimestamp\": \"2025-03-15T14:30:00Z\",\n      \"DisconnectTimestamp\": \"2025-03-15T14:45:00Z\"\n    }\n  ],\n  \"TotalCount\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bc503720-3489-44e8-8cef-a7264a7ce004",
+    "name": "Amazon Connect Service Agent Statuses Contacts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

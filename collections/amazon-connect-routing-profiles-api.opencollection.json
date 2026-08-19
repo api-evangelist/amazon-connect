@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Routing Profiles API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Routing Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Routing Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/routing-profiles/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "50",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Provides summary information about the routing profiles for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Create Routing Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/routing-profiles/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new routing profile for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe Routing Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/routing-profiles/:InstanceId/:RoutingProfileId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "RoutingProfileId",
+                "value": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the routing profile."
+              }
+            ]
+          },
+          "docs": "Describes the specified routing profile."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Delete Routing Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/routing-profiles/:InstanceId/:RoutingProfileId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "RoutingProfileId",
+                "value": "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the routing profile."
+              }
+            ]
+          },
+          "docs": "Deletes a routing profile."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

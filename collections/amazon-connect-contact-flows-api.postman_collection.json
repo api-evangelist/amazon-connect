@@ -1,0 +1,763 @@
+{
+  "item": [
+    {
+      "id": "fc064001-a771-4a71-91cf-af5ae5db034c",
+      "name": "Contact Flows",
+      "description": {
+        "content": "Operations for managing contact flows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f707353b-ad40-4adc-8483-93c973e72360",
+          "name": "Amazon Connect List Contact Flows",
+          "request": {
+            "name": "Amazon Connect List Contact Flows",
+            "description": {
+              "content": "Provides information about the contact flows for the specified Amazon Connect instance. You can also create and update contact flows using the Amazon Connect Flow language.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact-flows",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "contactFlowTypes",
+                  "value": "<string>",
+                  "description": "The type of contact flow."
+                },
+                {
+                  "disabled": false,
+                  "key": "contactFlowTypes",
+                  "value": "<string>",
+                  "description": "The type of contact flow."
+                },
+                {
+                  "disabled": false,
+                  "key": "nextToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c924e84-17e8-442c-adaf-4af303a6d247",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contactFlowTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactFlowTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactFlowSummaryList\": [\n    {\n      \"Id\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n      \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n      \"Name\": \"Default inbound flow\",\n      \"ContactFlowType\": \"CONTACT_FLOW\",\n      \"ContactFlowState\": \"ACTIVE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbd66d84-1166-4681-8ab5-0cdce77c0b3b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contactFlowTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactFlowTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nextToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2e1c9d4-594f-4da8-a1ea-219b0f092aea",
+          "name": "Amazon Connect Create Contact Flow",
+          "request": {
+            "name": "Amazon Connect Create Contact Flow",
+            "description": {
+              "content": "Creates a contact flow for the specified Amazon Connect instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact-flows",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Content\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Type\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "781e243e-7fa2-43d6-82d7-a233ca4d141a",
+              "name": "Contact flow created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"My Contact Flow\",\n  \"Type\": \"CONTACT_FLOW\",\n  \"Description\": \"My inbound contact flow\",\n  \"Content\": \"{\\\"Version\\\":\\\"2019-10-30\\\",\\\"StartAction\\\":\\\"1\\\"}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactFlowId\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n  \"ContactFlowArn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ee26ad7-de39-4827-90cc-3ec57aea8d82",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"My Contact Flow\",\n  \"Type\": \"CONTACT_FLOW\",\n  \"Description\": \"My inbound contact flow\",\n  \"Content\": \"{\\\"Version\\\":\\\"2019-10-30\\\",\\\"StartAction\\\":\\\"1\\\"}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bdf498b-c48e-475a-b2cf-047cf9a81d91",
+          "name": "Amazon Connect Describe Contact Flow",
+          "request": {
+            "name": "Amazon Connect Describe Contact Flow",
+            "description": {
+              "content": "Describes the specified contact flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact-flows",
+                ":InstanceId",
+                ":ContactFlowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactFlowId",
+                  "description": "(Required) The identifier of the contact flow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ca6a1d7-2e0d-44dc-ad78-4503e60e6b27",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId",
+                    ":ContactFlowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactFlowId",
+                      "description": "(Required) The identifier of the contact flow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ContactFlow\": {\n    \"Id\": \"a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n    \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/contact-flow/a1b2c3d4-5678-90ab-cdef-77777EXAMPLE\",\n    \"Name\": \"Default inbound flow\",\n    \"Type\": \"CONTACT_FLOW\",\n    \"State\": \"ACTIVE\",\n    \"Content\": \"{\\\"Version\\\":\\\"2019-10-30\\\",\\\"StartAction\\\":\\\"1\\\"}\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1329c1af-9720-435a-b284-d98dbce0c88a",
+              "name": "Contact flow not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId",
+                    ":ContactFlowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactFlowId",
+                      "description": "(Required) The identifier of the contact flow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f67ba6c7-76a6-415f-a729-993165cc3062",
+          "name": "Amazon Connect Delete Contact Flow",
+          "request": {
+            "name": "Amazon Connect Delete Contact Flow",
+            "description": {
+              "content": "Deletes a contact flow for the specified Amazon Connect instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact-flows",
+                ":InstanceId",
+                ":ContactFlowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ContactFlowId",
+                  "description": "(Required) The identifier of the contact flow."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fc81984-9d91-4a8e-9636-02d5ca4f1e5d",
+              "name": "Contact flow deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId",
+                    ":ContactFlowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactFlowId",
+                      "description": "(Required) The identifier of the contact flow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc135bfa-44ca-4b51-b910-69bafe161aca",
+              "name": "Contact flow not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact-flows",
+                    ":InstanceId",
+                    ":ContactFlowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ContactFlowId",
+                      "description": "(Required) The identifier of the contact flow."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "07bdb11a-57e0-4e7d-81dc-5c2b13579b38",
+    "name": "Amazon Connect Service Agent Statuses Contact Flows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

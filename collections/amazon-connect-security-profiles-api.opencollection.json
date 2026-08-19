@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Security Profiles API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Security Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Security Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/security-profiles/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "50",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This API is in preview release for Amazon Connect and is subject to change. Provides summary information about the security profiles for the specified Amazon Connect instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Users API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/users/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "The token for the next set of results."
+              },
+              {
+                "name": "maxResults",
+                "value": "50",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ]
+          },
+          "docs": "Provides summary information about the users for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/users/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a user account for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/users/:InstanceId/:UserId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "UserId",
+                "value": "500123",
+                "type": "path",
+                "description": "The identifier of the user account."
+              }
+            ]
+          },
+          "docs": "Describes the specified user account."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/users/:InstanceId/:UserId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "UserId",
+                "value": "500123",
+                "type": "path",
+                "description": "The identifier of the user account."
+              }
+            ]
+          },
+          "docs": "Deletes a user account from the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Update User Identity Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/users/:InstanceId/:UserId/identity-info",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "UserId",
+                "value": "500123",
+                "type": "path",
+                "description": "The identifier of the user account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity information for the specified user in an Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Update User Routing Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/users/:InstanceId/:UserId/routing-profile",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "UserId",
+                "value": "500123",
+                "type": "path",
+                "description": "The identifier of the user account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns the specified routing profile to the specified user."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Put User Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://connect.amazonaws.com/users/:InstanceId/:UserId/status",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "UserId",
+                "value": "500123",
+                "type": "path",
+                "description": "The identifier of the user account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the current status of a user or agent in Amazon Connect. If the agent is currently handling a contact, this sets the agent's next status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

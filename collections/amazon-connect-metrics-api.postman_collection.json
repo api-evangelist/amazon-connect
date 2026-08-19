@@ -1,0 +1,340 @@
+{
+  "item": [
+    {
+      "id": "1231ff33-3899-46f6-b872-47023c40c87d",
+      "name": "Metrics",
+      "description": {
+        "content": "Operations for retrieving real-time and historical metrics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2f0ea6a7-de07-45f8-abd1-d230f0cc505b",
+          "name": "Amazon Connect Get Historical Metric Data",
+          "request": {
+            "name": "Amazon Connect Get Historical Metric Data",
+            "description": {
+              "content": "Gets historical metric data from the specified Amazon Connect instance. You can use this API to get historical data for Amazon Connect queues, routing profiles, agents, and contact flows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics",
+                "historical",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EndTime\": \"<dateTime>\",\n  \"Filters\": {\n    \"Queues\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Channels\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"HistoricalMetrics\": [\n    {\n      \"Name\": \"<string>\",\n      \"Unit\": \"<string>\",\n      \"Statistic\": \"<string>\"\n    },\n    {\n      \"Name\": \"<string>\",\n      \"Unit\": \"<string>\",\n      \"Statistic\": \"<string>\"\n    }\n  ],\n  \"StartTime\": \"<dateTime>\",\n  \"Groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"NextToken\": \"<string>\",\n  \"MaxResults\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "325fda1d-aa8c-41fb-b524-e24341f02e6b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "historical",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"StartTime\": \"2025-03-15T00:00:00Z\",\n  \"EndTime\": \"2025-03-15T23:59:59Z\",\n  \"Filters\": {\n    \"Queues\": [\n      \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n    ],\n    \"Channels\": [\n      \"VOICE\"\n    ]\n  },\n  \"HistoricalMetrics\": [\n    {\n      \"Name\": \"CONTACTS_QUEUED\",\n      \"Unit\": \"COUNT\",\n      \"Statistic\": \"SUM\"\n    },\n    {\n      \"Name\": \"HANDLE_TIME\",\n      \"Unit\": \"SECONDS\",\n      \"Statistic\": \"AVG\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"MetricResults\": [\n    {\n      \"Dimensions\": {\n        \"Queue\": {\n          \"Id\": \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\",\n          \"Arn\": \"arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/queue/a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n        }\n      },\n      \"Collections\": [\n        {\n          \"Metric\": {\n            \"Name\": \"CONTACTS_QUEUED\",\n            \"Unit\": \"COUNT\",\n            \"Statistic\": \"SUM\"\n          },\n          \"Value\": 125\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65aea202-c4fd-4c30-bef6-cc272e4b452a",
+          "name": "Amazon Connect Get Current Metric Data",
+          "request": {
+            "name": "Amazon Connect Get Current Metric Data",
+            "description": {
+              "content": "Gets the real-time metric data from the specified Amazon Connect instance. For a description of each metric, see Real-time Metrics Definitions in the Amazon Connect Administrator Guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics",
+                "current",
+                ":InstanceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "InstanceId",
+                  "description": "(Required) The identifier of the Amazon Connect instance."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CurrentMetrics\": [\n    {\n      \"Name\": \"<string>\",\n      \"Unit\": \"<string>\"\n    },\n    {\n      \"Name\": \"<string>\",\n      \"Unit\": \"<string>\"\n    }\n  ],\n  \"Filters\": {\n    \"Queues\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Channels\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"Groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"NextToken\": \"<string>\",\n  \"MaxResults\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb8ad389-e3a7-4378-8eb5-fbe8d54fd626",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "current",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Filters\": {\n    \"Queues\": [\n      \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n    ],\n    \"Channels\": [\n      \"VOICE\"\n    ]\n  },\n  \"CurrentMetrics\": [\n    {\n      \"Name\": \"AGENTS_ONLINE\",\n      \"Unit\": \"COUNT\"\n    },\n    {\n      \"Name\": \"CONTACTS_IN_QUEUE\",\n      \"Unit\": \"COUNT\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"MetricResults\": [\n    {\n      \"Dimensions\": {\n        \"Queue\": {\n          \"Id\": \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n        }\n      },\n      \"Collections\": [\n        {\n          \"Metric\": {\n            \"Name\": \"AGENTS_ONLINE\",\n            \"Unit\": \"COUNT\"\n          },\n          \"Value\": 12\n        },\n        {\n          \"Metric\": {\n            \"Name\": \"CONTACTS_IN_QUEUE\",\n            \"Unit\": \"COUNT\"\n          },\n          \"Value\": 3\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bea6d00-8e6d-41cf-b0d8-eb90115c3a44",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "current",
+                    ":InstanceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "InstanceId",
+                      "description": "(Required) The identifier of the Amazon Connect instance."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Filters\": {\n    \"Queues\": [\n      \"a1b2c3d4-5678-90ab-cdef-55555EXAMPLE\"\n    ],\n    \"Channels\": [\n      \"VOICE\"\n    ]\n  },\n  \"CurrentMetrics\": [\n    {\n      \"Name\": \"AGENTS_ONLINE\",\n      \"Unit\": \"COUNT\"\n    },\n    {\n      \"Name\": \"CONTACTS_IN_QUEUE\",\n      \"Unit\": \"COUNT\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The specified resource was not found.\",\n  \"code\": \"ResourceNotFoundException\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e2dd3bcc-4784-4baf-9ac7-96a975e226e4",
+    "name": "Amazon Connect Service Agent Statuses Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

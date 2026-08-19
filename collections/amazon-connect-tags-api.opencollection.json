@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Tags API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Tags for Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/tags/:ResourceArn",
+            "params": [
+              {
+                "name": "ResourceArn",
+                "value": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The Amazon Resource Name (ARN) of the resource."
+              }
+            ]
+          },
+          "docs": "Lists the tags for the specified resource."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Tag Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/tags/:ResourceArn",
+            "params": [
+              {
+                "name": "ResourceArn",
+                "value": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The Amazon Resource Name (ARN) of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds the specified tags to the specified resource."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Untag Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/tags/:ResourceArn",
+            "params": [
+              {
+                "name": "ResourceArn",
+                "value": "arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The Amazon Resource Name (ARN) of the resource."
+              },
+              {
+                "name": "tagKeys",
+                "value": "Environment,Team",
+                "type": "query",
+                "description": "The tag keys."
+              }
+            ]
+          },
+          "docs": "Removes the specified tags from the specified resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

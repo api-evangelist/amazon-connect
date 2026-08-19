@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon Connect Service Agent Statuses Contact Flows API",
+    "version": "2017-08-08"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon Connect List Contact Flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/contact-flows/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "contactFlowTypes",
+                "value": "",
+                "type": "query",
+                "description": "The type of contact flow."
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "50",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Provides information about the contact flows for the specified Amazon Connect instance. You can also create and update contact flows using the Amazon Connect Flow language."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Create Contact Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.amazonaws.com/contact-flows/:InstanceId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a contact flow for the specified Amazon Connect instance."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Describe Contact Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.amazonaws.com/contact-flows/:InstanceId/:ContactFlowId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactFlowId",
+                "value": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the contact flow."
+              }
+            ]
+          },
+          "docs": "Describes the specified contact flow."
+        },
+        {
+          "info": {
+            "name": "Amazon Connect Delete Contact Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.amazonaws.com/contact-flows/:InstanceId/:ContactFlowId",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "a1b2c3d4-5678-90ab-cdef-11111EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the Amazon Connect instance."
+              },
+              {
+                "name": "ContactFlowId",
+                "value": "a1b2c3d4-5678-90ab-cdef-77777EXAMPLE",
+                "type": "path",
+                "description": "The identifier of the contact flow."
+              }
+            ]
+          },
+          "docs": "Deletes a contact flow for the specified Amazon Connect instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
