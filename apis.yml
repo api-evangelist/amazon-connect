@@ -16,7 +16,7 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-connect.png
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 description: Amazon Connect is a cloud-based contact center service that makes it
   easy to set up and manage a customer contact center and provide reliable customer
   engagement at any scale, with omnichannel support for voice, chat, email, and task
