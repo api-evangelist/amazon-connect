@@ -30,6 +30,14 @@ tags:
 - Contact Center
 - Customer Service
 - Voice
+- Artificial Intelligence
+- Omnichannel
+tags_raw:
+- AWS
+- Chat
+- Contact Center
+- Customer Service
+- Voice
 - AI
 - Omnichannel
 apis:
@@ -83,6 +91,10 @@ apis:
     https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
   baseURL: https://app-integrations.amazonaws.com
   tags:
+  - Integration
+  - AWS
+  - Contact Center
+  tags_raw:
   - Integrations
   - AWS
   - Contact Center
@@ -103,6 +115,11 @@ apis:
     https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
   baseURL: https://contact-lens.amazonaws.com
   tags:
+  - Analytics
+  - Artificial Intelligence
+  - Contact Center
+  - NLP
+  tags_raw:
   - Analytics
   - AI
   - Contact Center
@@ -224,6 +241,11 @@ apis:
     https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
   baseURL: https://wisdom.amazonaws.com
   tags:
+  - Artificial Intelligence
+  - Generative AI
+  - Agent Assist
+  - Contact Center
+  tags_raw:
   - AI
   - Generative AI
   - Agent Assist
@@ -747,6 +769,8 @@ apis:
     https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
