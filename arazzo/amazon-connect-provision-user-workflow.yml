@@ -12,8 +12,8 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: usersApi
+  url: ../openapi/amazon-connect-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-user

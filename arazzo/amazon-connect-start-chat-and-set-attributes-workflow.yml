@@ -11,8 +11,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: contactsApi
+  url: ../openapi/amazon-connect-contacts-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: start-chat-and-set-attributes

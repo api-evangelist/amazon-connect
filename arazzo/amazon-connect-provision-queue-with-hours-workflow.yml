@@ -11,8 +11,11 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: hoursOfOperationsApi
+  url: ../openapi/amazon-connect-hours-of-operations-api-openapi.yml
+  type: openapi
+- name: queuesApi
+  url: ../openapi/amazon-connect-queues-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-queue-with-hours

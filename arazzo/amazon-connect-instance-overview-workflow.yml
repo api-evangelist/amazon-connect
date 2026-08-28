@@ -11,8 +11,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: contactFlowsApi
+  url: ../openapi/amazon-connect-contact-flows-api-openapi.yml
+  type: openapi
+- name: instancesApi
+  url: ../openapi/amazon-connect-instances-api-openapi.yml
+  type: openapi
+- name: queuesApi
+  url: ../openapi/amazon-connect-queues-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: instance-overview

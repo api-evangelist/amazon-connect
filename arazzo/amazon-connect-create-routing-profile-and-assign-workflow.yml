@@ -10,8 +10,11 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: routingProfilesApi
+  url: ../openapi/amazon-connect-routing-profiles-api-openapi.yml
+  type: openapi
+- name: usersApi
+  url: ../openapi/amazon-connect-users-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-routing-profile-and-assign

@@ -11,8 +11,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonConnectApi
-  url: ../openapi/amazon-connect-openapi.yml
+- name: metricsApi
+  url: ../openapi/amazon-connect-metrics-api-openapi.yml
+  type: openapi
+- name: queuesApi
+  url: ../openapi/amazon-connect-queues-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: queue-realtime-health
