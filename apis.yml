@@ -2,6 +2,18 @@ aid: amazon-connect
 url: https://raw.githubusercontent.com/api-evangelist/amazon-connect/refs/heads/main/apis.yml
 name: Amazon Connect
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
