@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Connect Service Agent Statuses Metrics API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
@@ -158,44 +158,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GetMetricDataResponse:
+    Error:
       type: object
+      description: An Amazon Connect error response.
       properties:
-        NextToken:
+        message:
           type: string
-        MetricResults:
-          type: array
-          items:
-            type: object
-            properties:
-              Dimensions:
-                type: object
-                properties:
-                  Queue:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                      Arn:
-                        type: string
-                  Channel:
-                    type: string
-              Collections:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    Metric:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                        Unit:
-                          type: string
-                        Statistic:
-                          type: string
-                    Value:
-                      type: number
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
     GetCurrentMetricDataRequest:
       type: object
       required:
@@ -253,7 +227,7 @@ components:
           type: string
         MaxResults:
           type: integer
-    GetCurrentMetricDataResponse:
+    GetMetricDataResponse:
       type: object
       properties:
         NextToken:
@@ -265,6 +239,16 @@ components:
             properties:
               Dimensions:
                 type: object
+                properties:
+                  Queue:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                      Arn:
+                        type: string
+                  Channel:
+                    type: string
               Collections:
                 type: array
                 items:
@@ -272,11 +256,15 @@ components:
                   properties:
                     Metric:
                       type: object
+                      properties:
+                        Name:
+                          type: string
+                        Unit:
+                          type: string
+                        Statistic:
+                          type: string
                     Value:
                       type: number
-        DataSnapshotTime:
-          type: string
-          format: date-time
     GetMetricDataRequest:
       type: object
       required:
@@ -368,18 +356,30 @@ components:
           type: string
         MaxResults:
           type: integer
-    Error:
+    GetCurrentMetricDataResponse:
       type: object
-      description: An Amazon Connect error response.
       properties:
-        message:
+        NextToken:
           type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                    Value:
+                      type: number
+        DataSnapshotTime:
           type: string
-          description: The error code.
-          example: ResourceNotFoundException
+          format: date-time
   securitySchemes:
     aws_signature:
       type: http

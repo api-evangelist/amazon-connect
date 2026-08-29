@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Connect Service Agent Statuses Users API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
@@ -380,6 +380,125 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CreateUserResponse:
+      type: object
+      properties:
+        UserId:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        UserArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    ListUsersResponse:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+        NextToken:
+          type: string
+    UpdateUserIdentityInfoRequest:
+      type: object
+      required:
+      - IdentityInfo
+      properties:
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
+    UserIdentityInfo:
+      type: object
+      description: Contains information about the identity of a user.
+      properties:
+        FirstName:
+          type: string
+          description: The first name.
+          example: Jane
+        LastName:
+          type: string
+          description: The last name.
+          example: Smith
+        Email:
+          type: string
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
+          type: string
+          format: email
+          description: The secondary email address.
+        Mobile:
+          type: string
+          description: The user's mobile number.
+    UserSummary:
+      type: object
+      description: Contains summary information about a user.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The Amazon Connect user name of the user account.
+          example: jsmith
+    CreateUserRequest:
+      type: object
+      required:
+      - PhoneConfig
+      - RoutingProfileId
+      - SecurityProfileIds
+      - Username
+      properties:
+        Username:
+          type: string
+          description: The user name for the account.
+          example: jsmith
+        Password:
+          type: string
+          description: The password for the user account.
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+        PhoneConfig:
+          $ref: '#/components/schemas/UserPhoneConfig'
+        DirectoryUserId:
+          type: string
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifier of the security profile for the user.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
+          type: string
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
     UserPhoneConfig:
       type: object
       description: Contains information about the phone configuration settings for a user.
@@ -444,125 +563,6 @@ components:
           description: The tags.
           additionalProperties:
             type: string
-    ListUsersResponse:
-      type: object
-      properties:
-        UserSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserSummary'
-        NextToken:
-          type: string
-    DescribeUserResponse:
-      type: object
-      properties:
-        User:
-          $ref: '#/components/schemas/User'
-    CreateUserRequest:
-      type: object
-      required:
-      - PhoneConfig
-      - RoutingProfileId
-      - SecurityProfileIds
-      - Username
-      properties:
-        Username:
-          type: string
-          description: The user name for the account.
-          example: jsmith
-        Password:
-          type: string
-          description: The password for the user account.
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-        PhoneConfig:
-          $ref: '#/components/schemas/UserPhoneConfig'
-        DirectoryUserId:
-          type: string
-        SecurityProfileIds:
-          type: array
-          items:
-            type: string
-          description: The identifier of the security profile for the user.
-        RoutingProfileId:
-          type: string
-          description: The identifier of the routing profile for the user.
-          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
-        HierarchyGroupId:
-          type: string
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-    UserSummary:
-      type: object
-      description: Contains summary information about a user.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
-          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
-        Username:
-          type: string
-          description: The Amazon Connect user name of the user account.
-          example: jsmith
-    UpdateUserIdentityInfoRequest:
-      type: object
-      required:
-      - IdentityInfo
-      properties:
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-    UserIdentityInfo:
-      type: object
-      description: Contains information about the identity of a user.
-      properties:
-        FirstName:
-          type: string
-          description: The first name.
-          example: Jane
-        LastName:
-          type: string
-          description: The last name.
-          example: Smith
-        Email:
-          type: string
-          format: email
-          description: The email address.
-          example: jsmith@example.com
-        SecondaryEmail:
-          type: string
-          format: email
-          description: The secondary email address.
-        Mobile:
-          type: string
-          description: The user's mobile number.
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    CreateUserResponse:
-      type: object
-      properties:
-        UserId:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        UserArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
   securitySchemes:
     aws_signature:
       type: http

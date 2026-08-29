@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Connect Service Agent Statuses Routing Profiles API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
@@ -217,6 +217,28 @@ components:
           type: string
           description: The identifier of the routing profile.
           example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+    MediaConcurrency:
+      type: object
+      description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
+      required:
+      - Channel
+      - Concurrency
+      properties:
+        Channel:
+          type: string
+          description: The channels that agents can handle in the Contact Control Panel (CCP).
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        Concurrency:
+          type: integer
+          description: The number of contacts an agent can have on a channel simultaneously.
+          minimum: 1
+          maximum: 10
+          example: 1
     RoutingProfileSummary:
       type: object
       description: Contains summary information about a routing profile.
@@ -232,6 +254,23 @@ components:
           type: string
           description: The name of the routing profile.
           example: Basic Routing Profile
+    DescribeRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfile:
+          $ref: '#/components/schemas/RoutingProfile'
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
     CreateRoutingProfileRequest:
       type: object
       required:
@@ -276,6 +315,15 @@ components:
           type: object
           additionalProperties:
             type: string
+    ListRoutingProfilesResponse:
+      type: object
+      properties:
+        RoutingProfileSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingProfileSummary'
+        NextToken:
+          type: string
     RoutingProfile:
       type: object
       description: Contains information about a routing profile.
@@ -314,54 +362,6 @@ components:
         NumberOfAssociatedUsers:
           type: integer
           description: The number of associated users in routing profile.
-    MediaConcurrency:
-      type: object
-      description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
-      required:
-      - Channel
-      - Concurrency
-      properties:
-        Channel:
-          type: string
-          description: The channels that agents can handle in the Contact Control Panel (CCP).
-          enum:
-          - VOICE
-          - CHAT
-          - TASK
-          - EMAIL
-          example: VOICE
-        Concurrency:
-          type: integer
-          description: The number of contacts an agent can have on a channel simultaneously.
-          minimum: 1
-          maximum: 10
-          example: 1
-    ListRoutingProfilesResponse:
-      type: object
-      properties:
-        RoutingProfileSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoutingProfileSummary'
-        NextToken:
-          type: string
-    DescribeRoutingProfileResponse:
-      type: object
-      properties:
-        RoutingProfile:
-          $ref: '#/components/schemas/RoutingProfile'
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

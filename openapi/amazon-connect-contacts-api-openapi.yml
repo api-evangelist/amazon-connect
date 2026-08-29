@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon Connect Service Agent Statuses Contacts API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
@@ -446,71 +446,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Contact:
-      type: object
-      description: Contains information about a contact.
-      properties:
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) for the contact.
-        Id:
-          type: string
-          description: The identifier for the contact.
-          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
-        InitialContactId:
-          type: string
-          description: If this contact is related to other contacts, this is the ID of the initial contact.
-        PreviousContactId:
-          type: string
-          description: If this contact is not the first contact, this is the ID of the previous contact.
-        Channel:
-          type: string
-          description: How the contact reached your contact center.
-          enum:
-          - VOICE
-          - CHAT
-          - TASK
-          - EMAIL
-          example: VOICE
-        QueueInfo:
-          type: object
-          properties:
-            Id:
-              type: string
-            EnqueueTimestamp:
-              type: string
-              format: date-time
-        AgentInfo:
-          type: object
-          properties:
-            Id:
-              type: string
-            ConnectedToAgentTimestamp:
-              type: string
-              format: date-time
-        InitiationMethod:
-          type: string
-          description: Indicates how the contact was initiated.
-          enum:
-          - INBOUND
-          - OUTBOUND
-          - TRANSFER
-          - QUEUE_TRANSFER
-          - CALLBACK
-          - API
-          example: INBOUND
-        InitiationTimestamp:
-          type: string
-          format: date-time
-          description: The date and time this contact was initiated.
-        DisconnectTimestamp:
-          type: string
-          format: date-time
-          description: The timestamp when the customer endpoint disconnected from Amazon Connect.
-        LastUpdateTimestamp:
-          type: string
-          format: date-time
-          description: The timestamp when contact was last updated.
     SearchContactsRequest:
       type: object
       required:
@@ -575,100 +510,6 @@ components:
               enum:
               - ASCENDING
               - DESCENDING
-    ContactSummary:
-      type: object
-      description: Contains summary information about a contact.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the contact.
-          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
-        Arn:
-          type: string
-          description: The ARN of the contact.
-        Channel:
-          type: string
-          description: How the contact reached your contact center.
-          enum:
-          - VOICE
-          - CHAT
-          - TASK
-          - EMAIL
-          example: VOICE
-        InitiationMethod:
-          type: string
-          description: Indicates how the contact was initiated.
-          example: INBOUND
-        InitiationTimestamp:
-          type: string
-          format: date-time
-        DisconnectTimestamp:
-          type: string
-          format: date-time
-    StartChatContactResponse:
-      type: object
-      properties:
-        ContactId:
-          type: string
-          description: The identifier of the contact.
-          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
-        ParticipantId:
-          type: string
-          description: The identifier for a chat participant.
-          example: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
-        ParticipantToken:
-          type: string
-          description: The token used by the chat participant to call CreateParticipantConnection.
-    StartChatContactRequest:
-      type: object
-      required:
-      - ContactFlowId
-      - InstanceId
-      - ParticipantDetails
-      properties:
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow for initiating the chat.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        Attributes:
-          type: object
-          description: A custom key-value pair using an attribute map.
-          additionalProperties:
-            type: string
-        ParticipantDetails:
-          type: object
-          required:
-          - DisplayName
-          properties:
-            DisplayName:
-              type: string
-              description: Display name of the participant.
-              example: Jane Smith
-        InitialMessage:
-          type: object
-          properties:
-            ContentType:
-              type: string
-              example: text/plain
-            Content:
-              type: string
-              example: Hello, I need help with my order.
-        ClientToken:
-          type: string
-          description: Idempotency token.
-        ChatDurationInMinutes:
-          type: integer
-          description: The total duration of the newly started chat session.
-          example: 60
-    DescribeContactResponse:
-      type: object
-      properties:
-        Contact:
-          $ref: '#/components/schemas/Contact'
     StartOutboundVoiceContactRequest:
       type: object
       required:
@@ -770,6 +611,165 @@ components:
           type: string
           description: The error code.
           example: ResourceNotFoundException
+    Contact:
+      type: object
+      description: Contains information about a contact.
+      properties:
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the contact.
+        Id:
+          type: string
+          description: The identifier for the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        InitialContactId:
+          type: string
+          description: If this contact is related to other contacts, this is the ID of the initial contact.
+        PreviousContactId:
+          type: string
+          description: If this contact is not the first contact, this is the ID of the previous contact.
+        Channel:
+          type: string
+          description: How the contact reached your contact center.
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        QueueInfo:
+          type: object
+          properties:
+            Id:
+              type: string
+            EnqueueTimestamp:
+              type: string
+              format: date-time
+        AgentInfo:
+          type: object
+          properties:
+            Id:
+              type: string
+            ConnectedToAgentTimestamp:
+              type: string
+              format: date-time
+        InitiationMethod:
+          type: string
+          description: Indicates how the contact was initiated.
+          enum:
+          - INBOUND
+          - OUTBOUND
+          - TRANSFER
+          - QUEUE_TRANSFER
+          - CALLBACK
+          - API
+          example: INBOUND
+        InitiationTimestamp:
+          type: string
+          format: date-time
+          description: The date and time this contact was initiated.
+        DisconnectTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the customer endpoint disconnected from Amazon Connect.
+        LastUpdateTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp when contact was last updated.
+    StartChatContactRequest:
+      type: object
+      required:
+      - ContactFlowId
+      - InstanceId
+      - ParticipantDetails
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the chat.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          description: A custom key-value pair using an attribute map.
+          additionalProperties:
+            type: string
+        ParticipantDetails:
+          type: object
+          required:
+          - DisplayName
+          properties:
+            DisplayName:
+              type: string
+              description: Display name of the participant.
+              example: Jane Smith
+        InitialMessage:
+          type: object
+          properties:
+            ContentType:
+              type: string
+              example: text/plain
+            Content:
+              type: string
+              example: Hello, I need help with my order.
+        ClientToken:
+          type: string
+          description: Idempotency token.
+        ChatDurationInMinutes:
+          type: integer
+          description: The total duration of the newly started chat session.
+          example: 60
+    DescribeContactResponse:
+      type: object
+      properties:
+        Contact:
+          $ref: '#/components/schemas/Contact'
+    StartChatContactResponse:
+      type: object
+      properties:
+        ContactId:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        ParticipantId:
+          type: string
+          description: The identifier for a chat participant.
+          example: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
+        ParticipantToken:
+          type: string
+          description: The token used by the chat participant to call CreateParticipantConnection.
+    ContactSummary:
+      type: object
+      description: Contains summary information about a contact.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the contact.
+        Channel:
+          type: string
+          description: How the contact reached your contact center.
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        InitiationMethod:
+          type: string
+          description: Indicates how the contact was initiated.
+          example: INBOUND
+        InitiationTimestamp:
+          type: string
+          format: date-time
+        DisconnectTimestamp:
+          type: string
+          format: date-time
   securitySchemes:
     aws_signature:
       type: http
