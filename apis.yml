@@ -1006,3 +1006,5 @@ integrations:
 - name: Become a Channel Partner
 - name: Sell in AWS Marketplace
 - name: Manage Your Account
+x-parent: aws
+x-relationship: product
