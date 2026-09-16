@@ -30,13 +30,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-connect.png
 specificationVersion: '0.23'
-description: Amazon Connect is a cloud-based contact center service that makes it
-  easy to set up and manage a customer contact center and provide reliable customer
-  engagement at any scale, with omnichannel support for voice, chat, email, and task
-  management. It includes AI-powered features for agent assistance, customer profiles,
-  conversation analytics, and outbound campaign management.
+description: Amazon Connect is a cloud-based contact center service that makes it easy to set up and manage
+  a customer contact center and provide reliable customer engagement at any scale, with omnichannel support
+  for voice, chat, email, and task management. It includes AI-powered features for agent assistance, customer
+  profiles, conversation analytics, and outbound campaign management.
 created: '2024-01-15'
-modified: '2026-05-19'
+modified: '2026-09-16'
 tags:
 - AWS
 - Chat
@@ -55,10 +54,9 @@ tags_raw:
 - Omnichannel
 apis:
 - name: Amazon Connect Streams SDK
-  description: >-
-    Amazon Connect Streams is a browser-based integration API and JavaScript SDK that enables embedding
-    and controlling the Amazon Connect Contact Control Panel (CCP) within your web application or CRM
-    system.
+  description: Amazon Connect Streams is a browser-based integration API and JavaScript SDK that enables
+    embedding and controlling the Amazon Connect Contact Control Panel (CCP) within your web application
+    or CRM system.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
   humanURL: https://github.com/amazon-connect/amazon-connect-streams
   baseURL: https://github.com/amazon-connect/amazon-connect-streams
@@ -96,12 +94,10 @@ apis:
     url: https://github.com/amazon-connect/amazon-connect-workshops
     title: Amazon Connect Workshops
 - name: Amazon AppIntegrations API
-  description: >-
-    The Amazon AppIntegrations service enables you to configure and reuse connections to external applications,
-    powering third-party integrations in the Amazon Connect agent workspace.
+  description: The Amazon AppIntegrations service enables you to configure and reuse connections to external
+    applications, powering third-party integrations in the Amazon Connect agent workspace.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
   baseURL: https://app-integrations.amazonaws.com
   tags:
   - Integration
@@ -113,19 +109,16 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_AppIntegrations_Service.html
   - type: APIReference
     url: https://docs.aws.amazon.com/appintegrations/latest/APIReference/
 - name: Amazon Connect Contact Lens API
-  description: >-
-    Amazon Connect Contact Lens enables you to analyze conversations between customers and agents using
-    speech transcription, natural language processing, and intelligent search capabilities. It performs
-    sentiment analysis, detects issues, and enables automatic categorization of contacts with both real-time
-    and post-call analytics.
+  description: Amazon Connect Contact Lens enables you to analyze conversations between customers and
+    agents using speech transcription, natural language processing, and intelligent search capabilities.
+    It performs sentiment analysis, detects issues, and enables automatic categorization of contacts with
+    both real-time and post-call analytics.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
   baseURL: https://contact-lens.amazonaws.com
   tags:
   - Analytics
@@ -139,18 +132,14 @@ apis:
   - NLP
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Contact_Lens.html
 - name: Amazon Connect Outbound Campaigns API
-  description: >-
-    With the outbound campaigns feature of Amazon Connect, you can create high-volume outbound campaigns
-    for appointment reminders, telemarketing, subscription renewals, or debt collection.
+  description: With the outbound campaigns feature of Amazon Connect, you can create high-volume outbound
+    campaigns for appointment reminders, telemarketing, subscription renewals, or debt collection.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
   baseURL: https://connect-campaigns.amazonaws.com
   tags:
   - Outbound
@@ -158,18 +147,14 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns.html
 - name: Amazon Connect Outbound Campaigns V2 API
-  description: >-
-    The outbound campaigns V2 API provides an updated interface for creating high-volume outbound campaigns
-    including multi-channel support and availability in all Amazon Connect regions.
+  description: The outbound campaigns V2 API provides an updated interface for creating high-volume outbound
+    campaigns including multi-channel support and availability in all Amazon Connect regions.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
   baseURL: https://connect-campaigns.amazonaws.com
   tags:
   - Outbound
@@ -177,19 +162,15 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Outbound_Campaigns_V2.html
 - name: Amazon Connect Cases API
-  description: >-
-    With Amazon Connect Cases, agents can track and manage customer issues that require multiple interactions,
-    follow-up tasks, and teams in your contact center. A case represents a customer issue including the
-    steps and interactions taken to resolve it.
+  description: With Amazon Connect Cases, agents can track and manage customer issues that require multiple
+    interactions, follow-up tasks, and teams in your contact center. A case represents a customer issue
+    including the steps and interactions taken to resolve it.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
   baseURL: https://cases.amazonaws.com
   tags:
   - Cases
@@ -197,19 +178,15 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Cases.html
 - name: Amazon Connect Participant Service API
-  description: >-
-    The Amazon Connect Participant Service enables managing chat participants including agents, customers,
-    and managers. Use it to send messages and events, manage connection state, share attachments, and
-    retrieve chat transcripts within a chat contact.
+  description: The Amazon Connect Participant Service enables managing chat participants including agents,
+    customers, and managers. Use it to send messages and events, manage connection state, share attachments,
+    and retrieve chat transcripts within a chat contact.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
   baseURL: https://participant.connect.amazonaws.com
   tags:
   - Chat
@@ -217,20 +194,16 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Participant_Service.html
 - name: Amazon Connect Customer Profiles API
-  description: >-
-    Amazon Connect Customer Profiles provides a unified customer profile for your contact center with
-    pre-built connectors powered by AppFlow that make it easy to combine customer information from third-party
-    applications such as Salesforce (CRM), ServiceNow (ITSM), and ERP systems with contact history from
-    Amazon Connect.
+  description: Amazon Connect Customer Profiles provides a unified customer profile for your contact center
+    with pre-built connectors powered by AppFlow that make it easy to combine customer information from
+    third-party applications such as Salesforce (CRM), ServiceNow (ITSM), and ERP systems with contact
+    history from Amazon Connect.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
   baseURL: https://profile.profile.amazonaws.com
   tags:
   - Customer Profiles
@@ -238,20 +211,16 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Customer_Profiles.html
 - name: Amazon Q Connect API
-  description: >-
-    Amazon Q in Connect is a generative AI customer service assistant built on Amazon Bedrock. It provides
-    real-time recommendations to help contact center agents resolve customer issues quickly and accurately
-    by detecting customer intent and providing immediate generative responses, suggested actions, and
-    links to relevant documents.
+  description: Amazon Q in Connect is a generative AI customer service assistant built on Amazon Bedrock.
+    It provides real-time recommendations to help contact center agents resolve customer issues quickly
+    and accurately by detecting customer intent and providing immediate generative responses, suggested
+    actions, and links to relevant documents.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
   baseURL: https://wisdom.amazonaws.com
   tags:
   - Artificial Intelligence
@@ -265,19 +234,15 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Q_Connect.html
 - name: Amazon Voice ID API
-  description: >-
-    Amazon Connect Voice ID provides real-time caller authentication and fraud risk detection to make
-    voice interactions in contact centers more secure and efficient. Note - Voice ID end of support is
-    scheduled for May 20, 2026.
+  description: Amazon Connect Voice ID provides real-time caller authentication and fraud risk detection
+    to make voice interactions in contact centers more secure and efficient. Note - Voice ID end of support
+    is scheduled for May 20, 2026.
   image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
   baseURL: https://voiceid.amazonaws.com
   tags:
   - Voice
@@ -286,16 +251,13 @@ apis:
   - Contact Center
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
   - type: APIReference
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Voice_ID.html
 - aid: amazon-connect:amazon-connect-agent-statuses-api
   name: Amazon Connect Agent Statuses API
   description: Operations for managing agent status configurations
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Agent Statuses
@@ -303,8 +265,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-agent-statuses-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -338,8 +299,7 @@ apis:
 - aid: amazon-connect:amazon-connect-authentication-api
   name: Amazon Connect Authentication API
   description: Operations for authentication and federation
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Authentication
@@ -347,8 +307,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-authentication-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -382,8 +341,7 @@ apis:
 - aid: amazon-connect:amazon-connect-contact-flows-api
   name: Amazon Connect Contact Flows API
   description: Operations for managing contact flows
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Contact Flows
@@ -391,8 +349,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-contact-flows-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -426,8 +383,7 @@ apis:
 - aid: amazon-connect:amazon-connect-contacts-api
   name: Amazon Connect Contacts API
   description: Operations for managing contacts and contact interactions
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Contacts
@@ -435,8 +391,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-contacts-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -470,8 +425,7 @@ apis:
 - aid: amazon-connect:amazon-connect-hours-of-operations-api
   name: Amazon Connect Hours of Operations API
   description: Operations for managing hours of operation configurations
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Hours of Operations
@@ -479,8 +433,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-hours-of-operations-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -514,8 +467,7 @@ apis:
 - aid: amazon-connect:amazon-connect-instances-api
   name: Amazon Connect Instances API
   description: Operations for managing Amazon Connect instances
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Instances
@@ -523,8 +475,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-instances-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -558,8 +509,7 @@ apis:
 - aid: amazon-connect:amazon-connect-metrics-api
   name: Amazon Connect Metrics API
   description: Operations for retrieving real-time and historical metrics
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Metrics
@@ -567,8 +517,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-metrics-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -602,8 +551,7 @@ apis:
 - aid: amazon-connect:amazon-connect-queues-api
   name: Amazon Connect Queues API
   description: Operations for managing queues
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Queues
@@ -611,8 +559,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-queues-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -646,8 +593,7 @@ apis:
 - aid: amazon-connect:amazon-connect-routing-profiles-api
   name: Amazon Connect Routing Profiles API
   description: Operations for managing routing profiles
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Routing Profiles
@@ -655,8 +601,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-routing-profiles-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -690,8 +635,7 @@ apis:
 - aid: amazon-connect:amazon-connect-security-profiles-api
   name: Amazon Connect Security Profiles API
   description: Operations for managing security profiles
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Security Profiles
@@ -699,8 +643,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-security-profiles-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -734,8 +677,7 @@ apis:
 - aid: amazon-connect:amazon-connect-tags-api
   name: Amazon Connect Tags API
   description: Operations for tagging Amazon Connect resources
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - Tags
@@ -743,8 +685,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-tags-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -778,8 +719,7 @@ apis:
 - aid: amazon-connect:amazon-connect-users-api
   name: Amazon Connect Users API
   description: Operations for managing Amazon Connect users and agents
-  humanURL: >-
-    https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+  humanURL: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   baseURL: https://connect.amazonaws.com
   tags:
   - User
@@ -789,8 +729,7 @@ apis:
   - type: OpenAPI
     url: openapi/amazon-connect-users-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
+    url: https://docs.aws.amazon.com/connect/latest/APIReference/API_Operations_Amazon_Connect_Service.html
   - type: JSONSchema
     url: json-schema/amazon-connect-instance-schema.json
   - type: JSONLD
@@ -822,6 +761,8 @@ apis:
   - type: GraphQL
     url: graphql/amazon-connect-graphql.md
 common:
+- type: Website
+  url: https://amazon.com
 - type: AgenticAccess
   url: agentic-access/amazon-connect-agentic-access.yml
 - type: TrustCenter
@@ -913,55 +854,55 @@ common:
 - type: Features
   data:
   - name: Omnichannel Routing
-    description: Unified routing across voice, chat, email, and tasks through a single
-      platform with skills-based routing and priority queuing.
+    description: Unified routing across voice, chat, email, and tasks through a single platform with skills-based
+      routing and priority queuing.
   - name: AI-Powered Agent Assist
-    description: Amazon Q in Connect provides real-time AI-generated recommendations
-      and answers to help agents resolve customer issues faster.
+    description: Amazon Q in Connect provides real-time AI-generated recommendations and answers to help
+      agents resolve customer issues faster.
   - name: Contact Flows
-    description: Drag-and-drop contact flow designer for building IVR, chatbot, and
-      agent guidance workflows without extensive coding.
+    description: Drag-and-drop contact flow designer for building IVR, chatbot, and agent guidance workflows
+      without extensive coding.
   - name: Conversational Analytics
-    description: Contact Lens provides speech transcription, sentiment analysis, and
-      NLP-powered insights across all customer interactions.
+    description: Contact Lens provides speech transcription, sentiment analysis, and NLP-powered insights
+      across all customer interactions.
   - name: Customer Profiles
-    description: Unified customer profile combining CRM, ITSM, ERP, and contact history
-      data for context-aware agent interactions.
+    description: Unified customer profile combining CRM, ITSM, ERP, and contact history data for context-aware
+      agent interactions.
   - name: Outbound Campaigns
-    description: High-volume multi-channel outbound campaigns with predictive dialer,
-      answering machine detection, and multiple dialing modes.
+    description: High-volume multi-channel outbound campaigns with predictive dialer, answering machine
+      detection, and multiple dialing modes.
   - name: Cases Management
-    description: Structured case tracking for customer issues requiring multiple interactions,
-      follow-up tasks, and cross-team coordination.
+    description: Structured case tracking for customer issues requiring multiple interactions, follow-up
+      tasks, and cross-team coordination.
   - name: Voice and Video Calling
-    description: In-app, web, and video calling with screen share capabilities using
-      16kHz high-quality audio with packet loss resistance.
+    description: In-app, web, and video calling with screen share capabilities using 16kHz high-quality
+      audio with packet loss resistance.
   - name: Chat and Messaging
-    description: Real-time and asynchronous messaging including SMS, WhatsApp Business,
-      and Apple Messages for Business integration.
+    description: Real-time and asynchronous messaging including SMS, WhatsApp Business, and Apple Messages
+      for Business integration.
   - name: Real-Time and Historical Metrics
-    description: Comprehensive dashboards and reporting for contact center performance
-      optimization and workforce planning.
+    description: Comprehensive dashboards and reporting for contact center performance optimization and
+      workforce planning.
 - type: UseCases
   data:
   - name: Customer Support Contact Center
-    description: Deploy an omnichannel contact center handling voice, chat, email,
-      and messaging with intelligent routing to the right agents.
+    description: Deploy an omnichannel contact center handling voice, chat, email, and messaging with
+      intelligent routing to the right agents.
   - name: AI-Powered Self-Service
-    description: Build conversational AI flows that handle common customer requests
-      in 30+ languages without agent involvement.
+    description: Build conversational AI flows that handle common customer requests in 30+ languages without
+      agent involvement.
   - name: Agent Productivity Improvement
-    description: Reduce average handle time with real-time AI guidance, unified agent
-      workspace, and automated post-contact work.
+    description: Reduce average handle time with real-time AI guidance, unified agent workspace, and automated
+      post-contact work.
   - name: Outbound Customer Engagement
-    description: Run appointment reminders, subscription renewals, payment notifications,
-      and telemarketing campaigns at scale.
+    description: Run appointment reminders, subscription renewals, payment notifications, and telemarketing
+      campaigns at scale.
   - name: Fraud Prevention
-    description: Use Voice ID for real-time caller authentication and fraud risk detection
-      in voice contact center interactions.
+    description: Use Voice ID for real-time caller authentication and fraud risk detection in voice contact
+      center interactions.
   - name: Compliance and Quality Monitoring
-    description: Analyze 100% of customer interactions with Contact Lens for regulatory
-      compliance and quality assurance.
+    description: Analyze 100% of customer interactions with Contact Lens for regulatory compliance and
+      quality assurance.
 - type: SpectralRules
   url: rules/amazon-connect-spectral-rules.yml
 - type: Vocabulary
@@ -969,29 +910,29 @@ common:
 - type: Integrations
   data:
   - name: Salesforce CRM
-    description: Pre-built AppFlow connector to sync Salesforce customer data into
-      Amazon Connect Customer Profiles.
+    description: Pre-built AppFlow connector to sync Salesforce customer data into Amazon Connect Customer
+      Profiles.
   - name: ServiceNow
-    description: ITSM integration via AppFlow to bring ServiceNow customer and case
-      data into the Amazon Connect agent workspace.
+    description: ITSM integration via AppFlow to bring ServiceNow customer and case data into the Amazon
+      Connect agent workspace.
   - name: AWS Lambda
-    description: Native integration with AWS Lambda for custom automation within contact
-      flows and agent events.
+    description: Native integration with AWS Lambda for custom automation within contact flows and agent
+      events.
   - name: Amazon Lex
-    description: Built-in integration with Amazon Lex for building conversational
-      AI bots for voice and chat self-service.
+    description: Built-in integration with Amazon Lex for building conversational AI bots for voice and
+      chat self-service.
   - name: Amazon Bedrock
-    description: Foundation for Amazon Q in Connect generative AI features, providing
-      real-time agent recommendations and answers.
+    description: Foundation for Amazon Q in Connect generative AI features, providing real-time agent
+      recommendations and answers.
   - name: Amazon S3
-    description: Storage integration for call recordings, contact transcripts, exported
-      reports, and Contact Lens output data.
+    description: Storage integration for call recordings, contact transcripts, exported reports, and Contact
+      Lens output data.
   - name: Amazon Kinesis
-    description: Real-time streaming of contact trace records (CTRs) and agent events
-      to data lakes and analytics pipelines.
+    description: Real-time streaming of contact trace records (CTRs) and agent events to data lakes and
+      analytics pipelines.
   - name: WhatsApp Business
-    description: Native channel integration to handle customer messaging through WhatsApp
-      Business within the Amazon Connect platform.
+    description: Native channel integration to handle customer messaging through WhatsApp Business within
+      the Amazon Connect platform.
 - type: Integrations
   url: https://aws.amazon.com/marketplace
 maintainer:
