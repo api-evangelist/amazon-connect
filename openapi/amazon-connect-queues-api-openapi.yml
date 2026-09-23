@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Queues API
+  title: Amazon Connect Service Queues API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -217,6 +217,11 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DescribeQueueResponse:
+      type: object
+      properties:
+        Queue:
+          $ref: '#/components/schemas/Queue'
     ListQueuesResponse:
       type: object
       properties:
@@ -226,28 +231,6 @@ components:
             $ref: '#/components/schemas/QueueSummary'
         NextToken:
           type: string
-    QueueSummary:
-      type: object
-      description: Contains summary information about a queue.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the queue.
-          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the queue.
-        Name:
-          type: string
-          description: The name of the queue.
-          example: BasicQueue
-        QueueType:
-          type: string
-          description: The type of queue.
-          enum:
-          - STANDARD
-          - AGENT
-          example: STANDARD
     CreateQueueRequest:
       type: object
       required:
@@ -327,6 +310,38 @@ components:
           type: object
           additionalProperties:
             type: string
+    CreateQueueResponse:
+      type: object
+      properties:
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+    QueueSummary:
+      type: object
+      description: Contains summary information about a queue.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        Name:
+          type: string
+          description: The name of the queue.
+          example: BasicQueue
+        QueueType:
+          type: string
+          description: The type of queue.
+          enum:
+          - STANDARD
+          - AGENT
+          example: STANDARD
     Error:
       type: object
       description: An Amazon Connect error response.
@@ -339,21 +354,6 @@ components:
           type: string
           description: The error code.
           example: ResourceNotFoundException
-    CreateQueueResponse:
-      type: object
-      properties:
-        QueueArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the queue.
-        QueueId:
-          type: string
-          description: The identifier for the queue.
-          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
-    DescribeQueueResponse:
-      type: object
-      properties:
-        Queue:
-          $ref: '#/components/schemas/Queue'
   securitySchemes:
     aws_signature:
       type: http

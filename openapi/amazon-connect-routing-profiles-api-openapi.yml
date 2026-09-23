@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Routing Profiles API
+  title: Amazon Connect Service Routing Profiles API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -207,9 +207,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CreateRoutingProfileResponse:
+    RoutingProfile:
       type: object
+      description: Contains information about a routing profile.
       properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Voice Agents
         RoutingProfileArn:
           type: string
           description: The Amazon Resource Name (ARN) of the routing profile.
@@ -217,6 +225,26 @@ components:
           type: string
           description: The identifier of the routing profile.
           example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Description:
+          type: string
+          description: The description of the routing profile.
+        MediaConcurrencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaConcurrency'
+        DefaultOutboundQueueId:
+          type: string
+          description: The identifier of the default outbound queue for this routing profile.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        NumberOfAssociatedQueues:
+          type: integer
+          description: The number of associated queues in routing profile.
+        NumberOfAssociatedUsers:
+          type: integer
+          description: The number of associated users in routing profile.
     MediaConcurrency:
       type: object
       description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
@@ -239,38 +267,11 @@ components:
           minimum: 1
           maximum: 10
           example: 1
-    RoutingProfileSummary:
-      type: object
-      description: Contains summary information about a routing profile.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the routing profile.
-          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the routing profile.
-        Name:
-          type: string
-          description: The name of the routing profile.
-          example: Basic Routing Profile
     DescribeRoutingProfileResponse:
       type: object
       properties:
         RoutingProfile:
           $ref: '#/components/schemas/RoutingProfile'
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
     CreateRoutingProfileRequest:
       type: object
       required:
@@ -315,6 +316,21 @@ components:
           type: object
           additionalProperties:
             type: string
+    RoutingProfileSummary:
+      type: object
+      description: Contains summary information about a routing profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Basic Routing Profile
     ListRoutingProfilesResponse:
       type: object
       properties:
@@ -324,17 +340,9 @@ components:
             $ref: '#/components/schemas/RoutingProfileSummary'
         NextToken:
           type: string
-    RoutingProfile:
+    CreateRoutingProfileResponse:
       type: object
-      description: Contains information about a routing profile.
       properties:
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-        Name:
-          type: string
-          description: The name of the routing profile.
-          example: Voice Agents
         RoutingProfileArn:
           type: string
           description: The Amazon Resource Name (ARN) of the routing profile.
@@ -342,26 +350,18 @@ components:
           type: string
           description: The identifier of the routing profile.
           example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
-        Description:
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
           type: string
-          description: The description of the routing profile.
-        MediaConcurrencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaConcurrency'
-        DefaultOutboundQueueId:
+          description: The error message.
+          example: The specified resource was not found.
+        code:
           type: string
-          description: The identifier of the default outbound queue for this routing profile.
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-        NumberOfAssociatedQueues:
-          type: integer
-          description: The number of associated queues in routing profile.
-        NumberOfAssociatedUsers:
-          type: integer
-          description: The number of associated users in routing profile.
+          description: The error code.
+          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

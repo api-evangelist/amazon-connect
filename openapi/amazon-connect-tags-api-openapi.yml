@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Tags API
+  title: Amazon Connect Service Tags API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:

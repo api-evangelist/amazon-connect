@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Contacts API
+  title: Amazon Connect Service Contacts API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -446,6 +446,137 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ContactSummary:
+      type: object
+      description: Contains summary information about a contact.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the contact.
+        Channel:
+          type: string
+          description: How the contact reached your contact center.
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        InitiationMethod:
+          type: string
+          description: Indicates how the contact was initiated.
+          example: INBOUND
+        InitiationTimestamp:
+          type: string
+          format: date-time
+        DisconnectTimestamp:
+          type: string
+          format: date-time
+    SearchContactsResponse:
+      type: object
+      properties:
+        Contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactSummary'
+        NextToken:
+          type: string
+        TotalCount:
+          type: integer
+          description: The total count of the search result.
+    StartChatContactRequest:
+      type: object
+      required:
+      - ContactFlowId
+      - InstanceId
+      - ParticipantDetails
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the chat.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          description: A custom key-value pair using an attribute map.
+          additionalProperties:
+            type: string
+        ParticipantDetails:
+          type: object
+          required:
+          - DisplayName
+          properties:
+            DisplayName:
+              type: string
+              description: Display name of the participant.
+              example: Jane Smith
+        InitialMessage:
+          type: object
+          properties:
+            ContentType:
+              type: string
+              example: text/plain
+            Content:
+              type: string
+              example: Hello, I need help with my order.
+        ClientToken:
+          type: string
+          description: Idempotency token.
+        ChatDurationInMinutes:
+          type: integer
+          description: The total duration of the newly started chat session.
+          example: 60
+    StartTaskContactRequest:
+      type: object
+      required:
+      - InstanceId
+      - Name
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        PreviousContactId:
+          type: string
+          description: The identifier of the previous chat, voice, or task contact.
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the tasks.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          additionalProperties:
+            type: string
+        Name:
+          type: string
+          description: The name of a task that is shown to an agent in the Contact Control Panel (CCP).
+          example: Follow-up with customer
+        References:
+          type: object
+          additionalProperties:
+            type: object
+        Description:
+          type: string
+          description: A description of the task that is shown to an agent in the Contact Control Panel.
+          example: Call customer back regarding their support case
+        ClientToken:
+          type: string
+        ScheduledTime:
+          type: string
+          format: date-time
+        TaskTemplateId:
+          type: string
+        QuickConnectId:
+          type: string
+        RelatedContactId:
+          type: string
     SearchContactsRequest:
       type: object
       required:
@@ -510,107 +641,6 @@ components:
               enum:
               - ASCENDING
               - DESCENDING
-    StartOutboundVoiceContactRequest:
-      type: object
-      required:
-      - ContactFlowId
-      - DestinationPhoneNumber
-      - InstanceId
-      properties:
-        DestinationPhoneNumber:
-          type: string
-          description: The phone number of the customer, in E.164 format.
-          example: '+12065551212'
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow for the outbound call.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        ClientToken:
-          type: string
-          description: Idempotency token.
-        SourcePhoneNumber:
-          type: string
-          description: The phone number associated with the Amazon Connect instance, in E.164 format.
-        QueueId:
-          type: string
-          description: The queue for the call.
-          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
-        Attributes:
-          type: object
-          additionalProperties:
-            type: string
-    StartTaskContactRequest:
-      type: object
-      required:
-      - InstanceId
-      - Name
-      properties:
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        PreviousContactId:
-          type: string
-          description: The identifier of the previous chat, voice, or task contact.
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow for initiating the tasks.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        Attributes:
-          type: object
-          additionalProperties:
-            type: string
-        Name:
-          type: string
-          description: The name of a task that is shown to an agent in the Contact Control Panel (CCP).
-          example: Follow-up with customer
-        References:
-          type: object
-          additionalProperties:
-            type: object
-        Description:
-          type: string
-          description: A description of the task that is shown to an agent in the Contact Control Panel.
-          example: Call customer back regarding their support case
-        ClientToken:
-          type: string
-        ScheduledTime:
-          type: string
-          format: date-time
-        TaskTemplateId:
-          type: string
-        QuickConnectId:
-          type: string
-        RelatedContactId:
-          type: string
-    SearchContactsResponse:
-      type: object
-      properties:
-        Contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactSummary'
-        NextToken:
-          type: string
-        TotalCount:
-          type: integer
-          description: The total count of the search result.
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
     Contact:
       type: object
       description: Contains information about a contact.
@@ -676,56 +706,6 @@ components:
           type: string
           format: date-time
           description: The timestamp when contact was last updated.
-    StartChatContactRequest:
-      type: object
-      required:
-      - ContactFlowId
-      - InstanceId
-      - ParticipantDetails
-      properties:
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow for initiating the chat.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        Attributes:
-          type: object
-          description: A custom key-value pair using an attribute map.
-          additionalProperties:
-            type: string
-        ParticipantDetails:
-          type: object
-          required:
-          - DisplayName
-          properties:
-            DisplayName:
-              type: string
-              description: Display name of the participant.
-              example: Jane Smith
-        InitialMessage:
-          type: object
-          properties:
-            ContentType:
-              type: string
-              example: text/plain
-            Content:
-              type: string
-              example: Hello, I need help with my order.
-        ClientToken:
-          type: string
-          description: Idempotency token.
-        ChatDurationInMinutes:
-          type: integer
-          description: The total duration of the newly started chat session.
-          example: 60
-    DescribeContactResponse:
-      type: object
-      properties:
-        Contact:
-          $ref: '#/components/schemas/Contact'
     StartChatContactResponse:
       type: object
       properties:
@@ -740,36 +720,56 @@ components:
         ParticipantToken:
           type: string
           description: The token used by the chat participant to call CreateParticipantConnection.
-    ContactSummary:
+    StartOutboundVoiceContactRequest:
       type: object
-      description: Contains summary information about a contact.
+      required:
+      - ContactFlowId
+      - DestinationPhoneNumber
+      - InstanceId
       properties:
-        Id:
+        DestinationPhoneNumber:
           type: string
-          description: The identifier of the contact.
-          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
-        Arn:
+          description: The phone number of the customer, in E.164 format.
+          example: '+12065551212'
+        ContactFlowId:
           type: string
-          description: The ARN of the contact.
-        Channel:
+          description: The identifier of the contact flow for the outbound call.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        InstanceId:
           type: string
-          description: How the contact reached your contact center.
-          enum:
-          - VOICE
-          - CHAT
-          - TASK
-          - EMAIL
-          example: VOICE
-        InitiationMethod:
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ClientToken:
           type: string
-          description: Indicates how the contact was initiated.
-          example: INBOUND
-        InitiationTimestamp:
+          description: Idempotency token.
+        SourcePhoneNumber:
           type: string
-          format: date-time
-        DisconnectTimestamp:
+          description: The phone number associated with the Amazon Connect instance, in E.164 format.
+        QueueId:
           type: string
-          format: date-time
+          description: The queue for the call.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+        Attributes:
+          type: object
+          additionalProperties:
+            type: string
+    DescribeContactResponse:
+      type: object
+      properties:
+        Contact:
+          $ref: '#/components/schemas/Contact'
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

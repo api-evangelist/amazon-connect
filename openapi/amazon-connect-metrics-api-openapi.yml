@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Metrics API
+  title: Amazon Connect Service Metrics API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -158,75 +158,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    GetCurrentMetricDataRequest:
-      type: object
-      required:
-      - CurrentMetrics
-      - Filters
-      properties:
-        Filters:
-          type: object
-          description: The queues, up to 100, or channels, to use to filter the metrics returned.
-          properties:
-            Queues:
-              type: array
-              items:
-                type: string
-            Channels:
-              type: array
-              items:
-                type: string
-                enum:
-                - VOICE
-                - CHAT
-                - TASK
-        Groupings:
-          type: array
-          items:
-            type: string
-        CurrentMetrics:
-          type: array
-          items:
-            type: object
-            properties:
-              Name:
-                type: string
-                enum:
-                - AGENTS_ONLINE
-                - AGENTS_AVAILABLE
-                - AGENTS_ON_CALL
-                - AGENTS_NON_PRODUCTIVE
-                - AGENTS_AFTER_CONTACT_WORK
-                - AGENTS_ERROR
-                - AGENTS_STAFFED
-                - CONTACTS_IN_QUEUE
-                - OLDEST_CONTACT_AGE
-                - CONTACTS_SCHEDULED
-                - AGENTS_ON_CONTACT
-                - SLOTS_ACTIVE
-                - SLOTS_AVAILABLE
-              Unit:
-                type: string
-                enum:
-                - SECONDS
-                - COUNT
-                - PERCENT
-        NextToken:
-          type: string
-        MaxResults:
-          type: integer
     GetMetricDataResponse:
       type: object
       properties:
@@ -380,6 +311,75 @@ components:
         DataSnapshotTime:
           type: string
           format: date-time
+    GetCurrentMetricDataRequest:
+      type: object
+      required:
+      - CurrentMetrics
+      - Filters
+      properties:
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                - VOICE
+                - CHAT
+                - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+        CurrentMetrics:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                enum:
+                - AGENTS_ONLINE
+                - AGENTS_AVAILABLE
+                - AGENTS_ON_CALL
+                - AGENTS_NON_PRODUCTIVE
+                - AGENTS_AFTER_CONTACT_WORK
+                - AGENTS_ERROR
+                - AGENTS_STAFFED
+                - CONTACTS_IN_QUEUE
+                - OLDEST_CONTACT_AGE
+                - CONTACTS_SCHEDULED
+                - AGENTS_ON_CONTACT
+                - SLOTS_ACTIVE
+                - SLOTS_AVAILABLE
+              Unit:
+                type: string
+                enum:
+                - SECONDS
+                - COUNT
+                - PERCENT
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Users API
+  title: Amazon Connect Service Users API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -380,89 +380,30 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CreateUserResponse:
+    UserPhoneConfig:
       type: object
-      properties:
-        UserId:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        UserArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    ListUsersResponse:
-      type: object
-      properties:
-        UserSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserSummary'
-        NextToken:
-          type: string
-    UpdateUserIdentityInfoRequest:
-      type: object
+      description: Contains information about the phone configuration settings for a user.
       required:
-      - IdentityInfo
+      - PhoneType
       properties:
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-    DescribeUserResponse:
-      type: object
-      properties:
-        User:
-          $ref: '#/components/schemas/User'
-    UserIdentityInfo:
-      type: object
-      description: Contains information about the identity of a user.
-      properties:
-        FirstName:
+        PhoneType:
           type: string
-          description: The first name.
-          example: Jane
-        LastName:
+          description: The phone type.
+          enum:
+          - SOFT_PHONE
+          - DESK_PHONE
+          example: SOFT_PHONE
+        AutoAccept:
+          type: boolean
+          description: The Auto accept setting.
+          example: false
+        AfterContactWorkTimeLimit:
+          type: integer
+          description: The After Contact Work (ACW) timeout setting, in seconds.
+          example: 0
+        DeskPhoneNumber:
           type: string
-          description: The last name.
-          example: Smith
-        Email:
-          type: string
-          format: email
-          description: The email address.
-          example: jsmith@example.com
-        SecondaryEmail:
-          type: string
-          format: email
-          description: The secondary email address.
-        Mobile:
-          type: string
-          description: The user's mobile number.
-    UserSummary:
-      type: object
-      description: Contains summary information about a user.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
-          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
-        Username:
-          type: string
-          description: The Amazon Connect user name of the user account.
-          example: jsmith
+          description: The phone number for the user's desk phone.
     CreateUserRequest:
       type: object
       required:
@@ -499,30 +440,52 @@ components:
           type: object
           additionalProperties:
             type: string
-    UserPhoneConfig:
+    UserIdentityInfo:
       type: object
-      description: Contains information about the phone configuration settings for a user.
-      required:
-      - PhoneType
+      description: Contains information about the identity of a user.
       properties:
-        PhoneType:
+        FirstName:
           type: string
-          description: The phone type.
-          enum:
-          - SOFT_PHONE
-          - DESK_PHONE
-          example: SOFT_PHONE
-        AutoAccept:
-          type: boolean
-          description: The Auto accept setting.
-          example: false
-        AfterContactWorkTimeLimit:
-          type: integer
-          description: The After Contact Work (ACW) timeout setting, in seconds.
-          example: 0
-        DeskPhoneNumber:
+          description: The first name.
+          example: Jane
+        LastName:
           type: string
-          description: The phone number for the user's desk phone.
+          description: The last name.
+          example: Smith
+        Email:
+          type: string
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
+          type: string
+          format: email
+          description: The secondary email address.
+        Mobile:
+          type: string
+          description: The user's mobile number.
+    CreateUserResponse:
+      type: object
+      properties:
+        UserId:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        UserArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+    UpdateUserIdentityInfoRequest:
+      type: object
+      required:
+      - IdentityInfo
+      properties:
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
     User:
       type: object
       description: Contains information about a user account for an Amazon Connect instance.
@@ -563,6 +526,43 @@ components:
           description: The tags.
           additionalProperties:
             type: string
+    UserSummary:
+      type: object
+      description: Contains summary information about a user.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the user account.
+          example: '500123'
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The Amazon Connect user name of the user account.
+          example: jsmith
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    ListUsersResponse:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+        NextToken:
+          type: string
   securitySchemes:
     aws_signature:
       type: http

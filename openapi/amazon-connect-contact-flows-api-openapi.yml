@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Contact Flows API
+  title: Amazon Connect Service Contact Flows API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -225,42 +225,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListContactFlowsResponse:
-      type: object
-      properties:
-        ContactFlowSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactFlowSummary'
-        NextToken:
-          type: string
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    DescribeContactFlowResponse:
-      type: object
-      properties:
-        ContactFlow:
-          $ref: '#/components/schemas/ContactFlow'
-    CreateContactFlowResponse:
-      type: object
-      properties:
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        ContactFlowArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the contact flow.
     ContactFlow:
       type: object
       description: Contains information about a contact flow.
@@ -284,6 +248,41 @@ components:
           enum:
           - ACTIVE
           - ARCHIVED
+        Description:
+          type: string
+          description: The description of the contact flow.
+        Content:
+          type: string
+          description: The content of the contact flow.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    CreateContactFlowRequest:
+      type: object
+      required:
+      - Content
+      - Name
+      - Type
+      properties:
+        Name:
+          type: string
+          description: The name of the contact flow.
+          example: My Contact Flow
+        Type:
+          type: string
+          description: The type of the contact flow.
+          enum:
+          - CONTACT_FLOW
+          - CUSTOMER_QUEUE
+          - CUSTOMER_HOLD
+          - CUSTOMER_WHISPER
+          - AGENT_HOLD
+          - AGENT_WHISPER
+          - OUTBOUND_WHISPER
+          - AGENT_TRANSFER
+          - QUEUE_TRANSFER
+          example: CONTACT_FLOW
         Description:
           type: string
           description: The description of the contact flow.
@@ -329,41 +328,42 @@ components:
           - ACTIVE
           - ARCHIVED
           example: ACTIVE
-    CreateContactFlowRequest:
+    ListContactFlowsResponse:
       type: object
-      required:
-      - Content
-      - Name
-      - Type
       properties:
-        Name:
+        ContactFlowSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactFlowSummary'
+        NextToken:
           type: string
-          description: The name of the contact flow.
-          example: My Contact Flow
-        Type:
+    DescribeContactFlowResponse:
+      type: object
+      properties:
+        ContactFlow:
+          $ref: '#/components/schemas/ContactFlow'
+    CreateContactFlowResponse:
+      type: object
+      properties:
+        ContactFlowId:
           type: string
-          description: The type of the contact flow.
-          enum:
-          - CONTACT_FLOW
-          - CUSTOMER_QUEUE
-          - CUSTOMER_HOLD
-          - CUSTOMER_WHISPER
-          - AGENT_HOLD
-          - AGENT_WHISPER
-          - OUTBOUND_WHISPER
-          - AGENT_TRANSFER
-          - QUEUE_TRANSFER
-          example: CONTACT_FLOW
-        Description:
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        ContactFlowArn:
           type: string
-          description: The description of the contact flow.
-        Content:
+          description: The Amazon Resource Name (ARN) of the contact flow.
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
           type: string
-          description: The content of the contact flow.
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

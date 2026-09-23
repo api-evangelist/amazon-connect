@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Hours of Operations API
+  title: Amazon Connect Service Hours of Operations API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -118,64 +118,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    HoursOfOperationTimeSlice:
+    ListHoursOfOperationsResponse:
       type: object
-      description: The start or end time of an hours of operation.
-      required:
-      - Hours
-      - Minutes
       properties:
-        Hours:
-          type: integer
-          description: The hours.
-          minimum: 0
-          maximum: 23
-          example: 9
-        Minutes:
-          type: integer
-          description: The minutes.
-          minimum: 0
-          maximum: 59
-          example: 0
-    HoursOfOperationConfig:
-      type: object
-      description: Contains information about the hours of operation.
-      required:
-      - Day
-      - StartTime
-      - EndTime
-      properties:
-        Day:
+        HoursOfOperationSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoursOfOperationSummary'
+        NextToken:
           type: string
-          description: The day that the hours of operation applies to.
-          enum:
-          - SUNDAY
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          example: MONDAY
-        StartTime:
-          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
-        EndTime:
-          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
-    HoursOfOperationSummary:
-      type: object
-      description: Contains summary information about hours of operation for a contact center.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the hours of operation.
-          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the hours of operation.
-        Name:
-          type: string
-          description: The name of the hours of operation.
-          example: Business Hours
     CreateHoursOfOperationResponse:
       type: object
       properties:
@@ -212,15 +163,64 @@ components:
           type: object
           additionalProperties:
             type: string
-    ListHoursOfOperationsResponse:
+    HoursOfOperationTimeSlice:
       type: object
+      description: The start or end time of an hours of operation.
+      required:
+      - Hours
+      - Minutes
       properties:
-        HoursOfOperationSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/HoursOfOperationSummary'
-        NextToken:
+        Hours:
+          type: integer
+          description: The hours.
+          minimum: 0
+          maximum: 23
+          example: 9
+        Minutes:
+          type: integer
+          description: The minutes.
+          minimum: 0
+          maximum: 59
+          example: 0
+    HoursOfOperationSummary:
+      type: object
+      description: Contains summary information about hours of operation for a contact center.
+      properties:
+        Id:
           type: string
+          description: The identifier of the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the hours of operation.
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
+    HoursOfOperationConfig:
+      type: object
+      description: Contains information about the hours of operation.
+      required:
+      - Day
+      - StartTime
+      - EndTime
+      properties:
+        Day:
+          type: string
+          description: The day that the hours of operation applies to.
+          enum:
+          - SUNDAY
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          example: MONDAY
+        StartTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+        EndTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
   securitySchemes:
     aws_signature:
       type: http

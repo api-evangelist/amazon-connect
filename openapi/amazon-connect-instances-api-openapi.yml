@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon Connect Service Agent Statuses Instances API
+  title: Amazon Connect Service Instances API
   description: Amazon Connect is a cloud-based contact center service. The API provides programmatic access to create and manage contact center instances, users, routing profiles, contact flows, queues, hours of operation, security profiles, and real-time and historical metrics for customer engagement operations.
   version: '2017-08-08'
   contact:
@@ -239,6 +239,62 @@ components:
           description: The tags used to organize, track, or control access for this resource.
           additionalProperties:
             type: string
+    CreateInstanceResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The identifier for the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+    ListInstancesResponse:
+      type: object
+      properties:
+        InstanceSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceSummary'
+        NextToken:
+          type: string
+          description: If there are additional results, this is the token for the next set.
+    InstanceSummary:
+      type: object
+      description: Information about the Amazon Connect instance.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        Arn:
+          type: string
+          description: The ARN of the instance.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        IdentityManagementType:
+          type: string
+          description: The identity management type.
+          example: CONNECT_MANAGED
+        InstanceAlias:
+          type: string
+          description: The alias of the instance.
+          example: my-contact-center
+        InstanceStatus:
+          type: string
+          description: The state of the instance.
+          example: ACTIVE
+        InboundCallsEnabled:
+          type: boolean
+          example: true
+        OutboundCallsEnabled:
+          type: boolean
+          example: true
+    DescribeInstanceResponse:
+      type: object
+      properties:
+        Instance:
+          $ref: '#/components/schemas/Instance'
     Instance:
       type: object
       description: The Amazon Connect instance.
@@ -287,36 +343,6 @@ components:
           type: boolean
           description: Whether outbound calls are enabled.
           example: true
-    InstanceSummary:
-      type: object
-      description: Information about the Amazon Connect instance.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        Arn:
-          type: string
-          description: The ARN of the instance.
-          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        IdentityManagementType:
-          type: string
-          description: The identity management type.
-          example: CONNECT_MANAGED
-        InstanceAlias:
-          type: string
-          description: The alias of the instance.
-          example: my-contact-center
-        InstanceStatus:
-          type: string
-          description: The state of the instance.
-          example: ACTIVE
-        InboundCallsEnabled:
-          type: boolean
-          example: true
-        OutboundCallsEnabled:
-          type: boolean
-          example: true
     Error:
       type: object
       description: An Amazon Connect error response.
@@ -329,32 +355,6 @@ components:
           type: string
           description: The error code.
           example: ResourceNotFoundException
-    DescribeInstanceResponse:
-      type: object
-      properties:
-        Instance:
-          $ref: '#/components/schemas/Instance'
-    ListInstancesResponse:
-      type: object
-      properties:
-        InstanceSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/InstanceSummary'
-        NextToken:
-          type: string
-          description: If there are additional results, this is the token for the next set.
-    CreateInstanceResponse:
-      type: object
-      properties:
-        Id:
-          type: string
-          description: The identifier for the instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the instance.
-          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
   securitySchemes:
     aws_signature:
       type: http

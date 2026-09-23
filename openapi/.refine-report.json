@@ -1,18 +1,7 @@
 {
   "provider": "amazon-connect",
   "sources": [
-    "amazon-connect-agent-statuses-api-openapi.yml",
-    "amazon-connect-authentication-api-openapi.yml",
-    "amazon-connect-contact-flows-api-openapi.yml",
-    "amazon-connect-contacts-api-openapi.yml",
-    "amazon-connect-hours-of-operations-api-openapi.yml",
-    "amazon-connect-instances-api-openapi.yml",
-    "amazon-connect-metrics-api-openapi.yml",
-    "amazon-connect-queues-api-openapi.yml",
-    "amazon-connect-routing-profiles-api-openapi.yml",
-    "amazon-connect-security-profiles-api-openapi.yml",
-    "amazon-connect-tags-api-openapi.yml",
-    "amazon-connect-users-api-openapi.yml"
+    "_ae-authored/amazon-connect-openapi.yml"
   ],
   "outputs": [
     "amazon-connect-agent-statuses-api-openapi.yml",
@@ -32,7 +21,22 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-connect-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "amazon-connect-agent-statuses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-contact-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-hours-of-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-queues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-routing-profiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-security-profiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-connect-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
