@@ -294,8 +294,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-authentication-api
   name: Amazon Connect Authentication API
   description: Operations for authentication and federation
@@ -336,8 +334,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-contact-flows-api
   name: Amazon Connect Contact Flows API
   description: Operations for managing contact flows
@@ -378,8 +374,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-contacts-api
   name: Amazon Connect Contacts API
   description: Operations for managing contacts and contact interactions
@@ -420,8 +414,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-hours-of-operations-api
   name: Amazon Connect Hours of Operations API
   description: Operations for managing hours of operation configurations
@@ -462,8 +454,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-instances-api
   name: Amazon Connect Instances API
   description: Operations for managing Amazon Connect instances
@@ -504,8 +494,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-metrics-api
   name: Amazon Connect Metrics API
   description: Operations for retrieving real-time and historical metrics
@@ -546,8 +534,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-queues-api
   name: Amazon Connect Queues API
   description: Operations for managing queues
@@ -588,8 +574,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-routing-profiles-api
   name: Amazon Connect Routing Profiles API
   description: Operations for managing routing profiles
@@ -630,8 +614,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-security-profiles-api
   name: Amazon Connect Security Profiles API
   description: Operations for managing security profiles
@@ -672,8 +654,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-tags-api
   name: Amazon Connect Tags API
   description: Operations for tagging Amazon Connect resources
@@ -714,8 +694,6 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 - aid: amazon-connect:amazon-connect-users-api
   name: Amazon Connect Users API
   description: Operations for managing Amazon Connect users and agents
@@ -758,11 +736,9 @@ apis:
     url: json-schema/contact-flow-schema.json
   - type: JSONSchema
     url: json-schema/instance-schema.json
-  - type: GraphQL
-    url: graphql/amazon-connect-graphql.md
 common:
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/connect/
 - type: AgenticAccess
   url: agentic-access/amazon-connect-agentic-access.yml
 - type: TrustCenter
@@ -948,5 +924,5 @@ integrations:
 - name: Become a Channel Partner
 - name: Sell in AWS Marketplace
 - name: Manage Your Account
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product
