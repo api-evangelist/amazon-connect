@@ -446,6 +446,20 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    StartChatContactResponse:
+      type: object
+      properties:
+        ContactId:
+          type: string
+          description: The identifier of the contact.
+          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
+        ParticipantId:
+          type: string
+          description: The identifier for a chat participant.
+          example: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
+        ParticipantToken:
+          type: string
+          description: The token used by the chat participant to call CreateParticipantConnection.
     ContactSummary:
       type: object
       description: Contains summary information about a contact.
@@ -476,63 +490,18 @@ components:
         DisconnectTimestamp:
           type: string
           format: date-time
-    SearchContactsResponse:
+    Error:
       type: object
+      description: An Amazon Connect error response.
       properties:
-        Contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactSummary'
-        NextToken:
+        message:
           type: string
-        TotalCount:
-          type: integer
-          description: The total count of the search result.
-    StartChatContactRequest:
-      type: object
-      required:
-      - ContactFlowId
-      - InstanceId
-      - ParticipantDetails
-      properties:
-        InstanceId:
+          description: The error message.
+          example: The specified resource was not found.
+        code:
           type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow for initiating the chat.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        Attributes:
-          type: object
-          description: A custom key-value pair using an attribute map.
-          additionalProperties:
-            type: string
-        ParticipantDetails:
-          type: object
-          required:
-          - DisplayName
-          properties:
-            DisplayName:
-              type: string
-              description: Display name of the participant.
-              example: Jane Smith
-        InitialMessage:
-          type: object
-          properties:
-            ContentType:
-              type: string
-              example: text/plain
-            Content:
-              type: string
-              example: Hello, I need help with my order.
-        ClientToken:
-          type: string
-          description: Idempotency token.
-        ChatDurationInMinutes:
-          type: integer
-          description: The total duration of the newly started chat session.
-          example: 60
+          description: The error code.
+          example: ResourceNotFoundException
     StartTaskContactRequest:
       type: object
       required:
@@ -577,70 +546,6 @@ components:
           type: string
         RelatedContactId:
           type: string
-    SearchContactsRequest:
-      type: object
-      required:
-      - InstanceId
-      - TimeRange
-      properties:
-        InstanceId:
-          type: string
-          description: The identifier of the Amazon Connect instance.
-          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
-        TimeRange:
-          type: object
-          required:
-          - EndTime
-          - StartTime
-          - Type
-          properties:
-            Type:
-              type: string
-              enum:
-              - INITIATION_TIMESTAMP
-              - SCHEDULED_TIMESTAMP
-              - CONNECTED_TO_AGENT_TIMESTAMP
-              - DISCONNECT_TIMESTAMP
-              example: INITIATION_TIMESTAMP
-            StartTime:
-              type: string
-              format: date-time
-              example: '2025-03-15T00:00:00Z'
-            EndTime:
-              type: string
-              format: date-time
-              example: '2025-03-15T23:59:59Z'
-        SearchCriteria:
-          type: object
-          properties:
-            AgentIds:
-              type: array
-              items:
-                type: string
-            QueueIds:
-              type: array
-              items:
-                type: string
-            Channels:
-              type: array
-              items:
-                type: string
-        MaxResults:
-          type: integer
-          description: The maximum number of results to return.
-          example: 50
-        NextToken:
-          type: string
-        Sort:
-          type: object
-          properties:
-            FieldName:
-              type: string
-            Order:
-              type: string
-              enum:
-              - ASCENDING
-              - DESCENDING
     Contact:
       type: object
       description: Contains information about a contact.
@@ -706,20 +611,18 @@ components:
           type: string
           format: date-time
           description: The timestamp when contact was last updated.
-    StartChatContactResponse:
+    SearchContactsResponse:
       type: object
       properties:
-        ContactId:
+        Contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactSummary'
+        NextToken:
           type: string
-          description: The identifier of the contact.
-          example: a1b2c3d4-5678-90ab-cdef-88888EXAMPLE
-        ParticipantId:
-          type: string
-          description: The identifier for a chat participant.
-          example: a1b2c3d4-5678-90ab-cdef-99999EXAMPLE
-        ParticipantToken:
-          type: string
-          description: The token used by the chat participant to call CreateParticipantConnection.
+        TotalCount:
+          type: integer
+          description: The total count of the search result.
     StartOutboundVoiceContactRequest:
       type: object
       required:
@@ -753,23 +656,120 @@ components:
           type: object
           additionalProperties:
             type: string
+    StartChatContactRequest:
+      type: object
+      required:
+      - ContactFlowId
+      - InstanceId
+      - ParticipantDetails
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow for initiating the chat.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        Attributes:
+          type: object
+          description: A custom key-value pair using an attribute map.
+          additionalProperties:
+            type: string
+        ParticipantDetails:
+          type: object
+          required:
+          - DisplayName
+          properties:
+            DisplayName:
+              type: string
+              description: Display name of the participant.
+              example: Jane Smith
+        InitialMessage:
+          type: object
+          properties:
+            ContentType:
+              type: string
+              example: text/plain
+            Content:
+              type: string
+              example: Hello, I need help with my order.
+        ClientToken:
+          type: string
+          description: Idempotency token.
+        ChatDurationInMinutes:
+          type: integer
+          description: The total duration of the newly started chat session.
+          example: 60
+    SearchContactsRequest:
+      type: object
+      required:
+      - InstanceId
+      - TimeRange
+      properties:
+        InstanceId:
+          type: string
+          description: The identifier of the Amazon Connect instance.
+          example: a1b2c3d4-5678-90ab-cdef-11111EXAMPLE
+        TimeRange:
+          type: object
+          required:
+          - EndTime
+          - StartTime
+          - Type
+          properties:
+            Type:
+              type: string
+              enum:
+              - INITIATION_TIMESTAMP
+              - SCHEDULED_TIMESTAMP
+              - CONNECTED_TO_AGENT_TIMESTAMP
+              - DISCONNECT_TIMESTAMP
+              example: INITIATION_TIMESTAMP
+            StartTime:
+              type: string
+              format: date-time
+              example: '2025-03-15T00:00:00Z'
+            EndTime:
+              type: string
+              format: date-time
+              example: '2025-03-15T23:59:59Z'
+        SearchCriteria:
+          type: object
+          properties:
+            AgentIds:
+              type: array
+              items:
+                type: string
+            QueueIds:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+        MaxResults:
+          type: integer
+          description: The maximum number of results to return.
+          example: 50
+        NextToken:
+          type: string
+        Sort:
+          type: object
+          properties:
+            FieldName:
+              type: string
+            Order:
+              type: string
+              enum:
+              - ASCENDING
+              - DESCENDING
     DescribeContactResponse:
       type: object
       properties:
         Contact:
           $ref: '#/components/schemas/Contact'
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

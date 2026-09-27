@@ -293,6 +293,33 @@ components:
           type: object
           additionalProperties:
             type: string
+    DescribeContactFlowResponse:
+      type: object
+      properties:
+        ContactFlow:
+          $ref: '#/components/schemas/ContactFlow'
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    CreateContactFlowResponse:
+      type: object
+      properties:
+        ContactFlowId:
+          type: string
+          description: The identifier of the contact flow.
+          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
+        ContactFlowArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the contact flow.
     ContactFlowSummary:
       type: object
       description: Contains summary information about a contact flow.
@@ -337,33 +364,6 @@ components:
             $ref: '#/components/schemas/ContactFlowSummary'
         NextToken:
           type: string
-    DescribeContactFlowResponse:
-      type: object
-      properties:
-        ContactFlow:
-          $ref: '#/components/schemas/ContactFlow'
-    CreateContactFlowResponse:
-      type: object
-      properties:
-        ContactFlowId:
-          type: string
-          description: The identifier of the contact flow.
-          example: a1b2c3d4-5678-90ab-cdef-77777EXAMPLE
-        ContactFlowArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the contact flow.
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

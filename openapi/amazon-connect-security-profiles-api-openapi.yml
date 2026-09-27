@@ -65,15 +65,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListSecurityProfilesResponse:
-      type: object
-      properties:
-        SecurityProfileSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecurityProfileSummary'
-        NextToken:
-          type: string
     SecurityProfileSummary:
       type: object
       description: Contains information about a security profile.
@@ -89,6 +80,15 @@ components:
           type: string
           description: The name of the security profile.
           example: Agent
+    ListSecurityProfilesResponse:
+      type: object
+      properties:
+        SecurityProfileSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityProfileSummary'
+        NextToken:
+          type: string
   securitySchemes:
     aws_signature:
       type: http

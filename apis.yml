@@ -247,6 +247,11 @@ apis:
   tags:
   - Voice
   - Authentication
+  - Fraud Prevention
+  - Contact Center
+  tags_raw:
+  - Voice
+  - Authentication
   - Fraud Detection
   - Contact Center
   properties:

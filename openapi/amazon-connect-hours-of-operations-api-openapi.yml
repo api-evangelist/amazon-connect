@@ -118,25 +118,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListHoursOfOperationsResponse:
-      type: object
-      properties:
-        HoursOfOperationSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/HoursOfOperationSummary'
-        NextToken:
-          type: string
-    CreateHoursOfOperationResponse:
-      type: object
-      properties:
-        HoursOfOperationId:
-          type: string
-          description: The identifier for the hours of operation.
-          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
-        HoursOfOperationArn:
-          type: string
-          description: The Amazon Resource Name (ARN) for the hours of operation.
     CreateHoursOfOperationRequest:
       type: object
       required:
@@ -163,25 +144,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    HoursOfOperationTimeSlice:
-      type: object
-      description: The start or end time of an hours of operation.
-      required:
-      - Hours
-      - Minutes
-      properties:
-        Hours:
-          type: integer
-          description: The hours.
-          minimum: 0
-          maximum: 23
-          example: 9
-        Minutes:
-          type: integer
-          description: The minutes.
-          minimum: 0
-          maximum: 59
-          example: 0
     HoursOfOperationSummary:
       type: object
       description: Contains summary information about hours of operation for a contact center.
@@ -197,6 +159,16 @@ components:
           type: string
           description: The name of the hours of operation.
           example: Business Hours
+    CreateHoursOfOperationResponse:
+      type: object
+      properties:
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        HoursOfOperationArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the hours of operation.
     HoursOfOperationConfig:
       type: object
       description: Contains information about the hours of operation.
@@ -221,6 +193,34 @@ components:
           $ref: '#/components/schemas/HoursOfOperationTimeSlice'
         EndTime:
           $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+    ListHoursOfOperationsResponse:
+      type: object
+      properties:
+        HoursOfOperationSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoursOfOperationSummary'
+        NextToken:
+          type: string
+    HoursOfOperationTimeSlice:
+      type: object
+      description: The start or end time of an hours of operation.
+      required:
+      - Hours
+      - Minutes
+      properties:
+        Hours:
+          type: integer
+          description: The hours.
+          minimum: 0
+          maximum: 23
+          example: 9
+        Minutes:
+          type: integer
+          description: The minutes.
+          minimum: 0
+          maximum: 59
+          example: 0
   securitySchemes:
     aws_signature:
       type: http

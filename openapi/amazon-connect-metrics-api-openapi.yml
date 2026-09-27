@@ -158,44 +158,75 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    GetMetricDataResponse:
+    GetCurrentMetricDataRequest:
       type: object
+      required:
+      - CurrentMetrics
+      - Filters
       properties:
-        NextToken:
-          type: string
-        MetricResults:
+        Filters:
+          type: object
+          description: The queues, up to 100, or channels, to use to filter the metrics returned.
+          properties:
+            Queues:
+              type: array
+              items:
+                type: string
+            Channels:
+              type: array
+              items:
+                type: string
+                enum:
+                - VOICE
+                - CHAT
+                - TASK
+        Groupings:
+          type: array
+          items:
+            type: string
+        CurrentMetrics:
           type: array
           items:
             type: object
             properties:
-              Dimensions:
-                type: object
-                properties:
-                  Queue:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                      Arn:
-                        type: string
-                  Channel:
-                    type: string
-              Collections:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    Metric:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                        Unit:
-                          type: string
-                        Statistic:
-                          type: string
-                    Value:
-                      type: number
+              Name:
+                type: string
+                enum:
+                - AGENTS_ONLINE
+                - AGENTS_AVAILABLE
+                - AGENTS_ON_CALL
+                - AGENTS_NON_PRODUCTIVE
+                - AGENTS_AFTER_CONTACT_WORK
+                - AGENTS_ERROR
+                - AGENTS_STAFFED
+                - CONTACTS_IN_QUEUE
+                - OLDEST_CONTACT_AGE
+                - CONTACTS_SCHEDULED
+                - AGENTS_ON_CONTACT
+                - SLOTS_ACTIVE
+                - SLOTS_AVAILABLE
+              Unit:
+                type: string
+                enum:
+                - SECONDS
+                - COUNT
+                - PERCENT
+        NextToken:
+          type: string
+        MaxResults:
+          type: integer
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
     GetMetricDataRequest:
       type: object
       required:
@@ -311,75 +342,44 @@ components:
         DataSnapshotTime:
           type: string
           format: date-time
-    GetCurrentMetricDataRequest:
+    GetMetricDataResponse:
       type: object
-      required:
-      - CurrentMetrics
-      - Filters
       properties:
-        Filters:
-          type: object
-          description: The queues, up to 100, or channels, to use to filter the metrics returned.
-          properties:
-            Queues:
-              type: array
-              items:
-                type: string
-            Channels:
-              type: array
-              items:
-                type: string
-                enum:
-                - VOICE
-                - CHAT
-                - TASK
-        Groupings:
-          type: array
-          items:
-            type: string
-        CurrentMetrics:
+        NextToken:
+          type: string
+        MetricResults:
           type: array
           items:
             type: object
             properties:
-              Name:
-                type: string
-                enum:
-                - AGENTS_ONLINE
-                - AGENTS_AVAILABLE
-                - AGENTS_ON_CALL
-                - AGENTS_NON_PRODUCTIVE
-                - AGENTS_AFTER_CONTACT_WORK
-                - AGENTS_ERROR
-                - AGENTS_STAFFED
-                - CONTACTS_IN_QUEUE
-                - OLDEST_CONTACT_AGE
-                - CONTACTS_SCHEDULED
-                - AGENTS_ON_CONTACT
-                - SLOTS_ACTIVE
-                - SLOTS_AVAILABLE
-              Unit:
-                type: string
-                enum:
-                - SECONDS
-                - COUNT
-                - PERCENT
-        NextToken:
-          type: string
-        MaxResults:
-          type: integer
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
+              Dimensions:
+                type: object
+                properties:
+                  Queue:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                      Arn:
+                        type: string
+                  Channel:
+                    type: string
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                        Unit:
+                          type: string
+                        Statistic:
+                          type: string
+                    Value:
+                      type: number
   securitySchemes:
     aws_signature:
       type: http
