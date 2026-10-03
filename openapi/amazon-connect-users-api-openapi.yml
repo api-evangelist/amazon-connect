@@ -404,37 +404,30 @@ components:
         DeskPhoneNumber:
           type: string
           description: The phone number for the user's desk phone.
-    ListUsersResponse:
+    UserIdentityInfo:
       type: object
+      description: Contains information about the identity of a user.
       properties:
-        UserSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserSummary'
-        NextToken:
+        FirstName:
           type: string
-    CreateUserResponse:
-      type: object
-      properties:
-        UserId:
+          description: The first name.
+          example: Jane
+        LastName:
           type: string
-          description: The identifier of the user account.
-          example: '500123'
-        UserArn:
+          description: The last name.
+          example: Smith
+        Email:
           type: string
-          description: The Amazon Resource Name (ARN) of the user account.
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
           type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
+          format: email
+          description: The secondary email address.
+        Mobile:
           type: string
-          description: The error code.
-          example: ResourceNotFoundException
+          description: The user's mobile number.
     User:
       type: object
       description: Contains information about a user account for an Amazon Connect instance.
@@ -475,30 +468,65 @@ components:
           description: The tags.
           additionalProperties:
             type: string
-    UserIdentityInfo:
+    Error:
       type: object
-      description: Contains information about the identity of a user.
+      description: An Amazon Connect error response.
       properties:
-        FirstName:
+        message:
           type: string
-          description: The first name.
-          example: Jane
-        LastName:
+          description: The error message.
+          example: The specified resource was not found.
+        code:
           type: string
-          description: The last name.
-          example: Smith
-        Email:
+          description: The error code.
+          example: ResourceNotFoundException
+    CreateUserResponse:
+      type: object
+      properties:
+        UserId:
           type: string
-          format: email
-          description: The email address.
-          example: jsmith@example.com
-        SecondaryEmail:
+          description: The identifier of the user account.
+          example: '500123'
+        UserArn:
           type: string
-          format: email
-          description: The secondary email address.
-        Mobile:
+          description: The Amazon Resource Name (ARN) of the user account.
+    UserSummary:
+      type: object
+      description: Contains summary information about a user.
+      properties:
+        Id:
           type: string
-          description: The user's mobile number.
+          description: The identifier of the user account.
+          example: '500123'
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
+        Username:
+          type: string
+          description: The Amazon Connect user name of the user account.
+          example: jsmith
+    ListUsersResponse:
+      type: object
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+        NextToken:
+          type: string
+    UpdateUserIdentityInfoRequest:
+      type: object
+      required:
+      - IdentityInfo
+      properties:
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
     CreateUserRequest:
       type: object
       required:
@@ -535,34 +563,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    UserSummary:
-      type: object
-      description: Contains summary information about a user.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
-          example: arn:aws:connect:us-east-1:123456789012:instance/a1b2c3d4/agent/500123
-        Username:
-          type: string
-          description: The Amazon Connect user name of the user account.
-          example: jsmith
-    UpdateUserIdentityInfoRequest:
-      type: object
-      required:
-      - IdentityInfo
-      properties:
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-    DescribeUserResponse:
-      type: object
-      properties:
-        User:
-          $ref: '#/components/schemas/User'
   securitySchemes:
     aws_signature:
       type: http

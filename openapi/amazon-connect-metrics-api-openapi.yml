@@ -215,18 +215,44 @@ components:
           type: string
         MaxResults:
           type: integer
-    Error:
+    GetMetricDataResponse:
       type: object
-      description: An Amazon Connect error response.
       properties:
-        message:
+        NextToken:
           type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
+        MetricResults:
+          type: array
+          items:
+            type: object
+            properties:
+              Dimensions:
+                type: object
+                properties:
+                  Queue:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                      Arn:
+                        type: string
+                  Channel:
+                    type: string
+              Collections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Metric:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                        Unit:
+                          type: string
+                        Statistic:
+                          type: string
+                    Value:
+                      type: number
     GetMetricDataRequest:
       type: object
       required:
@@ -342,44 +368,18 @@ components:
         DataSnapshotTime:
           type: string
           format: date-time
-    GetMetricDataResponse:
+    Error:
       type: object
+      description: An Amazon Connect error response.
       properties:
-        NextToken:
+        message:
           type: string
-        MetricResults:
-          type: array
-          items:
-            type: object
-            properties:
-              Dimensions:
-                type: object
-                properties:
-                  Queue:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                      Arn:
-                        type: string
-                  Channel:
-                    type: string
-              Collections:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    Metric:
-                      type: object
-                      properties:
-                        Name:
-                          type: string
-                        Unit:
-                          type: string
-                        Statistic:
-                          type: string
-                    Value:
-                      type: number
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
   securitySchemes:
     aws_signature:
       type: http

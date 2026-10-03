@@ -217,6 +217,11 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DescribeQueueResponse:
+      type: object
+      properties:
+        Queue:
+          $ref: '#/components/schemas/Queue'
     CreateQueueRequest:
       type: object
       required:
@@ -327,11 +332,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    DescribeQueueResponse:
-      type: object
-      properties:
-        Queue:
-          $ref: '#/components/schemas/Queue'
     QueueSummary:
       type: object
       description: Contains summary information about a queue.

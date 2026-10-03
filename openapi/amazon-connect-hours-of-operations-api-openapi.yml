@@ -118,6 +118,45 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    HoursOfOperationConfig:
+      type: object
+      description: Contains information about the hours of operation.
+      required:
+      - Day
+      - StartTime
+      - EndTime
+      properties:
+        Day:
+          type: string
+          description: The day that the hours of operation applies to.
+          enum:
+          - SUNDAY
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          example: MONDAY
+        StartTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+        EndTime:
+          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
+    HoursOfOperationSummary:
+      type: object
+      description: Contains summary information about hours of operation for a contact center.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the hours of operation.
+        Name:
+          type: string
+          description: The name of the hours of operation.
+          example: Business Hours
     CreateHoursOfOperationRequest:
       type: object
       required:
@@ -144,21 +183,15 @@ components:
           type: object
           additionalProperties:
             type: string
-    HoursOfOperationSummary:
+    ListHoursOfOperationsResponse:
       type: object
-      description: Contains summary information about hours of operation for a contact center.
       properties:
-        Id:
+        HoursOfOperationSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoursOfOperationSummary'
+        NextToken:
           type: string
-          description: The identifier of the hours of operation.
-          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the hours of operation.
-        Name:
-          type: string
-          description: The name of the hours of operation.
-          example: Business Hours
     CreateHoursOfOperationResponse:
       type: object
       properties:
@@ -169,39 +202,6 @@ components:
         HoursOfOperationArn:
           type: string
           description: The Amazon Resource Name (ARN) for the hours of operation.
-    HoursOfOperationConfig:
-      type: object
-      description: Contains information about the hours of operation.
-      required:
-      - Day
-      - StartTime
-      - EndTime
-      properties:
-        Day:
-          type: string
-          description: The day that the hours of operation applies to.
-          enum:
-          - SUNDAY
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          example: MONDAY
-        StartTime:
-          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
-        EndTime:
-          $ref: '#/components/schemas/HoursOfOperationTimeSlice'
-    ListHoursOfOperationsResponse:
-      type: object
-      properties:
-        HoursOfOperationSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/HoursOfOperationSummary'
-        NextToken:
-          type: string
     HoursOfOperationTimeSlice:
       type: object
       description: The start or end time of an hours of operation.
