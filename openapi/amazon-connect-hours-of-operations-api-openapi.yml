@@ -192,16 +192,6 @@ components:
             $ref: '#/components/schemas/HoursOfOperationSummary'
         NextToken:
           type: string
-    CreateHoursOfOperationResponse:
-      type: object
-      properties:
-        HoursOfOperationId:
-          type: string
-          description: The identifier for the hours of operation.
-          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
-        HoursOfOperationArn:
-          type: string
-          description: The Amazon Resource Name (ARN) for the hours of operation.
     HoursOfOperationTimeSlice:
       type: object
       description: The start or end time of an hours of operation.
@@ -221,6 +211,16 @@ components:
           minimum: 0
           maximum: 59
           example: 0
+    CreateHoursOfOperationResponse:
+      type: object
+      properties:
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        HoursOfOperationArn:
+          type: string
+          description: The Amazon Resource Name (ARN) for the hours of operation.
   securitySchemes:
     aws_signature:
       type: http

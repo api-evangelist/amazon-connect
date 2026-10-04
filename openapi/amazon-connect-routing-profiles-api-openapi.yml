@@ -207,57 +207,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListRoutingProfilesResponse:
-      type: object
-      properties:
-        RoutingProfileSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/RoutingProfileSummary'
-        NextToken:
-          type: string
-    RoutingProfileSummary:
-      type: object
-      description: Contains summary information about a routing profile.
-      properties:
-        Id:
-          type: string
-          description: The identifier of the routing profile.
-          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
-        Arn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the routing profile.
-        Name:
-          type: string
-          description: The name of the routing profile.
-          example: Basic Routing Profile
-    DescribeRoutingProfileResponse:
-      type: object
-      properties:
-        RoutingProfile:
-          $ref: '#/components/schemas/RoutingProfile'
-    MediaConcurrency:
-      type: object
-      description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
-      required:
-      - Channel
-      - Concurrency
-      properties:
-        Channel:
-          type: string
-          description: The channels that agents can handle in the Contact Control Panel (CCP).
-          enum:
-          - VOICE
-          - CHAT
-          - TASK
-          - EMAIL
-          example: VOICE
-        Concurrency:
-          type: integer
-          description: The number of contacts an agent can have on a channel simultaneously.
-          minimum: 1
-          maximum: 10
-          example: 1
     Error:
       type: object
       description: An Amazon Connect error response.
@@ -270,16 +219,20 @@ components:
           type: string
           description: The error code.
           example: ResourceNotFoundException
-    CreateRoutingProfileResponse:
+    ListRoutingProfilesResponse:
       type: object
       properties:
-        RoutingProfileArn:
+        RoutingProfileSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutingProfileSummary'
+        NextToken:
           type: string
-          description: The Amazon Resource Name (ARN) of the routing profile.
-        RoutingProfileId:
-          type: string
-          description: The identifier of the routing profile.
-          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+    DescribeRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfile:
+          $ref: '#/components/schemas/RoutingProfile'
     CreateRoutingProfileRequest:
       type: object
       required:
@@ -324,6 +277,43 @@ components:
           type: object
           additionalProperties:
             type: string
+    MediaConcurrency:
+      type: object
+      description: Contains information about which channels are supported, and how many contacts an agent can have on a channel simultaneously.
+      required:
+      - Channel
+      - Concurrency
+      properties:
+        Channel:
+          type: string
+          description: The channels that agents can handle in the Contact Control Panel (CCP).
+          enum:
+          - VOICE
+          - CHAT
+          - TASK
+          - EMAIL
+          example: VOICE
+        Concurrency:
+          type: integer
+          description: The number of contacts an agent can have on a channel simultaneously.
+          minimum: 1
+          maximum: 10
+          example: 1
+    RoutingProfileSummary:
+      type: object
+      description: Contains summary information about a routing profile.
+      properties:
+        Id:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        Name:
+          type: string
+          description: The name of the routing profile.
+          example: Basic Routing Profile
     RoutingProfile:
       type: object
       description: Contains information about a routing profile.
@@ -362,6 +352,16 @@ components:
         NumberOfAssociatedUsers:
           type: integer
           description: The number of associated users in routing profile.
+    CreateRoutingProfileResponse:
+      type: object
+      properties:
+        RoutingProfileArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the routing profile.
+        RoutingProfileId:
+          type: string
+          description: The identifier of the routing profile.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
   securitySchemes:
     aws_signature:
       type: http

@@ -222,71 +222,6 @@ components:
       properties:
         Queue:
           $ref: '#/components/schemas/Queue'
-    CreateQueueRequest:
-      type: object
-      required:
-      - HoursOfOperationId
-      - Name
-      properties:
-        Name:
-          type: string
-          description: The name of the queue.
-          example: Support Queue
-        Description:
-          type: string
-          description: The description of the queue.
-        HoursOfOperationId:
-          type: string
-          description: The identifier for the hours of operation.
-          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
-        MaxContacts:
-          type: integer
-          description: The maximum number of contacts that can be in the queue.
-          example: 100
-        OutboundCallerConfig:
-          type: object
-          properties:
-            OutboundCallerIdName:
-              type: string
-            OutboundCallerIdNumberId:
-              type: string
-            OutboundFlowId:
-              type: string
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-    CreateQueueResponse:
-      type: object
-      properties:
-        QueueArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the queue.
-        QueueId:
-          type: string
-          description: The identifier for the queue.
-          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
-    Error:
-      type: object
-      description: An Amazon Connect error response.
-      properties:
-        message:
-          type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
-          type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    ListQueuesResponse:
-      type: object
-      properties:
-        QueueSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueueSummary'
-        NextToken:
-          type: string
     Queue:
       type: object
       description: Contains information about a queue.
@@ -328,6 +263,71 @@ components:
           - ENABLED
           - DISABLED
           example: ENABLED
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    ListQueuesResponse:
+      type: object
+      properties:
+        QueueSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueSummary'
+        NextToken:
+          type: string
+    CreateQueueResponse:
+      type: object
+      properties:
+        QueueArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the queue.
+        QueueId:
+          type: string
+          description: The identifier for the queue.
+          example: a1b2c3d4-5678-90ab-cdef-55555EXAMPLE
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    CreateQueueRequest:
+      type: object
+      required:
+      - HoursOfOperationId
+      - Name
+      properties:
+        Name:
+          type: string
+          description: The name of the queue.
+          example: Support Queue
+        Description:
+          type: string
+          description: The description of the queue.
+        HoursOfOperationId:
+          type: string
+          description: The identifier for the hours of operation.
+          example: a1b2c3d4-5678-90ab-cdef-66666EXAMPLE
+        MaxContacts:
+          type: integer
+          description: The maximum number of contacts that can be in the queue.
+          example: 100
+        OutboundCallerConfig:
+          type: object
+          properties:
+            OutboundCallerIdName:
+              type: string
+            OutboundCallerIdNumberId:
+              type: string
+            OutboundFlowId:
+              type: string
         Tags:
           type: object
           additionalProperties:

@@ -380,54 +380,75 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserPhoneConfig:
+    ListUsersResponse:
       type: object
-      description: Contains information about the phone configuration settings for a user.
+      properties:
+        UserSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSummary'
+        NextToken:
+          type: string
+    Error:
+      type: object
+      description: An Amazon Connect error response.
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: The specified resource was not found.
+        code:
+          type: string
+          description: The error code.
+          example: ResourceNotFoundException
+    UpdateUserIdentityInfoRequest:
+      type: object
       required:
-      - PhoneType
+      - IdentityInfo
       properties:
-        PhoneType:
-          type: string
-          description: The phone type.
-          enum:
-          - SOFT_PHONE
-          - DESK_PHONE
-          example: SOFT_PHONE
-        AutoAccept:
-          type: boolean
-          description: The Auto accept setting.
-          example: false
-        AfterContactWorkTimeLimit:
-          type: integer
-          description: The After Contact Work (ACW) timeout setting, in seconds.
-          example: 0
-        DeskPhoneNumber:
-          type: string
-          description: The phone number for the user's desk phone.
-    UserIdentityInfo:
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+    CreateUserRequest:
       type: object
-      description: Contains information about the identity of a user.
+      required:
+      - PhoneConfig
+      - RoutingProfileId
+      - SecurityProfileIds
+      - Username
       properties:
-        FirstName:
+        Username:
           type: string
-          description: The first name.
-          example: Jane
-        LastName:
+          description: The user name for the account.
+          example: jsmith
+        Password:
           type: string
-          description: The last name.
-          example: Smith
-        Email:
+          description: The password for the user account.
+        IdentityInfo:
+          $ref: '#/components/schemas/UserIdentityInfo'
+        PhoneConfig:
+          $ref: '#/components/schemas/UserPhoneConfig'
+        DirectoryUserId:
           type: string
-          format: email
-          description: The email address.
-          example: jsmith@example.com
-        SecondaryEmail:
+        SecurityProfileIds:
+          type: array
+          items:
+            type: string
+          description: The identifier of the security profile for the user.
+        RoutingProfileId:
           type: string
-          format: email
-          description: The secondary email address.
-        Mobile:
+          description: The identifier of the routing profile for the user.
+          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
+        HierarchyGroupId:
           type: string
-          description: The user's mobile number.
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+    DescribeUserResponse:
+      type: object
+      properties:
+        User:
+          $ref: '#/components/schemas/User'
     User:
       type: object
       description: Contains information about a user account for an Amazon Connect instance.
@@ -468,28 +489,30 @@ components:
           description: The tags.
           additionalProperties:
             type: string
-    Error:
+    UserPhoneConfig:
       type: object
-      description: An Amazon Connect error response.
+      description: Contains information about the phone configuration settings for a user.
+      required:
+      - PhoneType
       properties:
-        message:
+        PhoneType:
           type: string
-          description: The error message.
-          example: The specified resource was not found.
-        code:
+          description: The phone type.
+          enum:
+          - SOFT_PHONE
+          - DESK_PHONE
+          example: SOFT_PHONE
+        AutoAccept:
+          type: boolean
+          description: The Auto accept setting.
+          example: false
+        AfterContactWorkTimeLimit:
+          type: integer
+          description: The After Contact Work (ACW) timeout setting, in seconds.
+          example: 0
+        DeskPhoneNumber:
           type: string
-          description: The error code.
-          example: ResourceNotFoundException
-    CreateUserResponse:
-      type: object
-      properties:
-        UserId:
-          type: string
-          description: The identifier of the user account.
-          example: '500123'
-        UserArn:
-          type: string
-          description: The Amazon Resource Name (ARN) of the user account.
+          description: The phone number for the user's desk phone.
     UserSummary:
       type: object
       description: Contains summary information about a user.
@@ -506,63 +529,40 @@ components:
           type: string
           description: The Amazon Connect user name of the user account.
           example: jsmith
-    ListUsersResponse:
+    CreateUserResponse:
       type: object
       properties:
-        UserSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserSummary'
-        NextToken:
+        UserId:
           type: string
-    UpdateUserIdentityInfoRequest:
+          description: The identifier of the user account.
+          example: '500123'
+        UserArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the user account.
+    UserIdentityInfo:
       type: object
-      required:
-      - IdentityInfo
+      description: Contains information about the identity of a user.
       properties:
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-    DescribeUserResponse:
-      type: object
-      properties:
-        User:
-          $ref: '#/components/schemas/User'
-    CreateUserRequest:
-      type: object
-      required:
-      - PhoneConfig
-      - RoutingProfileId
-      - SecurityProfileIds
-      - Username
-      properties:
-        Username:
+        FirstName:
           type: string
-          description: The user name for the account.
-          example: jsmith
-        Password:
+          description: The first name.
+          example: Jane
+        LastName:
           type: string
-          description: The password for the user account.
-        IdentityInfo:
-          $ref: '#/components/schemas/UserIdentityInfo'
-        PhoneConfig:
-          $ref: '#/components/schemas/UserPhoneConfig'
-        DirectoryUserId:
+          description: The last name.
+          example: Smith
+        Email:
           type: string
-        SecurityProfileIds:
-          type: array
-          items:
-            type: string
-          description: The identifier of the security profile for the user.
-        RoutingProfileId:
+          format: email
+          description: The email address.
+          example: jsmith@example.com
+        SecondaryEmail:
           type: string
-          description: The identifier of the routing profile for the user.
-          example: a1b2c3d4-5678-90ab-cdef-33333EXAMPLE
-        HierarchyGroupId:
+          format: email
+          description: The secondary email address.
+        Mobile:
           type: string
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
+          description: The user's mobile number.
   securitySchemes:
     aws_signature:
       type: http

@@ -76,6 +76,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListAgentStatusesResponse:
+      type: object
+      properties:
+        AgentStatusSummaryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentStatusSummary'
+        NextToken:
+          type: string
     AgentStatusSummary:
       type: object
       description: Contains information about an agent status.
@@ -99,15 +108,6 @@ components:
           - CUSTOM
           - OFFLINE
           example: ROUTABLE
-    ListAgentStatusesResponse:
-      type: object
-      properties:
-        AgentStatusSummaryList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentStatusSummary'
-        NextToken:
-          type: string
   securitySchemes:
     aws_signature:
       type: http
