@@ -742,6 +742,8 @@ apis:
   - type: JSONSchema
     url: json-schema/instance-schema.json
 common:
+- type: Plans
+  url: plans/amazon-connect-plans-pricing.yml
 - type: Website
   url: https://aws.amazon.com/connect/
 - type: AgenticAccess
