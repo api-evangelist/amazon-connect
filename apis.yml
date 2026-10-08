@@ -742,6 +742,10 @@ apis:
   - type: JSONSchema
     url: json-schema/instance-schema.json
 common:
+- type: RateLimits
+  url: rate-limits/amazon-connect-rate-limits.yml
+- type: FinOps
+  url: finops/amazon-connect-finops.yml
 - type: Plans
   url: plans/amazon-connect-plans-pricing.yml
 - type: Website
