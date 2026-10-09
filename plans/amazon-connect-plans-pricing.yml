@@ -1,117 +1,88 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Amazon Connect
-providerId: amazon-connect
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Cloud
-  - Contact Center
-  - Customer Engagement
-  - AI
-  - Voice
-  - Chat
-  - Email
-  - SMS
-  - AWS
-description: 'Amazon Connect uses fully usage-based pricing with no minimums, no long-term contracts,
-  and no seat-based licensing. Communication channels are billed per-message or per-minute (Voice $0.038/min,
-  Chat $0.010/message, Email $0.080/message, SMS & 3P Messaging $0.014/message). All AI capabilities -
-  agentic self-service, real-time agent assist, conversational analytics, predictive insights, forecasting,
-  scheduling - are included in the channel pricing. Pricing varies by region and third-party provider.'
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://aws.amazon.com/products/connect/customer/pricing/
 sources:
-  - https://aws.amazon.com/connect/pricing/
+- https://aws.amazon.com/products/connect/customer/pricing/
+- https://aws.amazon.com/connect/pricing/
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Usage-based channel pricing; page notes pricing may vary by region and third-party provider. No
+  seat licensing.
+plan_count: 4
+currency: USD
 plans:
-  - id: amazon-connect-pay-as-you-go
-    name: Amazon Connect Pay-As-You-Go
-    type: pay-as-you-go
-    description: Default Amazon Connect pricing model - no minimums, no long-term contracts, no seat licensing.
-      All communication channels and AI capabilities are billed per usage.
-    entries:
-      - label: Voice (per minute)
-        description: Per-minute rate for voice contacts (US, varies by region and PSTN destination)
-        name: voice_per_minute
-        type: metered
-        metric: minute
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '$0.038 per minute'
-        userMultiplied: false
-      - label: Chat (per message)
-        description: Per-message rate for chat (sent or received)
-        name: chat_per_message
-        type: metered
-        metric: message
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$0.010 per message'
-        userMultiplied: false
-      - label: Email (per message)
-        description: Per-message rate for email (sent or received)
-        name: email_per_message
-        type: metered
-        metric: message
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$0.080 per message'
-        userMultiplied: false
-      - label: SMS & 3P Messaging (per message)
-        description: Per-message rate for SMS and third-party messaging (sent or received). Carrier surcharges
-          apply.
-        name: sms_per_message
-        type: metered
-        metric: message
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$0.014 per message'
-        userMultiplied: false
-      - label: Included AI Capabilities
-        description: Agentic self-service, real-time agent assist, manager assist, conversational analytics,
-          post-contact summaries, predictive insights, forecasting, agent scheduling, automated coaching,
-          back-office automation, observability, customer data management
-        name: ai_capabilities
-        type: flat
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-    elements:
-      - name: Voice (PSTN + WebRTC)
-      - name: Chat
-      - name: Email
-      - name: SMS & 3P Messaging
-      - name: Agentic Self-Service
-      - name: Pre-Built AI Agents
-      - name: Real-Time Agent Assist
-      - name: AI-Powered Manager Assist
-      - name: Conversational Analytics
-      - name: Post-Contact Summaries
-      - name: Predictive Insights
-      - name: Forecasting
-      - name: Agent Scheduling
-      - name: Automated Coaching Feedback
-      - name: Back-Office Automation (preview)
-      - name: Unified Observability
-      - name: Customer Data Management
-      - name: No Minimums
-      - name: No Long-Term Contracts
-      - name: No Seat-Based Licensing
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Chat
+  price_text: $0.010 per message sent or received
+  price: 0.01
+  currency: USD
+  period: per-use
+  unit: message sent or received
+- name: Voice
+  price_text: $0.038 per voice min (standard telephony rates apply)
+  price: 0.038
+  currency: USD
+  period: per-use
+  unit: voice minute
+- name: Email
+  price_text: $0.080 per email sent or received
+  price: 0.08
+  currency: USD
+  period: per-use
+  unit: email sent or received
+- name: SMS and 3P messaging
+  price_text: $0.014 per message sent or received
+  price: 0.014
+  currency: USD
+  period: per-use
+  unit: message sent or received
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - compute
+  - message
+  plans:
+  - name: Chat
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
+  - name: Voice
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Email
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
+  - name: SMS and 3P messaging
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
