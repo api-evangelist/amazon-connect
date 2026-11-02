@@ -1,0 +1,88 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://aws.amazon.com/products/connect/customer/pricing/
+sources:
+- https://aws.amazon.com/products/connect/customer/pricing/
+- https://aws.amazon.com/connect/pricing/
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Usage-based channel pricing; page notes pricing may vary by region and third-party provider. No
+  seat licensing.
+plan_count: 4
+currency: USD
+plans:
+- name: Chat
+  price_text: $0.010 per message sent or received
+  price: 0.01
+  currency: USD
+  period: per-use
+  unit: message sent or received
+- name: Voice
+  price_text: $0.038 per voice min (standard telephony rates apply)
+  price: 0.038
+  currency: USD
+  period: per-use
+  unit: voice minute
+- name: Email
+  price_text: $0.080 per email sent or received
+  price: 0.08
+  currency: USD
+  period: per-use
+  unit: email sent or received
+- name: SMS and 3P messaging
+  price_text: $0.014 per message sent or received
+  price: 0.014
+  currency: USD
+  period: per-use
+  unit: message sent or received
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - compute
+  - message
+  plans:
+  - name: Chat
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
+  - name: Voice
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Email
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
+  - name: SMS and 3P messaging
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - message
+    periods:
+    - other
